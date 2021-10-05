@@ -1,14 +1,16 @@
-import React from "react";
-import { StatusBar } from "react-native";
-import { UserProvider } from "./context/StateContext";
-import Main from "./screens/Main";
-import DeviceInfo from "react-native-device-info";
+import React from "react"
+import { StatusBar } from "react-native"
+import { SafeAreaProvider } from "react-native-safe-area-context"
+import { UserProvider } from "./context/user.context"
+import Main from "./screens/Main"
 
 export function App() {
   return (
-    <UserProvider>
-      <StatusBar barStyle="light-content" />
-      <Main />
-    </UserProvider>
-  );
+    <SafeAreaProvider>
+      <UserProvider>
+        <StatusBar barStyle="light-content" />
+        <Main />
+      </UserProvider>
+    </SafeAreaProvider>
+  )
 }

@@ -1,10 +1,10 @@
-import React from "react";
-import { View, TouchableOpacity, Text } from "react-native";
-import styles from "../styles";
-import { useUser } from "../context/StateContext";
+import React from "react"
+import { View, TouchableOpacity, Text } from "react-native"
+import styles from "../styles"
+import { useUser } from "../context/user.context"
 
-const UserInfo = (props) => {
-  const [user, setUser] = useUser();
+const UserInfo = props => {
+  const { user, setUser } = useUser()
   return (
     <View style={styles.page}>
       <View style={styles.sectionContainer}>
@@ -26,15 +26,12 @@ const UserInfo = (props) => {
       </View>
 
       <View style={styles.sectionContainer}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => props.navigation.navigate("UserEditPage")}
-        >
+        <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate("UserEditPage")}>
           <Text style={styles.buttonText}> Edit </Text>
         </TouchableOpacity>
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default UserInfo;
+export default UserInfo
