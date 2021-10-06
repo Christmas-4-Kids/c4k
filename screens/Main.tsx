@@ -163,19 +163,17 @@ const Main = () => {
   function RootSwitch() {
     return (
       <NavigationContainer>
-        <Stack.Navigator>
+        <Drawer.Navigator>
           <Stack.Screen name="AuthScreen" component={AuthStack} />
           <Stack.Screen name="HomePage" component={HomeStack} />
-        </Stack.Navigator>
+        </Drawer.Navigator>
       </NavigationContainer>
     );
   }
 
-  const MainContainer = RootSwitch;
-
   return (
     <View style={{ flex: 1 }}>
-      <MainContainer />
+      <RootSwitch />
     </View>
   );
 };

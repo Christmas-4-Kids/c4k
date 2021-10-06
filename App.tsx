@@ -1,10 +1,10 @@
-import React from "react"
-import { StatusBar } from "react-native"
-import { SafeAreaProvider } from "react-native-safe-area-context"
-import { UserProvider } from "./context/user.context"
-import Main from "./screens/Main"
+import React from "react";
+import { StatusBar, Text } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import UserProvider from "./context/user.context";
+import Main from "./screens/Main";
 
-export function App() {
+export default function App() {
   return (
     <SafeAreaProvider>
       <UserProvider>
@@ -12,5 +12,5 @@ export function App() {
         <Main />
       </UserProvider>
     </SafeAreaProvider>
-  )
+  );
 }
