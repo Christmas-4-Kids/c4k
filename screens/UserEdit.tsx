@@ -3,20 +3,20 @@ import { View, TextInput, TouchableOpacity, Text } from "react-native"
 import { Formik } from "formik"
 import styles from "../styles"
 import { useUser } from "../context/user.context"
-import firestore from "@react-native-firebase/firestore"
+import firestore from "firebase/firestore"
 
 const UserEdit = props => {
   const { user, setUser } = useUser()
   const updateUser = async user => {
     // get firebase user
     let firestoreUser = null
-    const querySnapshot = await firestore().collection(user.collection).where("emailLower", "==", user.email.toLowerCase()).get()
+    // const querySnapshot = await firestore().collection(user.collection).where("emailLower", "==", user.email.toLowerCase()).get()
     const firestoreUserList = []
-    querySnapshot.forEach(doc => {
-      let d = doc.data()
-      d.firestoreId = doc.id
-      firestoreUserList.push(d)
-    })
+    // querySnapshot.forEach(doc => {
+    //   let d = doc.data()
+    //   d.firestoreId = doc.id
+    //   firestoreUserList.push(d)
+    // })
     if (firestoreUserList.length > 1) {
       const match = firestoreUserList.filter(firestoreUser => {
         return firestoreUser.phone.replace(/\D/g, "") === user.phone.replace(/\D/g, "")
@@ -38,16 +38,16 @@ const UserEdit = props => {
       firestoreUser.lastUpdated = new Date()
       firestoreUser.type = user.type
       setUser(firestoreUser)
-      await firestore().collection(firestoreUser.collection).doc(firestoreUser.firestoreId).update({
-        firstName: firestoreUser.firstName,
-        lastName: firestoreUser.lastName,
-        email: firestoreUser.email,
-        emailLower: firestoreUser.emailLower,
-        phone: firestoreUser.phone,
-        lastUpdated: firestoreUser.lastUpdated,
-        type: firestoreUser.type,
-        firestoreId: firestoreUser.firestoreId,
-      })
+      // await firestore().collection(firestoreUser.collection).doc(firestoreUser.firestoreId).update({
+      //   firstName: firestoreUser.firstName,
+      //   lastName: firestoreUser.lastName,
+      //   email: firestoreUser.email,
+      //   emailLower: firestoreUser.emailLower,
+      //   phone: firestoreUser.phone,
+      //   lastUpdated: firestoreUser.lastUpdated,
+      //   type: firestoreUser.type,
+      //   firestoreId: firestoreUser.firestoreId,
+      // })
     } else {
       setUser(user)
     }

@@ -3,7 +3,7 @@ import { View, TextInput, TouchableOpacity, Text } from "react-native"
 import { Formik } from "formik"
 import styles from "../styles"
 import { useUser } from "../context/user.context"
-import firestore from "@react-native-firebase/firestore"
+import firestore from "firebase/firestore"
 import Device from "expo-device"
 import { setMembersByValue } from "../services/firestore.service"
 
@@ -37,18 +37,18 @@ const Authenticate = props => {
   }
 
   async function updateFirestoreUser(firestoreUser) {
-    let unsub = await firestore().collection(firestoreUser.collection).doc(firestoreUser.firestoreId).update({
-      firstName: firestoreUser.firstName,
-      lastName: firestoreUser.lastName,
-      email: firestoreUser.email,
-      emailLower: firestoreUser.emailLower,
-      phone: firestoreUser.phone,
-      lastUpdated: firestoreUser.lastUpdated,
-      type: user.type,
-      firestoreId: firestoreUser.firestoreId,
-      collection: firestoreUser.collection,
-      // deviceId: deviceId,
-    })
+    // let unsub = await firestore().collection(firestoreUser.collection).doc(firestoreUser.firestoreId).update({
+    //   firstName: firestoreUser.firstName,
+    //   lastName: firestoreUser.lastName,
+    //   email: firestoreUser.email,
+    //   emailLower: firestoreUser.emailLower,
+    //   phone: firestoreUser.phone,
+    //   lastUpdated: firestoreUser.lastUpdated,
+    //   type: user.type,
+    //   firestoreId: firestoreUser.firestoreId,
+    //   collection: firestoreUser.collection,
+    //   // deviceId: deviceId,
+    // })
     setIsAuthenticated(true)
     setIsFinished(true)
     setSubmitting(false)

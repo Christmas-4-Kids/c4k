@@ -1,16 +1,22 @@
-import React from "react";
-import { StatusBar, Text } from "react-native";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import UserProvider from "./context/user.context";
-import Main from "./screens/Main";
+import React from "react"
+import { StatusBar, useColorScheme } from "react-native"
+import { SafeAreaProvider } from "react-native-safe-area-context"
+import UserProvider from "./context/user.context"
+import useCachedResources from "./hooks/useCachedResources"
+import Landing from "./screens/Landing"
 
 export default function App() {
-  return (
-    <SafeAreaProvider>
-      <UserProvider>
-        <StatusBar barStyle="light-content" />
-        <Main />
-      </UserProvider>
-    </SafeAreaProvider>
-  );
+  const isLoadingComplete = useCachedResources()
+
+  if (!isLoadingComplete) {
+    return null
+  } else {
+    return (
+      <SafeAreaProvider>
+        <UserProvider>
+          <Landing />
+        </UserProvider>
+      </SafeAreaProvider>
+    )
+  }
 }

@@ -1,72 +1,28 @@
-import React, { useState, useEffect } from "react"
-import { View, Text, TouchableOpacity } from "react-native"
+import React, { useEffect, useState } from "react"
+import { View, StatusBar, useColorScheme, Text } from "react-native"
 import styles from "../styles"
-import { useUser } from "../context/user.context"
-//import Device from "expo-device";
-import { setMembersByValue } from "../services/firestore.service"
+import Navigation from "../navigation"
 
 const Landing = props => {
-  const { user, setUser } = useUser()
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [isFinished, setIsFinished] = useState(false)
-  const [matchingDeviceIdFirestoreMembers, setMatchingDeviceIdFirestoreMembers] = useState([])
-  const [fetch, setFetch] = useState({ complete: false })
-  //const deviceId = Device.modelName;
+  const colorScheme = useColorScheme()
+  const [phoneNumber, setPhoneNumber] = useState("")
+  const [verificationCode, setVerificationCode] = useState()
+  const [twilioVerificationCode, setTwilioVerificationCode] = useState()
+  const [userIsVerified, setUserIsVerified] = useState(false)
 
   useEffect(() => {
-    setMembersByValue(
-      // deviceId,
-      //"deviceId",
-      setMatchingDeviceIdFirestoreMembers,
-      setFetch
-    )
-  }, [])
+    setUserIsVerified(!!twilioVerificationCode && verificationCode === twilioVerificationCode)
+  }, [twilioVerificationCode, verificationCode])
 
-  const setUserType = type => {
-    setUser({ ...user, type: type })
-    props.navigation.navigate("AuthenticatePage")
-  }
-
-  useEffect(() => {
-    let firestoreUser = null
-    console.log(matchingDeviceIdFirestoreMembers.length)
-    if (matchingDeviceIdFirestoreMembers.length === 1) {
-      console.log("found")
-      firestoreUser = matchingDeviceIdFirestoreMembers[0]
-      setUser(firestoreUser)
-      setIsAuthenticated(true)
-      setIsFinished(true)
-    } else {
-      setIsAuthenticated(false)
-      setIsFinished(true)
-    }
-  }, [fetch])
-
-  useEffect(() => {
-    if (isAuthenticated && isFinished) {
-      props.navigation.navigate("HomePage")
-    }
-  }, [isFinished, isAuthenticated])
   return (
     <View style={styles.page}>
-      {fetch.complete && (
+      {userIsVerified ? (
         <View style={styles.sectionContainer}>
-          <View style={styles.sectionContainer}>
-            <TouchableOpacity style={styles.button} onPress={() => setUserType("Chaperone")}>
-              <Text style={styles.buttonText}> Chaperone </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.sectionContainer}>
-            <TouchableOpacity style={styles.button} onPress={() => setUserType("Organizer")}>
-              <Text style={styles.buttonText}> Organizer </Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.sectionContainer}>
-            <TouchableOpacity style={styles.button} onPress={() => setUserType("Driver")}>
-              <Text style={styles.buttonText}> Bus Driver </Text>
-            </TouchableOpacity>
-          </View>
+          <Navigation colorScheme={colorScheme} />
+          <StatusBar barStyle="light-content" />
         </View>
+      ) : (
+        <Text style={styles.sectionText}>Code</Text>
       )}
     </View>
   )
