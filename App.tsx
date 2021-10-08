@@ -3,7 +3,7 @@ import { StatusBar, useColorScheme } from "react-native"
 import { SafeAreaProvider } from "react-native-safe-area-context"
 import UserProvider from "./context/user.context"
 import useCachedResources from "./hooks/useCachedResources"
-import Landing from "./screens/Landing"
+import { Landing } from "./screens/Landing"
 
 export default function App() {
   const isLoadingComplete = useCachedResources()
