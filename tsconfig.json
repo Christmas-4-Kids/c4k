@@ -1,7 +1,6 @@
 {
   "extends": "expo/tsconfig.base.json",
   "compilerOptions": {
-    "strict": false
-  },
-  "exclude": ["node_modules", "babel.config.js"]
+    "strict": true
+  }
 }
