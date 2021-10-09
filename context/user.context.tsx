@@ -12,23 +12,41 @@ export interface User {
 type UserContext = {
   user: User
   userIsVerified: boolean
-  setUser: React.Dispatch<React.SetStateAction<User>>
-  setUserIsVerified: React.Dispatch<React.SetStateAction<boolean>>
+  setUser: (user: User) => void
+  setUserIsVerified: (isVerified: boolean) => void
 }
 
-const UserContext = React.createContext<UserContext | null>(null)
+const initUser = {
+  type: "",
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+}
+
+const UserContext = React.createContext<UserContext>({
+  user: initUser,
+  userIsVerified: false,
+  setUser: (user: User) => {},
+  setUserIsVerified: (isVerified: boolean) => {},
+})
 
 export default function UserProvider({ children }) {
-  const [user, setUser] = useState<User>({
-    type: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-  })
+  const [user, setUser] = useState<User>(initUser)
   const [userIsVerified, setUserIsVerified] = useState(false)
 
-  return <UserContext.Provider value={{ user, setUser, userIsVerified, setUserIsVerified }}>{children}</UserContext.Provider>
+  return (
+    <UserContext.Provider
+      value={{
+        user,
+        setUser,
+        userIsVerified,
+        setUserIsVerified,
+      }}
+    >
+      {children}
+    </UserContext.Provider>
+  )
 }
 
 export const useUser = () => {

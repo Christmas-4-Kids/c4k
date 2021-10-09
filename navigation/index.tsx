@@ -53,14 +53,15 @@ function RootNavigator() {
  */
 const BottomTab = createBottomTabNavigator<RootTabParamList>()
 
-function BottomTabNavigator() {
+function BottomTabNavigator({ navigation }: RootTabScreenProps<"TabOne">) {
   const colorScheme = useColorScheme()
   const { userIsVerified } = useUser()
-
   useEffect(() => {
     if (!userIsVerified) {
-      // fix this - need to use some other method to navigate
+      // TODO: this isn't triggering for some reason
       navigation.navigate("Modal")
+    } else {
+      navigation.navigate("TabOne")
     }
   }, [userIsVerified])
   return (
