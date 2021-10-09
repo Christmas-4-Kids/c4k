@@ -3059,13 +3059,21 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^17.0.27":
+"@types/react@*":
   version "17.0.27"
   resolved "https://maven.vpn.etonreve.com/api/npm/npm/@types/react/-/react-17.0.27.tgz#6498ed9b3ad117e818deb5525fa1946c09f2e0e6"
   integrity sha1-ZJjtmzrRF+gY3rVSX6GUbAny4OY=
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
+    csstype "^3.0.2"
+
+"@types/react@~16.9.35":
+  version "16.9.56"
+  resolved "https://maven.vpn.etonreve.com/api/npm/npm/@types/react/-/react-16.9.56.tgz#ea25847b53c5bec064933095fc366b1462e2adf0"
+  integrity sha1-6iWEe1PFvsBkkzCV/DZrFGLirfA=
+  dependencies:
+    "@types/prop-types" "*"
     csstype "^3.0.2"
 
 "@types/responselike@*", "@types/responselike@^1.0.0":
@@ -5869,9 +5877,9 @@ ee-first@1.1.1:
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
 electron-to-chromium@^1.3.564, electron-to-chromium@^1.3.857:
-  version "1.3.861"
-  resolved "https://maven.vpn.etonreve.com/api/npm/npm/electron-to-chromium/-/electron-to-chromium-1.3.861.tgz#981e37a79af7a7b29bbaeed36376f4795527de13"
-  integrity sha1-mB43p5r3p7Kbuu7TY3b0eVUn3hM=
+  version "1.3.862"
+  resolved "https://maven.vpn.etonreve.com/api/npm/npm/electron-to-chromium/-/electron-to-chromium-1.3.862.tgz#c1c5d4382449e2c9b0e67fe1652f4fc451d6d8c0"
+  integrity sha1-wcXUOCRJ4smw5n/hZS9PxFHW2MA=
 
 elliptic@^6.5.3:
   version "6.5.4"
@@ -11822,9 +11830,9 @@ prompts@2.4.0:
     sisteransi "^1.0.5"
 
 prompts@^2.0.1, prompts@^2.2.1, prompts@^2.3.2:
-  version "2.4.1"
-  resolved "https://maven.vpn.etonreve.com/api/npm/npm/prompts/-/prompts-2.4.1.tgz#befd3b1195ba052f9fd2fde8a486c4e82ee77f61"
-  integrity sha1-vv07EZW6BS+f0v3opIbE6C7nf2E=
+  version "2.4.2"
+  resolved "https://maven.vpn.etonreve.com/api/npm/npm/prompts/-/prompts-2.4.2.tgz#7b57e73b3a48029ad10ebd44f74b01722a4cb069"
+  integrity sha1-e1fnOzpIAprRDr1E90sBcipMsGk=
   dependencies:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
@@ -13620,9 +13628,9 @@ subscriptions-transport-ws@0.9.8:
     ws "^3.0.0"
 
 sucrase@^3.20.0:
-  version "3.20.1"
-  resolved "https://maven.vpn.etonreve.com/api/npm/npm/sucrase/-/sucrase-3.20.1.tgz#1c055e97d0fab2f9857f02461364075b3a4ab226"
-  integrity sha1-HAVel9D6svmFfwJGE2QHWzpKsiY=
+  version "3.20.2"
+  resolved "https://maven.vpn.etonreve.com/api/npm/npm/sucrase/-/sucrase-3.20.2.tgz#28a28dc58a55be0d6916d5c9b2440d203e9ffe62"
+  integrity sha1-KKKNxYpVvg1pFtXJskQNID6f/mI=
   dependencies:
     commander "^4.0.0"
     glob "7.1.6"

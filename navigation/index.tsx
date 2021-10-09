@@ -8,11 +8,13 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import * as React from "react"
+import { useEffect } from "react"
 import { ColorSchemeName, Pressable } from "react-native"
 
 import Colors from "../constants/Colors"
+import { useUser } from "../context/user.context"
 import useColorScheme from "../hooks/useColorScheme"
-import ModalScreen from "../screens/Home"
+import ModalScreen from "../screens/ModalScreen"
 import NotFoundScreen from "../screens/NotFoundScreen"
 import TabOneScreen from "../screens/TabOneScreen"
 import TabTwoScreen from "../screens/TabTwoScreen"
@@ -38,7 +40,7 @@ function RootNavigator() {
     <Stack.Navigator>
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: "Oops!" }} />
-      <Stack.Group screenOptions={{ presentation: "modal" }}>
+      <Stack.Group screenOptions={{ presentation: "fullScreenModal" }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
       </Stack.Group>
     </Stack.Navigator>
@@ -53,7 +55,14 @@ const BottomTab = createBottomTabNavigator<RootTabParamList>()
 
 function BottomTabNavigator() {
   const colorScheme = useColorScheme()
+  const { userIsVerified } = useUser()
 
+  useEffect(() => {
+    if (!userIsVerified) {
+      // fix this - need to use some other method to navigate
+      navigation.navigate("Modal")
+    }
+  }, [userIsVerified])
   return (
     <BottomTab.Navigator
       initialRouteName="TabOne"
