@@ -26,7 +26,7 @@ export const Landing = () => {
   }
 
   const verifyUser = () => {
-    setUserIsVerified(twilioVerificationCode !== "" && verificationCode === twilioVerificationCode)
+    setUserIsVerified(verificationCode === twilioVerificationCode)
   }
 
   return (
