@@ -3,12 +3,12 @@ import * as React from "react"
 import { Platform, StyleSheet } from "react-native"
 
 import { Text, View } from "../components/Themed"
-import { Landing } from "./Landing"
+import { SignIn } from "./SignIn"
 
 export default function ModalScreen() {
   return (
     <View style={styles.container}>
-      <Landing />
+      <SignIn />
       {/* Use a light status bar on iOS to account for the black space above the modal */}
       <StatusBar style={Platform.OS === "ios" ? "light" : "auto"} />
     </View>
