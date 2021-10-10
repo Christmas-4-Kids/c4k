@@ -137,7 +137,7 @@ const initialState: any = {
   },
 }
 
-export default function StylesProvider({ children }) {
+export default function StylesProvider({ children }: { children: any }) {
   const [styles, setStyles] = useState<any>(StyleSheet.create(initialState))
   return <StylesContext.Provider value={{ styles, setStyles }}>{children}</StylesContext.Provider>
 }

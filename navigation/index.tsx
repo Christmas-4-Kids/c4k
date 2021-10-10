@@ -8,18 +8,18 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import * as React from "react"
-import { useEffect } from "react"
-import { ColorSchemeName, Pressable } from "react-native"
+import { ColorSchemeName } from "react-native"
 
 import Colors from "../constants/Colors"
 import { useUser } from "../context/user.context"
 import useColorScheme from "../hooks/useColorScheme"
+import { SignIn } from "../screens/SignIn"
 import ModalScreen from "../screens/ModalScreen"
 import NotFoundScreen from "../screens/NotFoundScreen"
-import TabOneScreen from "../screens/TabOneScreen"
-import TabTwoScreen from "../screens/TabTwoScreen"
-import { RootStackParamList, RootTabParamList, RootTabScreenProps } from "../types"
+import { RootStackParamList, RootTabParamList } from "../types"
 import LinkingConfiguration from "./LinkingConfiguration"
+import { Account } from "../screens/Account"
+import { TempHome } from "../screens/TempHome"
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -36,13 +36,30 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
 function RootNavigator() {
+  const { userIsVerified, userIsSigningOut } = useUser()
   return (
     <Stack.Navigator>
-      <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
-      <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: "Oops!" }} />
-      <Stack.Group screenOptions={{ presentation: "fullScreenModal" }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
-      </Stack.Group>
+      {userIsVerified ? (
+        <>
+          <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
+          <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: "Oops!" }} />
+          <Stack.Group screenOptions={{ presentation: "fullScreenModal" }}>
+            <Stack.Screen name="Modal" component={ModalScreen} />
+          </Stack.Group>
+        </>
+      ) : (
+        <Stack.Screen
+          name="SignIn"
+          component={SignIn}
+          options={{
+            title: "Sign in",
+            headerShown: false,
+            // When logging out, a pop animation feels intuitive
+            // You can remove this if you want the default 'push' animation
+            animationTypeForReplace: userIsSigningOut ? "pop" : "push",
+          }}
+        />
+      )}
     </Stack.Navigator>
   )
 }
@@ -53,48 +70,31 @@ function RootNavigator() {
  */
 const BottomTab = createBottomTabNavigator<RootTabParamList>()
 
-function BottomTabNavigator({ navigation }: RootTabScreenProps<"TabOne">) {
+function BottomTabNavigator() {
   const colorScheme = useColorScheme()
-  const { userIsVerified } = useUser()
-  useEffect(() => {
-    if (!userIsVerified) {
-      // TODO: this isn't triggering for some reason
-      navigation.navigate("Modal")
-    } else {
-      navigation.navigate("TabOne")
-    }
-  }, [userIsVerified])
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
+      initialRouteName="Home"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme].tint,
       }}
     >
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneScreen}
-        options={({ navigation }: RootTabScreenProps<"TabOne">) => ({
-          title: "Tab One",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate("Modal")}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}
-            >
-              <FontAwesome name="info-circle" size={25} color={Colors[colorScheme].text} style={{ marginRight: 15 }} />
-            </Pressable>
-          ),
-        })}
+        name="Home"
+        component={TempHome}
+        options={{
+          title: "Home",
+          headerShown: false,
+          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+        }}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoScreen}
+        name="Account"
+        component={Account}
         options={{
-          title: "Tab Two",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: "Account",
+          headerShown: false,
+          tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
         }}
       />
     </BottomTab.Navigator>

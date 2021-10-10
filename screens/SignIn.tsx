@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { View, Text, TextInput, StyleSheet, NativeSyntheticEvent, TextInputChangeEventData, Button } from "react-native"
 import { useUser } from "../context/user.context"
 
-export const Landing = () => {
+export const SignIn = () => {
   const [phoneNumber, setPhoneNumber] = useState("")
   const [verificationCode, setVerificationCode] = useState("")
   const [twilioVerificationCode, setTwilioVerificationCode] = useState("")
@@ -32,6 +32,7 @@ export const Landing = () => {
   return (
     <View style={styles.page}>
       <View style={styles.sectionContainer}>
+        <Text style={styles.sectionTitle}>Sign In</Text>
         <View style={styles.sectionContainer}>
           {/* TODO: style text */}
           <Text style={styles.sectionText}>Enter the phone number you used to register</Text>
@@ -88,6 +89,11 @@ const styles = StyleSheet.create({
     color: "red",
     fontSize: 16,
     textAlign: "center",
+  },
+  sectionTitle: {
+    fontSize: 24,
+    fontWeight: "600",
+    color: "#fff",
   },
   sectionContainer: {
     flex: 1,
