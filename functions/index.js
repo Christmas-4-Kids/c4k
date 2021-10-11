@@ -6,18 +6,19 @@ admin.initializeApp(functions.config().firebase)
 
 const mailchimp = require("mailchimp-marketing");
 const twilio = require("twilio");
-/*
-//will need to run firebase functions:config:set mailchimp.key="MAILCHIMP_API_KEY" mailchimp.server="SERVER_PREFIX"
-client.setConfig({
-    // use functions.config().mailchimp.key to grab and replace "YOUR_API_KEY"
-  apiKey: "YOUR_API_KEY",
-  server: "YOUR_SERVER_PREFIX",
+
+//will need to run firebase functions:config:set mailchimp.key="MAILCHIMP_API_KEY" mailchimp.server="SERVER_PREFIX" 
+mailchimp.setConfig({
+    // use functions.config().mailchimp.apikey to grab and replace "YOUR_API_KEY"
+    apiKey: "YOUR_API_KEY",
+    server: "YOUR_SERVER_PREFIX",
 });
+const mailchimpServer = functions.config().mailchimp.server
+const mailchimpBaseURL = `https://${mailchimpServer}.api.mailchimp.com/3.0/`
 
-const run = async () => {
-  const response = await client.lists.getListMembersInfo("list_id");
+export const getMailchimpList = async () => {
+  //TODO: need list_id
+    const response = await mailchimp.lists.getListMembersInfo("list_id");
   console.log(response);
+//   return response
 };
-
-run();
-*/

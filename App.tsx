@@ -8,7 +8,8 @@ import 'firebase/firestore'
 import useCachedResources from "./hooks/useCachedResources"
 import useColorScheme from "./hooks/useColorScheme"
 import Navigation from "./navigation"
-/*
+
+//This will be the c4k firebase info - so the values will change
 const firebaseConfig = {
   apiKey: "AIzaSyBzL6q7c68XrajYg7Wpu9E-rDE2x7rkbzE",
   authDomain: "c4k-test-app.firebaseapp.com",
@@ -18,13 +19,13 @@ const firebaseConfig = {
   appId: "1:777707658000:web:781caf2c0b218ca93ca395",
   measurementId: "G-PGJLXRPC6B"
 };
-*/
-// Initialize Firebase
-// if (!firebase.apps.length){
-//   firebase.initializeApp(firebaseConfig)
-// }
 
-//  const firestore = firebase.firestore()
+// Initialize Firebase
+if (!firebase.apps.length){
+  firebase.initializeApp(firebaseConfig)
+}
+
+ const firestore = firebase.firestore()
 export default function App() {
   const isLoadingComplete = useCachedResources()
   const colorScheme = useColorScheme()
