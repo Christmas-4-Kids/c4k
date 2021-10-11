@@ -1,7 +1,8 @@
 import React, { useState } from "react"
 import { View, Text, TextInput, StyleSheet, NativeSyntheticEvent, TextInputChangeEventData, Button } from "react-native"
 import { useUser } from "../context/user.context"
-
+import { getMailchimpList } from '../functions/index.js'
+import axios from 'axios'
 export const SignIn = () => {
   const [phoneNumber, setPhoneNumber] = useState("")
   const [verificationCode, setVerificationCode] = useState("")
@@ -11,6 +12,19 @@ export const SignIn = () => {
 
   const phoneNumberIsRegistered = () => {
     // TODO: send number to mailchimp to verify
+    //docs: https://mailchimp.com/developer/marketing/api/list-members/list-members-info/
+   
+    /*
+    try{
+      getMailchimpList() // just logs right now
+      const mailChimpList = getMailchimpList()
+      getMailchimpList.filter(member => phoneNumber === member.merge_fields.phone)
+
+    }catch (error){
+      console.log(error)
+    }
+    */
+
     // TODO: if number is valid then fetch twilioVerificationCode from Firebase using phoneNumber
     //      -> set twilioVerificationCode
     //      -> return true
