@@ -1,5 +1,5 @@
 node_modules/
-.vscode
+yarn-error.log
 .expo/
 npm-debug.*
 *.jks
@@ -9,6 +9,9 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
+.env
+c4k-local.json
+ui-debug.log
 
 # macOS
 .DS_Store

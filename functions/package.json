@@ -15,7 +15,8 @@
   "dependencies": {
     "@mailchimp/mailchimp_marketing": "^3.0.69",
     "firebase-admin": "^9.8.0",
-    "firebase-functions": "^3.14.1"
+    "firebase-functions": "^3.14.1",
+    "twilio": "^3.69.0"
   },
   "devDependencies": {
     "firebase-functions-test": "^0.2.0"
