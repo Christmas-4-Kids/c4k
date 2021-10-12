@@ -1,8 +1,8 @@
-import firestore from "firebase/firestore";
-import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
-require("dotenv").config();
-const firebase = require("firebase");
+import firestore from "firebase/firestore"
+import { initializeApp } from "firebase/app"
+import { getDatabase } from "firebase/database"
+require("dotenv").config()
+const firebase = require("firebase")
 
 const firebaseConfig = {
   apiKey: process.env.API_KEY,
@@ -13,11 +13,11 @@ const firebaseConfig = {
   messagingSenderId: process.env.MESSAGING_SENDER_ID,
   appId: process.env.APP_ID,
   measurementId: process.env.MEASUREMENT_ID,
-};
+}
 
-firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig)
 
-export const testText = firebase.functions().httpsCallable("textMe");
+export const testText = firebase.functions().httpsCallable("textMe")
 /*
 const collections = ["lebanonChaperones", "allDayChaperones", "eveningChaperones", "drivers"]
 
