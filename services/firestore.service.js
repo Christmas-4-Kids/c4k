@@ -1,5 +1,24 @@
-import firestore from "firebase/firestore"
+import firestore from "firebase/firestore";
+import { initializeApp } from "firebase/app";
+import { getDatabase } from "firebase/database";
+require("dotenv").config();
+const firebase = require("firebase");
 
+const firebaseConfig = {
+  apiKey: process.env.API_KEY,
+  authDomain: "c4k-events.firebaseapp.com",
+  databaseURL: "https://c4k-events.firebaseio.com",
+  projectId: "c4k-events",
+  storageBucket: "c4k-events.appspot.com",
+  messagingSenderId: process.env.MESSAGING_SENDER_ID,
+  appId: process.env.APP_ID,
+  measurementId: process.env.MEASUREMENT_ID,
+};
+
+firebase.initializeApp(firebaseConfig);
+
+export const testText = firebase.functions().httpsCallable("textMe");
+/*
 const collections = ["lebanonChaperones", "allDayChaperones", "eveningChaperones", "drivers"]
 
 async function setMembersByValue(value, where, setState, setFetch) {
@@ -44,3 +63,4 @@ function getCollections() {
 }
 
 export { addCollectionToFirestoreMembers, addCollectionsToFirestoreMembers, setMembersByValue, getCollections }
+*/
