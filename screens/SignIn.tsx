@@ -2,9 +2,7 @@ import React, { useState } from "react"
 import { View, Text, TextInput, StyleSheet, NativeSyntheticEvent, TextInputChangeEventData, Button, Alert } from "react-native"
 import { useUser } from "../context/user.context"
 import axios from "axios"
-import { testText } from "../services/firestore.service"
 import firebase from "firebase/app"
-import { verifyNumber } from "../functions"
 require("firebase/functions")
 require("dotenv").config()
 
@@ -19,11 +17,12 @@ firebase.initializeApp({
   measurementId: process.env.MEASUREMENT_ID,
 })
 
-const functions = firebase.functions()
+// Uncomment to run firebase functions locally
+// firebase.functions().useEmulator("localhost", 5001);
+
 export const SignIn = () => {
   const [phoneNumber, setPhoneNumber] = useState("")
   const [verificationCode, setVerificationCode] = useState("")
-  const [twilioVerificationCode, setTwilioVerificationCode] = useState("")
   const [phoneNumberIsVerified, setPhoneNumberIsVerified] = useState(false)
   const { setUserIsVerified } = useUser()
 
@@ -60,23 +59,23 @@ export const SignIn = () => {
     return /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/.test(num)
   }
 
-  const verifyPhoneNumber = () => {
+  const verifyPhoneNumber = async () => {
     if (!phoneNumberIsRegistered) {
       //TODO: Provide link to register
     } else if (!validE164(`+1` + phoneNumber)) {
       //TODO: throw invalid number alert
     } else if (phoneNumberIsRegistered() && validE164(phoneNumber)) {
-      verifyNumber(phoneNumber)
+      await verifyNumber(`+1${phoneNumber}`)
       setPhoneNumberIsVerified(true)
     }
   }
 
   const verifyUser = async () => {
     await verifyCode({
-      phoneNumber: phoneNumber,
+      phoneNumber: `+1${phoneNumber}`,
       code: verificationCode,
-    }).then(data => {
-      if (data.data === "approved") {
+    }).then(result => {
+      if (result.data === "approved") {
         setUserIsVerified(true)
       } else {
         //TODO: Throw invalid code alert

@@ -1,34 +1,35 @@
-const functions = require("firebase-functions");
-const admin = require("firebase-admin");
-admin.initializeApp(functions.config().firebase);
+const functions = require("firebase-functions")
+const admin = require("firebase-admin")
+admin.initializeApp(functions.config().firebase)
 
-const twilio = require("twilio");
-const accountSid = functions.config().twilio.sid;
-const authToken = functions.config().twilio.token;
+const twilio = require("twilio")
+const accountSid = functions.config().twilio.sid
+const authToken = functions.config().twilio.token
+const serviceSid = functions.config().twilio.servicesid
 
-const client = new twilio(accountSid, authToken);
+const twilioClient = new twilio(accountSid, authToken)
 
 //send user their verification code
-exports.verifyNumber = functions.https.onCall(async (data, context) => {
-  client.verify
-    .services("VA21d1dc82e23ec460e2917460dccb242f")
-    .verifications.create({ to: data, channel: "sms" })
-    .then((verification) => {
-      return verification;
-    });
-});
+exports.verifyNumber = functions.https.onCall(async (phoneNumber, context) => {
+  console.log(phoneNumber)
+  twilioClient.verify
+    .services(serviceSid)
+    .verifications.create({ to: phoneNumber, channel: "sms" })
+    .then(verification => {
+      return verification
+    })
+})
 
 //verify user's code
 exports.verifyCode = functions.https.onCall(async (data, context) => {
   //I can't make this promise return properly
-  return client.verify
-    .services("VA21d1dc82e23ec460e2917460dccb242f")
+  return twilioClient.verify
+    .services(serviceSid)
     .verificationChecks.create({ to: data.phoneNumber, code: data.code })
-    .then((data) => {
-      console.log(data.status);
-      return data.status;
-    });
-});
+    .then(data => {
+      return data.status
+    })
+})
 /*
 // TODO: Integrating mailchimp API called from SignIn screen
 

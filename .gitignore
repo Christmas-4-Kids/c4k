@@ -10,6 +10,8 @@ npm-debug.*
 *.orig.*
 web-build/
 .env
+c4k-local.json
+ui-debug.log
 
 # macOS
 .DS_Store
