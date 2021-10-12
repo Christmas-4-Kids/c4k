@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import { View, Text, TextInput, StyleSheet, NativeSyntheticEvent, TextInputChangeEventData, Button, Alert } from "react-native"
 import { useUser } from "../context/user.context"
-import axios from "axios"
 import firebase from "firebase/app"
 require("firebase/functions")
 require("dotenv").config()
@@ -24,67 +23,29 @@ export const SignIn = () => {
   const [phoneNumber, setPhoneNumber] = useState("")
   const [verificationCode, setVerificationCode] = useState("")
   const [phoneNumberIsVerified, setPhoneNumberIsVerified] = useState(false)
-  const [phoneNumberIsRegistered, setPhoneNumberIsRegistered] = useState(false)
   const { setUserIsVerified } = useUser()
   const checkIfRegistered = firebase.functions().httpsCallable("checkIfRegistered")
-  
-  const checkMailchimp = async () => {
-    // TODO: why is checkIfRegistered firebase function undefined?
-   // maybe I need to use axios instead
-    // TODO: AsyncStorage
-    
-    checkIfRegistered({phoneNumber: phoneNumber})
-    .then(result => {
-      console.log(`User is Registered: ${result.data}`)
-      return result.data
-    })
-    .catch(err => console.log("fail"))
-
   const textMe = firebase.functions().httpsCallable("textMe")
   const verifyNumber = firebase.functions().httpsCallable("verifyNumber")
   const verifyCode = firebase.functions().httpsCallable("verifyCode")
+  const createMailchimpUserInFirestore = firebase.functions().httpsCallable("createMailchimpUserInFirestore")
 
-  const phoneNumberIsRegistered = () => {
-    // TODO: send number to mailchimp to verify
-    //docs: https://mailchimp.com/developer/marketing/api/list-members/list-members-info/
-
-    /*
-    try{
-      getMailchimpList() // just logs right now
-      const mailChimpList = getMailchimpList()
-      getMailchimpList.filter(member => phoneNumber === member.merge_fields.phone)
-
-    }catch (error){
-      console.log(error)
-    }
-    */
-
-    // TODO: if number is valid then fetch twilioVerificationCode from Firebase using phoneNumber
-    //      -> set twilioVerificationCode
-    //      -> return true
-    // TODO: if number is not valid return false
-
-    // return true for now
-    return true
-  }
-
-  //validate E164 format
+  // validate E164 format
   const validE164 = (num: string) => {
     return /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/.test(num)
   }
 
   const verifyPhoneNumber = async () => {
-    if (!phoneNumberIsRegistered) {
-      //TODO: Provide link to register
+    const mailchimpUser = await checkIfRegistered(phoneNumber)
+    if (!mailchimpUser) {
+      // TODO: Provide link to register
     } else if (!validE164(`+1` + phoneNumber)) {
-      //TODO: throw invalid number alert
-    } else if (phoneNumberIsRegistered() && validE164(phoneNumber)) {
+      // TODO: throw invalid number alert
+    } else if (!!mailchimpUser && validE164(phoneNumber)) {
       await verifyNumber(`+1${phoneNumber}`)
       setPhoneNumberIsVerified(true)
+      await createMailchimpUserInFirestore(mailchimpUser)
     }
-    //Thomas using verifyNumber for twilio 
-    //change phoneNumberIsRegistered method to state
-
   }
 
   const verifyUser = async () => {
@@ -95,7 +56,7 @@ export const SignIn = () => {
       if (result.data === "approved") {
         setUserIsVerified(true)
       } else {
-        //TODO: Throw invalid code alert
+        // TODO: Throw invalid code alert
       }
     })
   }
@@ -124,7 +85,6 @@ export const SignIn = () => {
             <Button title="Submit" onPress={verifyUser} />
           </View>
         )}
-
       </View>
     </View>
   )
