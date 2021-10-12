@@ -1,21 +1,12 @@
-import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  NativeSyntheticEvent,
-  TextInputChangeEventData,
-  Button,
-  Alert,
-} from "react-native";
-import { useUser } from "../context/user.context";
-import axios from "axios";
-import { testText } from "../services/firestore.service";
-import firebase from "firebase/app";
-import { verifyNumber } from "../functions";
-require("firebase/functions");
-require("dotenv").config();
+import React, { useState } from "react"
+import { View, Text, TextInput, StyleSheet, NativeSyntheticEvent, TextInputChangeEventData, Button, Alert } from "react-native"
+import { useUser } from "../context/user.context"
+import axios from "axios"
+import { testText } from "../services/firestore.service"
+import firebase from "firebase/app"
+import { verifyNumber } from "../functions"
+require("firebase/functions")
+require("dotenv").config()
 
 firebase.initializeApp({
   apiKey: process.env.API_KEY,
@@ -26,19 +17,19 @@ firebase.initializeApp({
   messagingSenderId: process.env.MESSAGING_SENDER_ID,
   appId: process.env.APP_ID,
   measurementId: process.env.MEASUREMENT_ID,
-});
+})
 
-const functions = firebase.functions();
+const functions = firebase.functions()
 export const SignIn = () => {
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [verificationCode, setVerificationCode] = useState("");
-  const [twilioVerificationCode, setTwilioVerificationCode] = useState("");
-  const [phoneNumberIsVerified, setPhoneNumberIsVerified] = useState(false);
-  const { setUserIsVerified } = useUser();
+  const [phoneNumber, setPhoneNumber] = useState("")
+  const [verificationCode, setVerificationCode] = useState("")
+  const [twilioVerificationCode, setTwilioVerificationCode] = useState("")
+  const [phoneNumberIsVerified, setPhoneNumberIsVerified] = useState(false)
+  const { setUserIsVerified } = useUser()
 
-  const textMe = firebase.functions().httpsCallable("textMe");
-  const verifyNumber = firebase.functions().httpsCallable("verifyNumber");
-  const verifyCode = firebase.functions().httpsCallable("verifyCode");
+  const textMe = firebase.functions().httpsCallable("textMe")
+  const verifyNumber = firebase.functions().httpsCallable("verifyNumber")
+  const verifyCode = firebase.functions().httpsCallable("verifyCode")
 
   const phoneNumberIsRegistered = () => {
     // TODO: send number to mailchimp to verify
@@ -61,15 +52,13 @@ export const SignIn = () => {
     // TODO: if number is not valid return false
 
     // return true for now
-    return true;
-  };
+    return true
+  }
 
   //validate E164 format
   const validE164 = (num: string) => {
-    return /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/.test(
-      num
-    );
-  };
+    return /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/.test(num)
+  }
 
   const verifyPhoneNumber = () => {
     if (!phoneNumberIsRegistered) {
@@ -77,23 +66,23 @@ export const SignIn = () => {
     } else if (!validE164(`+1` + phoneNumber)) {
       //TODO: throw invalid number alert
     } else if (phoneNumberIsRegistered() && validE164(phoneNumber)) {
-      verifyNumber(phoneNumber);
-      setPhoneNumberIsVerified(true);
+      verifyNumber(phoneNumber)
+      setPhoneNumberIsVerified(true)
     }
-  };
+  }
 
   const verifyUser = async () => {
     await verifyCode({
       phoneNumber: phoneNumber,
       code: verificationCode,
-    }).then((data) => {
+    }).then(data => {
       if (data.data === "approved") {
-        setUserIsVerified(true);
+        setUserIsVerified(true)
       } else {
         //TODO: Throw invalid code alert
       }
-    });
-  };
+    })
+  }
 
   return (
     <View style={styles.page}>
@@ -101,16 +90,8 @@ export const SignIn = () => {
         <Text style={styles.sectionTitle}>Sign In</Text>
         <View style={styles.sectionContainer}>
           {/* TODO: style text */}
-          <Text style={styles.sectionText}>
-            Enter the phone number you used to register
-          </Text>
-          <TextInput
-            style={styles.textInput}
-            onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
-              setPhoneNumber(e.nativeEvent.text)
-            }
-            value={phoneNumber}
-          />
+          <Text style={styles.sectionText}>Enter the phone number you used to register</Text>
+          <TextInput style={styles.textInput} onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => setPhoneNumber(e.nativeEvent.text)} value={phoneNumber} />
           {/* TODO: style button */}
           <Button title="Verify Phone Number" onPress={verifyPhoneNumber} />
         </View>
@@ -120,9 +101,7 @@ export const SignIn = () => {
             <Text style={styles.sectionText}>Enter verification code</Text>
             <TextInput
               style={styles.textInput}
-              onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
-                setVerificationCode(e.nativeEvent.text)
-              }
+              onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => setVerificationCode(e.nativeEvent.text)}
               value={verificationCode}
             />
             {/* TODO: style button*/}
@@ -131,8 +110,8 @@ export const SignIn = () => {
         )}
       </View>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   page: {
@@ -186,4 +165,4 @@ const styles = StyleSheet.create({
   sectionText: {
     color: "#fff",
   },
-});
+})
