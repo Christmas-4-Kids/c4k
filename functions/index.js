@@ -1,15 +1,26 @@
 const functions = require("firebase-functions")
 const admin = require("firebase-admin")
+const mailchimp = require("@mailchimp/mailchimp_marketing")
+const twilio = require("twilio")
+
 admin.initializeApp(functions.config().firebase)
 
-const twilio = require("twilio")
+// mailchimp constants
+const mailchimpServer = functions.config().mailchimp.server
+const mailchimpApiKey = functions.config().mailchimp.key
+const currentListId = functions.config().mailchimp.currentlistid
+mailchimp.setConfig({
+  apiKey: mailchimpApiKey,
+  server: mailchimpServer,
+})
+
+// twilio constants
 const accountSid = functions.config().twilio.sid
 const authToken = functions.config().twilio.token
 const serviceSid = functions.config().twilio.servicesid
-
 const twilioClient = new twilio(accountSid, authToken)
 
-//send user their verification code
+// TWILIO: send user their verification code
 exports.verifyNumber = functions.https.onCall(async (phoneNumber, context) => {
   console.log(phoneNumber)
   twilioClient.verify
@@ -20,9 +31,8 @@ exports.verifyNumber = functions.https.onCall(async (phoneNumber, context) => {
     })
 })
 
-//verify user's code
+// TWILIO: verify user's code
 exports.verifyCode = functions.https.onCall(async (data, context) => {
-  //I can't make this promise return properly
   return twilioClient.verify
     .services(serviceSid)
     .verificationChecks.create({ to: data.phoneNumber, code: data.code })
@@ -30,24 +40,48 @@ exports.verifyCode = functions.https.onCall(async (data, context) => {
       return data.status
     })
 })
-/*
-// TODO: Integrating mailchimp API called from SignIn screen
 
-const mailchimp = require("mailchimp-marketing");
+exports.checkIfRegistered = functions.https.onCall(async (email, context) => {
+  const response = await mailchimp.searchMembers.search(email)
+  console.log(`response`, response)
+  const mailchimpMember = response?.exact_matches?.members.find(member => member.list_id === currentListId)
+  console.log(`mailchimpMember`, mailchimpMember)
+  return mailchimpMember
+})
 
-//will need to run firebase functions:config:set mailchimp.key="MAILCHIMP_API_KEY" mailchimp.server="SERVER_PREFIX"
-mailchimp.setConfig({
-  // use functions.config().mailchimp.apikey to grab and replace "YOUR_API_KEY"
-  apiKey: "YOUR_API_KEY",
-  server: "YOUR_SERVER_PREFIX",
-});
-const mailchimpServer = functions.config().mailchimp.server;
-const mailchimpBaseURL = `https://${mailchimpServer}.api.mailchimp.com/3.0/`;
+// TODO: build out this method
+exports.createMailchimpUserInFirestore = functions.https.onCall(async (mailchimpMember, context) => {
+  const volunteer = createVolunteer(mailchimpMember)
+  console.log(`mailchimpMember`, mailchimpMember)
+  let documentRef = admin.firestore().collection("volunteers").doc()
 
-export const getMailchimpList = async () => {
-  //TODO: need list_id
-  const response = await mailchimp.lists.getListMembersInfo("list_id");
-  console.log(response);
-  //   return response
-};
-*/
+  documentRef
+    .create(volunteer)
+    .then(res => {
+      return { success: true }
+    })
+    .catch(err => {
+      return { success: false, error: `Failed to create document: ${err}` }
+    })
+})
+
+const createVolunteer = mailchimpMember => {
+  const volunteer = {
+    checkedIn: false,
+    volunteerType: mailchimpMember.list_id,
+    driversLicense: "",
+    email: mailchimpMember.email_address,
+    emailLower: mailchimpMember.email_address.toLowerCase(),
+    firstName: mailchimpMember.merge_fields.FNAME,
+    lastName: mailchimpMember.merge_fields.LNAME,
+    lastNameLower: mailchimpMember.merge_fields.LNAME.toLowerCase(),
+    lastUpdated: new Date().toLocaleString(),
+    mailchimpMemberId: mailchimpMember.id,
+    phoneNumber: mailchimpMember.merge_fields.PHONE,
+    spanish: mailchimpMember.merge_fields.ESPANOL ?? "",
+    verified: false,
+    medical: mailchimpMember.merge_fields.MEDICAL ?? "",
+    mailchimpMemberInfo: mailchimpMember,
+  }
+  return volunteer
+}
