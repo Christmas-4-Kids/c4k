@@ -17,10 +17,11 @@ firebase.initializeApp({
 })
 
 // Uncomment to run firebase functions locally
-// firebase.functions().useEmulator("localhost", 5001);
+// firebase.functions().useEmulator("localhost", 5001)
 
 export const SignIn = () => {
   const [phoneNumber, setPhoneNumber] = useState("")
+  const [email, setEmail] = useState("")
   const [verificationCode, setVerificationCode] = useState("")
   const [phoneNumberIsVerified, setPhoneNumberIsVerified] = useState(false)
   const { setUserIsVerified } = useUser()
@@ -35,8 +36,9 @@ export const SignIn = () => {
     return /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/.test(num)
   }
 
-  const verifyPhoneNumber = async () => {
-    const mailchimpUser = await checkIfRegistered(phoneNumber)
+  const verifyRegistration = async () => {
+    const { data: mailchimpUser } = await checkIfRegistered(email.trim())
+    console.log(`mailchimpUser`, mailchimpUser)
     if (!mailchimpUser) {
       // TODO: Provide link to register
     } else if (!validE164(`+1` + phoneNumber)) {
@@ -69,8 +71,10 @@ export const SignIn = () => {
           {/* TODO: style text */}
           <Text style={styles.sectionText}>Enter the phone number you used to register</Text>
           <TextInput style={styles.textInput} onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => setPhoneNumber(e.nativeEvent.text)} value={phoneNumber} />
+          <Text style={styles.sectionText}>Enter the email address you used to register</Text>
+          <TextInput style={styles.textInput} onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => setEmail(e.nativeEvent.text)} value={email} />
           {/* TODO: style button */}
-          <Button title="Verify Phone Number" onPress={verifyPhoneNumber} />
+          <Button title="Verify Registration" onPress={verifyRegistration} />
         </View>
         {phoneNumberIsVerified && (
           <View style={styles.sectionContainer}>

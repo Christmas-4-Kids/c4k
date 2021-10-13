@@ -7,9 +7,9 @@ admin.initializeApp(functions.config().firebase)
 
 // mailchimp constants
 const mailchimpServer = functions.config().mailchimp.server
-const mailchimpApiKey = functions.config().mailchimp.apikey
+const mailchimpApiKey = functions.config().mailchimp.key
+const currentListId = functions.config().mailchimp.currentlistid
 mailchimp.setConfig({
-  // use functions.config().mailchimp.apikey to grab and replace "YOUR_API_KEY"
   apiKey: mailchimpApiKey,
   server: mailchimpServer,
 })
@@ -33,7 +33,6 @@ exports.verifyNumber = functions.https.onCall(async (phoneNumber, context) => {
 
 // TWILIO: verify user's code
 exports.verifyCode = functions.https.onCall(async (data, context) => {
-  //I can't make this promise return properly
   return twilioClient.verify
     .services(serviceSid)
     .verificationChecks.create({ to: data.phoneNumber, code: data.code })
@@ -42,13 +41,47 @@ exports.verifyCode = functions.https.onCall(async (data, context) => {
     })
 })
 
-exports.checkIfRegistered = functions.https.onCall(async (phoneNumber, context) => {
-  const listId = ""
-  const response = await mailchimp.lists.getListMembersInfo(listId)
-  // TODO: find the user with the phoneNumber
-  const mailchimpUser = response.filter(member => phoneNumber === member.merge_fields.phone)
-  return mailchimpUser
+exports.checkIfRegistered = functions.https.onCall(async (email, context) => {
+  const response = await mailchimp.searchMembers.search(email)
+  console.log(`response`, response)
+  const mailchimpMember = response?.exact_matches?.members.find(member => member.list_id === currentListId)
+  console.log(`mailchimpMember`, mailchimpMember)
+  return mailchimpMember
 })
 
 // TODO: build out this method
-exports.createMailchimpUserInFirestore = functions.https.onCall(async (mailchimpMember, context) => {})
+exports.createMailchimpUserInFirestore = functions.https.onCall(async (mailchimpMember, context) => {
+  const volunteer = createVolunteer(mailchimpMember)
+  console.log(`mailchimpMember`, mailchimpMember)
+  let documentRef = admin.firestore().collection("volunteers").doc()
+
+  documentRef
+    .create(volunteer)
+    .then(res => {
+      return { success: true }
+    })
+    .catch(err => {
+      return { success: false, error: `Failed to create document: ${err}` }
+    })
+})
+
+const createVolunteer = mailchimpMember => {
+  const volunteer = {
+    checkedIn: false,
+    volunteerType: mailchimpMember.list_id,
+    driversLicense: "",
+    email: mailchimpMember.email_address,
+    emailLower: mailchimpMember.email_address.toLowerCase(),
+    firstName: mailchimpMember.merge_fields.FNAME,
+    lastName: mailchimpMember.merge_fields.LNAME,
+    lastNameLower: mailchimpMember.merge_fields.LNAME.toLowerCase(),
+    lastUpdated: new Date().toLocaleString(),
+    mailchimpMemberId: mailchimpMember.id,
+    phoneNumber: mailchimpMember.merge_fields.PHONE,
+    spanish: mailchimpMember.merge_fields.ESPANOL ?? "",
+    verified: false,
+    medical: mailchimpMember.merge_fields.MEDICAL ?? "",
+    mailchimpMemberInfo: mailchimpMember,
+  }
+  return volunteer
+}
