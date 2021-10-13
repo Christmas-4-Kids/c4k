@@ -3,3 +3,6 @@ c4k-local.json
 .runtimeconfig.json
 ui-debug.log
 firebase-debug.log
+yarn.lock
+package-lock.json
+.yarnrc

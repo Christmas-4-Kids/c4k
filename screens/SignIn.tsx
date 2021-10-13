@@ -26,7 +26,6 @@ export const SignIn = () => {
   const [phoneNumberIsVerified, setPhoneNumberIsVerified] = useState(false)
   const { setUserIsVerified } = useUser()
   const checkIfRegistered = firebase.functions().httpsCallable("checkIfRegistered")
-  const textMe = firebase.functions().httpsCallable("textMe")
   const verifyNumber = firebase.functions().httpsCallable("verifyNumber")
   const verifyCode = firebase.functions().httpsCallable("verifyCode")
   const createMailchimpUserInFirestore = firebase.functions().httpsCallable("createMailchimpUserInFirestore")
@@ -38,7 +37,6 @@ export const SignIn = () => {
 
   const verifyRegistration = async () => {
     const { data: mailchimpUser } = await checkIfRegistered(email.trim())
-    console.log(`mailchimpUser`, mailchimpUser)
     if (!mailchimpUser) {
       // TODO: Provide link to register
     } else if (!validE164(`+1` + phoneNumber)) {
@@ -46,7 +44,8 @@ export const SignIn = () => {
     } else if (!!mailchimpUser && validE164(phoneNumber)) {
       await verifyNumber(`+1${phoneNumber}`)
       setPhoneNumberIsVerified(true)
-      await createMailchimpUserInFirestore(mailchimpUser)
+      const ret = await createMailchimpUserInFirestore(mailchimpUser)
+      console.log(ret)
     }
   }
 

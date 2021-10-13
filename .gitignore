@@ -12,6 +12,9 @@ web-build/
 .env
 c4k-local.json
 ui-debug.log
+yarn.lock
+package-lock.json
+.yarnrc
 
 # macOS
 .DS_Store

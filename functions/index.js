@@ -43,19 +43,15 @@ exports.verifyCode = functions.https.onCall(async (data, context) => {
 
 exports.checkIfRegistered = functions.https.onCall(async (email, context) => {
   const response = await mailchimp.searchMembers.search(email)
-  console.log(`response`, response)
   const mailchimpMember = response?.exact_matches?.members.find(member => member.list_id === currentListId)
-  console.log(`mailchimpMember`, mailchimpMember)
   return mailchimpMember
 })
 
-// TODO: build out this method
 exports.createMailchimpUserInFirestore = functions.https.onCall(async (mailchimpMember, context) => {
   const volunteer = createVolunteer(mailchimpMember)
-  console.log(`mailchimpMember`, mailchimpMember)
   let documentRef = admin.firestore().collection("volunteers").doc()
 
-  documentRef
+  return documentRef
     .create(volunteer)
     .then(res => {
       return { success: true }
