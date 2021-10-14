@@ -1,6 +1,7 @@
 import React from "react"
-import { View, StyleSheet, Button, Text } from "react-native"
+import { View, StyleSheet, Text, Pressable, Image } from "react-native"
 import { useUser } from "../context/user.context"
+import logo from "../assets/images/c4k-logo.png"
 
 export const Account = () => {
   const { signOut } = useUser()
@@ -8,8 +9,12 @@ export const Account = () => {
   return (
     <View style={styles.page}>
       <View style={styles.sectionContainer}>
-        <Text style={styles.sectionTitle}>Account</Text>
-        <Button title="Sign Out" onPress={signOut} />
+        <Image source={logo} style={{ width: 180, height: 180, alignSelf: "center", marginBottom: 100 }} />
+        <View style={styles.sectionContainer}>
+          <Pressable style={styles.button} onPress={signOut}>
+            <Text style={styles.buttonText}>{"SIGN OUT"}</Text>
+          </Pressable>
+        </View>
       </View>
     </View>
   )
@@ -21,6 +26,7 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     paddingBottom: 20,
     backgroundColor: "#112430",
+    fontFamily: "ZillaSlab-Medium",
   },
   button: {
     backgroundColor: "#EF334C",
@@ -31,6 +37,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 18,
     color: "#FFF",
+    fontFamily: "ZillaSlab-Medium",
   },
   sectionTitle: {
     fontSize: 24,
