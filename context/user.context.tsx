@@ -1,57 +1,100 @@
-import React, { useState } from "react"
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import React, { useEffect, useState } from "react"
 
 export interface User {
-  type: string
+  checkedIn: boolean
+  driversLicense: string
+  email: string
+  emailLower: string
   firstName: string
   lastName: string
-  email: string
-  phone: string
-  code?: string
+  lastNameLower: string
+  lastUpdated: string
+  mailchimpMemberId: string
+  medical: string
+  phoneNumber: string
+  spanish: string
+  verified: boolean
 }
 
 type UserContext = {
   user: User
-  userIsVerified: boolean
   userIsSigningOut: boolean
-  setUser: (user: User) => void
-  setUserIsVerified: (isVerified: boolean) => void
+  userIsSignedIn: boolean
+  saveUser: (user: User) => void
   signOut: () => void
 }
 
 const initUser = {
-  type: "",
+  checkedIn: false,
+  driversLicense: "",
+  email: "",
+  emailLower: "",
   firstName: "",
   lastName: "",
-  email: "",
-  phone: "",
+  lastNameLower: "",
+  lastUpdated: "",
+  mailchimpMemberId: "",
+  medical: "",
+  phoneNumber: "",
+  spanish: "",
+  verified: false,
+}
+
+const saveUserToDevice = async (user: User) => {
+  try {
+    await AsyncStorage.setItem("@store:user", JSON.stringify(user))
+  } catch (error) {
+    console.log(`error saving to local storage: `, error)
+  }
 }
 
 const UserContext = React.createContext<UserContext>({
   user: initUser,
-  userIsVerified: false,
   userIsSigningOut: false,
-  setUser: (user: User) => {},
-  setUserIsVerified: (isVerified: boolean) => {},
+  userIsSignedIn: false,
+  saveUser: (user: User) => {},
   signOut: () => {},
 })
 
 export default function UserProvider({ children }: { children: any }) {
   const [user, setUser] = useState<User>(initUser)
-  const [userIsVerified, setUserIsVerified] = useState(false)
   const [userIsSigningOut, setUserIsSigningOut] = useState(false)
+  const [userIsSignedIn, setUserIsSignedIn] = useState(false)
+
+  const getLocalUser = async () => {
+    const localUserString = await AsyncStorage.getItem("@store:user")
+    const localUser: User = JSON.parse(localUserString)
+    if (localUser && localUser.verified) {
+      setUser(user)
+      setUserIsSignedIn(true)
+    }
+  }
   const signOut = () => {
     setUserIsSigningOut(true)
-    setUserIsVerified(false)
+    setUser(initUser)
+    setUserIsSignedIn(false)
   }
+  const saveUser = (user: User) => {
+    setUser(user)
+    saveUserToDevice(user)
+  }
+
+  useEffect(() => {
+    getLocalUser()
+  }, [])
+
+  useEffect(() => {
+    setUserIsSignedIn(user.verified)
+  }, [user])
 
   return (
     <UserContext.Provider
       value={{
         user,
-        setUser,
-        userIsVerified,
-        setUserIsVerified,
+        saveUser,
         userIsSigningOut,
+        userIsSignedIn,
         signOut,
       }}
     >

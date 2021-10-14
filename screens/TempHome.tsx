@@ -1,12 +1,14 @@
 import React from "react"
-import { View, Text, StyleSheet } from "react-native"
+import { View, Text, StyleSheet, Image } from "react-native"
+import logo from "../assets/images/c4k-logo.png"
 
 export const TempHome = () => {
   return (
     <View style={styles.page}>
       <View style={styles.sectionContainer}>
-        <Text style={styles.sectionTitle}>Home</Text>
-        <Text>Stay tuned! More to come here!</Text>
+        <Image source={logo} style={{ width: 180, height: 180, alignSelf: "center" }} />
+        <Text style={styles.sectionTextTop}>Stay tuned...</Text>
+        <Text style={styles.sectionTextBottom}>More to come here.</Text>
       </View>
     </View>
   )
@@ -18,6 +20,7 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     paddingBottom: 20,
     backgroundColor: "#112430",
+    fontFamily: "ZillaSlab-Medium",
   },
   button: {
     backgroundColor: "#EF334C",
@@ -28,11 +31,21 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 18,
     color: "#FFF",
+    fontFamily: "ZillaSlab-Medium",
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: "600",
+  sectionTextTop: {
+    fontSize: 80,
+    fontFamily: "Fregata-Sans",
     color: "#fff",
+    textAlign: "center",
+    marginTop: 30,
+  },
+  sectionTextBottom: {
+    fontSize: 60,
+    fontFamily: "Fregata-Sans",
+    color: "#fff",
+    textAlign: "center",
+    marginTop: 30,
   },
   sectionContainer: {
     flex: 1,

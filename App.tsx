@@ -1,46 +1,31 @@
 // @refresh state
 import { StatusBar } from "expo-status-bar"
-import React, { useState } from "react"
+import React from "react"
 import { SafeAreaProvider } from "react-native-safe-area-context"
 import UserProvider from "./context/user.context"
-import firebase from "firebase/app"
-import "firebase/firestore"
 import useCachedResources from "./hooks/useCachedResources"
 import useColorScheme from "./hooks/useColorScheme"
 import Navigation from "./navigation"
-require("dotenv").config()
-//This will be the c4k firebase info - so the values will change
-const firebaseConfig = {
-  apiKey: process.env.API_KEY,
-  authDomain: "c4k-events.firebaseapp.com",
-  databaseURL: "https://c4k-events.firebaseio.com",
-  projectId: "c4k-events",
-  storageBucket: "c4k-events.appspot.com",
-  messagingSenderId: process.env.MESSAGING_SENDER_ID,
-  appId: process.env.APP_ID,
-  measurementId: process.env.MEASUREMENT_ID,
-}
+import { useFonts } from "expo-font"
 
-// Initialize Firebase
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig)
-}
-
-const firestore = firebase.firestore()
 export default function App() {
   const isLoadingComplete = useCachedResources()
+  let [fontsLoaded] = useFonts({
+    "Fregata-Sans": require("./assets/fonts/Fregata-Sans.otf"),
+    "ZillaSlab-Medium": require("./assets/fonts/ZillaSlab-Medium.ttf"),
+  })
   const colorScheme = useColorScheme()
 
-  if (!isLoadingComplete) {
-    return null
-  } else {
+  if (isLoadingComplete && fontsLoaded) {
     return (
-      <SafeAreaProvider>
+      <SafeAreaProvider style={{ backgroundColor: "#112430" }}>
         <UserProvider>
-          <Navigation colorScheme={colorScheme} />
+          <Navigation colorScheme={"light"} />
           <StatusBar />
         </UserProvider>
       </SafeAreaProvider>
     )
+  } else {
+    return null
   }
 }

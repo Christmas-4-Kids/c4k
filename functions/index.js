@@ -22,7 +22,6 @@ const twilioClient = new twilio(accountSid, authToken)
 
 // TWILIO: send user their verification code
 exports.verifyNumber = functions.https.onCall(async (phoneNumber, context) => {
-  console.log(phoneNumber)
   twilioClient.verify
     .services(serviceSid)
     .verifications.create({ to: phoneNumber, channel: "sms" })
@@ -53,10 +52,10 @@ exports.createMailchimpUserInFirestore = functions.https.onCall(async (mailchimp
   return documentRef
     .set(volunteer)
     .then(res => {
-      return { success: true }
+      return { user: volunteer }
     })
     .catch(err => {
-      return { success: false, error: `Failed to create document: ${err}` }
+      return { error: `Failed to create document: ${err}` }
     })
 })
 

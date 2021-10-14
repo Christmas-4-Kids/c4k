@@ -9,10 +9,7 @@ import { NavigationContainer, DefaultTheme, DarkTheme } from "@react-navigation/
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import * as React from "react"
 import { ColorSchemeName } from "react-native"
-
-import Colors from "../constants/Colors"
 import { useUser } from "../context/user.context"
-import useColorScheme from "../hooks/useColorScheme"
 import { SignIn } from "../screens/SignIn"
 import ModalScreen from "../screens/ModalScreen"
 import NotFoundScreen from "../screens/NotFoundScreen"
@@ -21,9 +18,19 @@ import LinkingConfiguration from "./LinkingConfiguration"
 import { Account } from "../screens/Account"
 import { TempHome } from "../screens/TempHome"
 
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: "#112430",
+    primary: "#112430",
+    card: "#112430",
+  },
+}
+
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
-    <NavigationContainer linking={LinkingConfiguration} theme={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+    <NavigationContainer linking={LinkingConfiguration} theme={MyTheme}>
       <RootNavigator />
     </NavigationContainer>
   )
@@ -36,10 +43,10 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
 const Stack = createNativeStackNavigator<RootStackParamList>()
 
 function RootNavigator() {
-  const { userIsVerified, userIsSigningOut } = useUser()
+  const { userIsSignedIn, userIsSigningOut } = useUser()
   return (
     <Stack.Navigator>
-      {userIsVerified ? (
+      {userIsSignedIn ? (
         <>
           <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
           <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: "Oops!" }} />
@@ -71,12 +78,15 @@ function RootNavigator() {
 const BottomTab = createBottomTabNavigator<RootTabParamList>()
 
 function BottomTabNavigator() {
-  const colorScheme = useColorScheme()
   return (
     <BottomTab.Navigator
       initialRouteName="Home"
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarActiveTintColor: "#FFF",
+        tabBarInactiveTintColor: "#919191",
+        tabBarActiveBackgroundColor: "#112430",
+        tabBarInactiveBackgroundColor: "#112430",
+        headerTintColor: "#112430",
       }}
     >
       <BottomTab.Screen
