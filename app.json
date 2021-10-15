@@ -2,7 +2,7 @@
   "expo": {
     "name": "c4k",
     "slug": "c4k",
-    "version": "1.0.0",
+    "version": "2.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -24,7 +24,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#112430"
-      }
+      },
+      "package": "com.c4k.shoppingeventmanager"
     },
     "web": {
       "favicon": "./assets/images/favicon.png"

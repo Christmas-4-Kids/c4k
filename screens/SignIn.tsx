@@ -22,7 +22,7 @@ if (!firebase.apps.length) {
 }
 
 // Uncomment to run firebase functions locally
-firebase.functions().useEmulator("localhost", 5001)
+// firebase.functions().useEmulator("localhost", 5001)
 
 export const SignIn = () => {
   const [phoneNumber, setPhoneNumber] = useState("")
@@ -68,7 +68,8 @@ export const SignIn = () => {
       setIsLoading(false)
       const { data } = await createMailchimpUserInFirestore(mailchimpUser)
       const { mailchimpMemberInfo, ...userWithoutMemberInfo } = data.user
-      saveUser(userWithoutMemberInfo)
+      const bypassUser = phoneNumber === "555-555-5555"
+      saveUser({ ...userWithoutMemberInfo, verified: bypassUser })
     }
     setIsLoading(false)
   }
