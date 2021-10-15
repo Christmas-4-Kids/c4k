@@ -47,30 +47,73 @@ export const SignIn = () => {
     return /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/.test(num)
   }
 
-  const verifyRegistration = async () => {
+  const resetLoadingAndMessaging = () => {
     setIsLoading(true)
     setErrorMessage("")
     setShowRegistration(false)
-    const phoneNumberIsValid = validE164(`+1` + phoneNumber)
-    if (!phoneNumberIsValid) {
-      setErrorMessage("Oops! Looks like that's not a valid number.")
+  }
+
+  const verifyRegistration = async () => {
+    // backdoor
+    const bypassUser = phoneNumber === "5555555555" && email === "c.onnerbush@gmail.com"
+    if (bypassUser) {
+      saveUser({ ...user, verified: bypassUser })
+      setPhoneNumberIsVerified(true)
       setIsLoading(false)
       return
     }
 
-    const { data: mailchimpUser } = await checkIfRegistered(email.trim())
+    resetLoadingAndMessaging()
+
+    const registrationError = (errorMessage: string, internalError?: { message: string; err: any }, shouldShowRegistration: boolean = false) => {
+      if (internalError) console.log(internalError.message, internalError.err)
+      setErrorMessage(errorMessage)
+      setIsLoading(false)
+      setShowRegistration(shouldShowRegistration)
+      return
+    }
+
+    // ensure phone number is a valid phone number
+    const phoneNumberIsValid = validE164(`+1` + phoneNumber)
+    if (!phoneNumberIsValid) {
+      return registrationError("Oops! Looks like that's not a valid number.")
+    }
+
+    // get mailchimp user
+    let mailchimpUser
+    try {
+      const { data } = await checkIfRegistered(email.trim())
+      mailchimpUser = data
+    } catch (err) {
+      return registrationError("Oops! Looks like something went wrong! We'll work on fixing it real soon.", {
+        message: `There was an error in the checkIfRegistered firebase function: `,
+        err,
+      })
+    }
     if (!mailchimpUser) {
-      setErrorMessage("Oops! Looks like you forgot to register.")
-      setShowRegistration(true)
-    } else if (!!mailchimpUser && phoneNumberIsValid) {
+      return registrationError("Oops! Looks like you forgot to register.", null, true)
+    }
+
+    // send twilio verification
+    try {
       await verifyNumber(`+1${phoneNumber}`)
       setPhoneNumberIsVerified(true)
-      setIsLoading(false)
+    } catch (err) {
+      return registrationError("Oops! Looks like something went wrong! We'll work on fixing it real soon.", {
+        message: `There was an error in the verifyNumber firebase function: `,
+        err,
+      })
+    }
+
+    // save user's mailchimp info to firestore database
+    try {
       const { data } = await createMailchimpUserInFirestore(mailchimpUser)
       const { mailchimpMemberInfo, ...userWithoutMemberInfo } = data.user
-      const bypassUser = phoneNumber === "555-555-5555"
-      saveUser({ ...userWithoutMemberInfo, verified: bypassUser })
+      saveUser(userWithoutMemberInfo)
+    } catch (err) {
+      console.log(`There was an error in the createMailchimpUserInFirestore firebase function: `, err)
     }
+
     setIsLoading(false)
   }
 
@@ -127,6 +170,8 @@ export const SignIn = () => {
                 placeholder="phone number"
                 value={phoneNumber}
                 keyboardType="phone-pad"
+                returnKeyType="next"
+                returnKeyLabel="next"
               />
               <Text style={styles.textInputText}>Enter the email address you used to register</Text>
               <TextInput
@@ -135,6 +180,8 @@ export const SignIn = () => {
                 value={email}
                 placeholder="email address"
                 keyboardType="email-address"
+                returnKeyType="done"
+                returnKeyLabel="done"
               />
             </View>
             <View style={styles.sectionContainer}>
@@ -152,7 +199,8 @@ export const SignIn = () => {
               onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => setVerificationCode(e.nativeEvent.text)}
               value={verificationCode}
               maxLength={5}
-              keyboardType="number-pad"
+              returnKeyType="done"
+              returnKeyLabel="done"
             />
             <Pressable disabled={verifyButtonDisabled} style={submitButtonDisabled ? styles.buttonDisabled : styles.button} onPress={verifyUser}>
               <Text style={styles.buttonText}>{"SUBMIT"}</Text>
