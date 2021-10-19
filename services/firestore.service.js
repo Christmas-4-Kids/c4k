@@ -1,21 +1,29 @@
-import firestore from "firebase/firestore"
-import { initializeApp } from "firebase/app"
-import { getDatabase } from "firebase/database"
-// require("dotenv").config()
-// const firebase = require("firebase")
+import firebase from "firebase/app"
+import "firebase/functions"
 
-// const firebaseConfig = {
-//   apiKey: process.env.API_KEY,
-//   authDomain: "c4k-events.firebaseapp.com",
-//   databaseURL: "https://c4k-events.firebaseio.com",
-//   projectId: "c4k-events",
-//   storageBucket: "c4k-events.appspot.com",
-//   messagingSenderId: process.env.MESSAGING_SENDER_ID,
-//   appId: process.env.APP_ID,
-//   measurementId: process.env.MEASUREMENT_ID,
-// }
+if (!firebase.apps.length) {
+  firebase.initializeApp({
+    apiKey: "AIzaSyBJfGGK6UiTqlBvTNgegH-n4bslUVOUja8",
+    authDomain: "c4k-events.firebaseapp.com",
+    databaseURL: "https://c4k-events.firebaseio.com",
+    projectId: "c4k-events",
+    storageBucket: "c4k-events.appspot.com",
+    messagingSenderId: "692878505754",
+    appId: "1:692878505754:web:15631f9543142a72a95ea3",
+  })
+} else {
+  firebase.app()
+}
 
-// firebase.initializeApp(firebaseConfig)
+// Uncomment to run firebase functions locally
+//firebase.functions().useEmulator("localhost", 5001)
+
+// firebase functions
+export const checkIfRegistered = firebase.functions().httpsCallable("checkIfRegistered")
+export const verifyNumber = firebase.functions().httpsCallable("verifyNumber")
+export const verifyCode = firebase.functions().httpsCallable("verifyCode")
+export const createMailchimpUserInFirestore = firebase.functions().httpsCallable("createMailchimpUserInFirestore")
+export const fetchRules = firebase.functions().httpsCallable("fetchRules")
 
 // export const testText = firebase.functions().httpsCallable("textMe")
 /*
