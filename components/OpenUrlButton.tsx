@@ -18,14 +18,10 @@ const Component = ({ url, children }) => {
   return <Button title={children} onPress={handlePress} />
 }
 
-export const OpenUrlButton = ({ url, children }) => {
+export const OpenUrlButton = ({ url, children, styles }) => {
   return (
-    <View style={styles.container}>
+    <View style={styles}>
       <Component url={url}>{children}</Component>
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: "center", alignItems: "center" },
-})

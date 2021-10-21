@@ -1,14 +1,25 @@
 import React from "react"
-import { View, Text, StyleSheet, Image } from "react-native"
+import { View, Text, StyleSheet, Image, Button } from "react-native"
+import { Countdown } from "./Countdown"
 import logo from "../assets/images/c4k-logo.png"
+import { OpenUrlButton } from "../components/OpenUrlButton"
 
 export const TempHome = () => {
   return (
     <View style={styles.page}>
       <View style={styles.sectionContainer}>
-        <Image source={logo} style={{ width: 180, height: 180, alignSelf: "center" }} />
+        <Image source={logo} style={{ width: 100, height: 100, alignSelf: "center" }} />
         <Text style={styles.sectionTextTop}>Stay tuned...</Text>
-        <Text style={styles.sectionTextBottom}>More to come here.</Text>
+        <Text style={styles.sectionTextBottom}>December 14 @ 9AM</Text>
+        <Countdown 
+          timeTillDate="12 14 2021, 9:00 am" 
+		      timeFormat="MM DD YYYY, hh:mm a" 
+	      /> 
+
+       
+        <OpenUrlButton styles={styles.button} url="https://linktoDonate">
+          <Text style={styles.buttonText}>{"DONATE"}</Text>
+        </OpenUrlButton>
       </View>
     </View>
   )
