@@ -8,18 +8,23 @@ export const TempHome = () => {
   return (
     <View style={styles.page}>
       <View style={styles.sectionContainer}>
-        <Image source={logo} style={{ width: 100, height: 100, alignSelf: "center" }} />
-        <Text style={styles.sectionTextTop}>Stay tuned...</Text>
-        <Text style={styles.sectionTextBottom}>December 14 @ 9AM</Text>
+      
+        <Text style={styles.sectionTextTop}>Christmas 4 KIDS</Text>
+        <Text style={styles.sectionTextTop}>December 14, 2021</Text>
+        <Image source={logo} style={{ width: 120, height: 120, alignSelf: "center" }} />
         <Countdown 
-          timeTillDate="12 14 2021, 9:00 am" 
+        timeTillDate="12 14 2021, 9:00 am" 
 		      timeFormat="MM DD YYYY, hh:mm a" 
-	      /> 
+        /> 
 
        
-        <OpenUrlButton styles={styles.button} url="https://linktoDonate">
+        <OpenUrlButton styles={styles.button} url="https://paypal.com/donate/?cmd=_s-xclick&hosted_button_id=ZM6NKQZHSCH2A">
           <Text style={styles.buttonText}>{"DONATE"}</Text>
         </OpenUrlButton>
+        <View style={styles.socialsWrapper}>
+          <Text>Share With a a Friend</Text>
+          <Text>Social Icons and links go here</Text>
+        </View>
       </View>
     </View>
   )
@@ -28,7 +33,7 @@ export const TempHome = () => {
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    paddingTop: 30,
+    paddingTop: 20,
     paddingBottom: 20,
     backgroundColor: "#112430",
     fontFamily: "ZillaSlab-Medium",
@@ -45,18 +50,11 @@ const styles = StyleSheet.create({
     fontFamily: "ZillaSlab-Medium",
   },
   sectionTextTop: {
-    fontSize: 80,
-    fontFamily: "Fregata-Sans",
-    color: "#fff",
-    textAlign: "center",
-    marginTop: 30,
-  },
-  sectionTextBottom: {
     fontSize: 60,
     fontFamily: "Fregata-Sans",
     color: "#fff",
     textAlign: "center",
-    marginTop: 30,
+    marginTop: 10,
   },
   sectionContainer: {
     flex: 1,
@@ -64,4 +62,14 @@ const styles = StyleSheet.create({
     marginTop: 20,
     paddingHorizontal: 24,
   },
+  socialsWrapper: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    padding: 20,
+    fontSize: 30,
+    color: "#FFF",
+  }
 })

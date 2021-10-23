@@ -21,10 +21,10 @@ export const Countdown = ({timeTillDate, timeFormat}) => {
             
             // Duration broken down - days includes total days for months left too
 			const days = eventDateTime.diff(now, 'days') 
-			const hours = timeBeforeEvent.get('hours')
-			const minutes = timeBeforeEvent.get('minutes')
-			const seconds = timeBeforeEvent.get('seconds')
-
+			const hours = timeBeforeEvent.get('hours').toString()
+			const minutes = timeBeforeEvent.get('minutes').toString()
+			const seconds = timeBeforeEvent.get('seconds').toString()
+            
             setDaysLeft(days)
             setHoursLeft(hours)
             setMinutesLeft(minutes)
@@ -38,26 +38,26 @@ export const Countdown = ({timeTillDate, timeFormat}) => {
 	return (
 			<View style={styles.countdownWrapper}>
 				{daysLeft && (
-					<View style={styles.countdownItem}>
-						{daysLeft} 
+					<View>
+						<Text style={styles.countdownItem}>{daysLeft} </Text>
 						<Text style={styles.countdownLabel}>days</Text>
 					</View>
 				)}
 				{hoursLeft && (
-					<View style={styles.countdownItem}>						
-						{hoursLeft} 
+					<View>
+						<Text style={styles.countdownItem}>{hoursLeft} </Text>
 						<Text style={styles.countdownLabel}>hours</Text>
 					</View>
 				)}
 				{minutesLeft && (
-					<View style={styles.countdownItem}>
-						{minutesLeft} 
+					<View>
+					    <Text style={styles.countdownItem}>{minutesLeft} </Text>
 						<Text style={styles.countdownLabel}>minutes</Text>
 					</View>
 				)}
 				
-					<View style={styles.countdownItem}>
-						{secondsLeft} 
+					<View>
+						<Text style={styles.countdownItem}>{secondsLeft} </Text>
 						<Text style={styles.countdownLabel}>seconds</Text>
 					</View>
 				
@@ -69,14 +69,15 @@ const styles = StyleSheet.create({
     countdownWrapper: {
         display: "flex",
         alignItems: "center",
-        justifyContent: "center",
-        flexWrap: "wrap"
+        justifyContent: "space-evenly",
+        flexDirection: "row",
+        flexWrap: "wrap",
+        padding: 20
     },
     countdownItem: {
         color: "#FFF",
-        fontSize: 20,
+        fontSize: 30,
         display: "flex",
-        flexDirection: "row",
         margin: 2,
         paddingTop: 2,
         position: "relative",
