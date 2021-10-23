@@ -13,35 +13,30 @@ export const Countdown = ({timeTillDate, timeFormat}) => {
 	useEffect(()=>{
 
 		const interval = setInterval(() => {
-			// const { timeTillDate, timeFormat } = props;
-			const then:any = moment(timeTillDate, timeFormat);
+			const eventDateTime:any = moment(timeTillDate, timeFormat);
 			const now:any = moment();
-			const countdown = moment(then - now);
-			const months = countdown.format('M');
-			const days = countdown.format('D');
-			const hours = countdown.format('HH');
-			const minutes = countdown.format('mm');
-			const seconds = countdown.format('ss');
+			
+            // Moment Duration object 
+			const timeBeforeEvent = moment.duration(eventDateTime.diff(now))
+            
+            // Duration broken down - days includes total days for months left too
+			const days = eventDateTime.diff(now, 'days') 
+			const hours = timeBeforeEvent.get('hours')
+			const minutes = timeBeforeEvent.get('minutes')
+			const seconds = timeBeforeEvent.get('seconds')
 
-            setMonthsLeft(months)
             setDaysLeft(days)
             setHoursLeft(hours)
             setMinutesLeft(minutes)
-            setSecondsLeft( seconds)
+            setSecondsLeft(seconds)
 		}, 1000);
         return () => clearInterval(interval);   
-    },[daysLeft, hoursLeft, minutesLeft, secondsLeft])
+    },[])
 
 
 		
 	return (
 			<View style={styles.countdownWrapper}>
-                {monthsLeft && (
-					<View style={styles.countdownItem}>
-						{monthsLeft} 
-						<Text style={styles.countdownLabel}>months</Text>
-					</View>
-				)}
 				{daysLeft && (
 					<View style={styles.countdownItem}>
 						{daysLeft} 
@@ -60,12 +55,12 @@ export const Countdown = ({timeTillDate, timeFormat}) => {
 						<Text style={styles.countdownLabel}>minutes</Text>
 					</View>
 				)}
-				{secondsLeft && (
+				
 					<View style={styles.countdownItem}>
 						{secondsLeft} 
 						<Text style={styles.countdownLabel}>seconds</Text>
 					</View>
-				)}
+				
 			</View>
 	)
 	
