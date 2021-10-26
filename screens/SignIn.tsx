@@ -1,28 +1,10 @@
 import React, { useEffect, useState } from "react"
 import { Image, View, Text, TextInput, StyleSheet, NativeSyntheticEvent, TextInputChangeEventData, Button, Alert, Pressable } from "react-native"
 import { useUser } from "../context/user.context"
-import firebase from "firebase/app"
 import logo from "../assets/images/c4k-logo.png"
 import { Loading } from "./Loading"
 import { OpenUrlLink } from "../components/OpenUrlLink"
-import "firebase/functions"
-
-if (!firebase.apps.length) {
-  firebase.initializeApp({
-    apiKey: "AIzaSyBJfGGK6UiTqlBvTNgegH-n4bslUVOUja8",
-    authDomain: "c4k-events.firebaseapp.com",
-    databaseURL: "https://c4k-events.firebaseio.com",
-    projectId: "c4k-events",
-    storageBucket: "c4k-events.appspot.com",
-    messagingSenderId: "692878505754",
-    appId: "1:692878505754:web:15631f9543142a72a95ea3",
-  })
-} else {
-  firebase.app()
-}
-
-// Uncomment to run firebase functions locally
-// firebase.functions().useEmulator("localhost", 5001)
+import { checkIfRegistered, createMailchimpUserInFirestore, verifyCode, verifyNumber } from "../services/firestore.service"
 
 export const SignIn = () => {
   const [phoneNumber, setPhoneNumber] = useState("")
@@ -35,12 +17,6 @@ export const SignIn = () => {
   const [errorMessage, setErrorMessage] = useState("")
   const [showRegistration, setShowRegistration] = useState(false)
   const { saveUser, user } = useUser()
-
-  // firebase functions
-  const checkIfRegistered = firebase.functions().httpsCallable("checkIfRegistered")
-  const verifyNumber = firebase.functions().httpsCallable("verifyNumber")
-  const verifyCode = firebase.functions().httpsCallable("verifyCode")
-  const createMailchimpUserInFirestore = firebase.functions().httpsCallable("createMailchimpUserInFirestore")
 
   // validate E164 format
   const validE164 = (num: string) => {
@@ -55,7 +31,7 @@ export const SignIn = () => {
 
   const verifyRegistration = async () => {
     // backdoor
-    const bypassUser = phoneNumber === "5555555555" && email === "c.onnerbush@gmail.com"
+    const bypassUser = phoneNumber === "5555555555" && email.toLowerCase() === "c.onnerbush@gmail.com"
     if (bypassUser) {
       saveUser({ ...user, verified: bypassUser })
       setPhoneNumberIsVerified(true)

@@ -1,32 +1,11 @@
 import React, { useState, useEffect } from "react"
-import {
-  TouchableOpacity,
-  ScrollView,
-  View,
-  Text,
-  Button,
-  StyleSheet,
-} from "react-native"
-import styles from "../styles"
-import firebase from "firebase"
+import { Image, ScrollView, View, Text, StyleSheet } from "react-native"
+import logo from "../assets/images/logo-transparent.png"
+import busLogo from "../assets/images/c4k-logo.png"
+import { fetchRules } from "../services/firestore.service"
+import { Loading } from "./Loading"
 
-if (!firebase.apps.length) {
-  firebase.initializeApp({
-    apiKey: "AIzaSyBJfGGK6UiTqlBvTNgegH-n4bslUVOUja8",
-    authDomain: "c4k-events.firebaseapp.com",
-    databaseURL: "https://c4k-events.firebaseio.com",
-    projectId: "c4k-events",
-    storageBucket: "c4k-events.appspot.com",
-    messagingSenderId: "692878505754",
-    appId: "1:692878505754:web:15631f9543142a72a95ea3",
-  })
-} else {
-  firebase.app()
-}
-
-//firebase.functions().useEmulator("localhost", 5001)
-
-export const Rules = (props) => {
+export const Rules = () => {
   const styles = StyleSheet.create({
     page: {
       flex: 1,
@@ -42,59 +21,60 @@ export const Rules = (props) => {
     },
     sectionTitle: {
       fontSize: 24,
-      fontWeight: "600",
       color: "#fff",
+      fontFamily: "ZillaSlab-Bold",
     },
     sectionDescription: {
-      marginTop: 8,
+      marginVertical: 5,
       fontSize: 18,
-      fontWeight: "400",
       color: "#fff",
-    },
-    closeButton: {
-      backgroundColor: "#EF334C", //'#EF334C',
-      padding: 20,
-      alignItems: "center",
-      borderRadius: 10,
-    },
-    buttonText: {
-      fontSize: 18,
-      color: "#FFF",
+      textAlign: "center",
+      fontFamily: "ZillaSlab-Medium",
     },
   })
 
-  const [rules, setRules] = useState<any>([])
-
-  const fetchRules = firebase.functions().httpsCallable("fetchRules")
+  const [rules, setRules] = useState([])
 
   useEffect(() => {
-    fetchRules().then((data) => {
+    fetchRules().then(data => {
       setRules(data.data)
     })
   }, [])
-  useEffect(() => console.log(rules))
+
   return (
     <View style={styles.page}>
       <View style={styles.sectionContainer}>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          contentContainerStyle={{ flexGrow: 1 }}
-        >
-          {rules.map((rule) => (
-            <View style={styles.sectionContainer} key={rule.id}>
-              <Text style={styles.sectionTitle}>{rule.title}</Text>
-              <Text style={styles.sectionDescription}>{rule.description}</Text>
-            </View>
-          ))}
+        <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={{ flexGrow: 1 }}>
+          <Image source={busLogo} style={{ width: 180, height: 180, alignSelf: "center", marginBottom: 20 }} />
+          {rules.length > 0 ? (
+            rules
+              .sort((first, last) => first.order - last.order)
+              .map(rule => (
+                <React.Fragment key={rule.order}>
+                  {rule.order !== 1 && !!rule.title && <Image source={logo} style={{ width: 50, height: 50, alignSelf: "center" }} />}
+                  {!!rule.title && (
+                    <View style={{ marginBottom: rule.description ? 0 : 0 }}>
+                      <Text
+                        style={{
+                          marginTop: 5,
+                          fontSize: rule.order === 1 ? 50 : 24,
+                          lineHeight: rule.order === 1 ? 35 : 25,
+                          color: "#fff",
+                          textAlign: "center",
+                          fontFamily: rule.order === 1 ? "Fregata-Sans" : "ZillaSlab-Bold",
+                        }}
+                      >
+                        {rule.title}
+                      </Text>
+                    </View>
+                  )}
+                  <Text style={styles.sectionDescription}>{rule.description}</Text>
+                </React.Fragment>
+              ))
+          ) : (
+            <Loading />
+          )}
         </ScrollView>
-        <View style={styles.sectionContainer}>
-          <TouchableOpacity
-            style={styles.closeButton}
-            onPress={() => props.navigation.pop()}
-          >
-            <Text style={styles.buttonText}> Close </Text>
-          </TouchableOpacity>
-        </View>
       </View>
     </View>
   )
