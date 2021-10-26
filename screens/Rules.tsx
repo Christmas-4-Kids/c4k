@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react"
 import { Image, ScrollView, View, Text, StyleSheet } from "react-native"
-import styles from "../styles"
 import logo from "../assets/images/logo-transparent.png"
 import busLogo from "../assets/images/c4k-logo.png"
 import { fetchRules } from "../services/firestore.service"
