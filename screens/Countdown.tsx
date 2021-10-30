@@ -66,14 +66,15 @@ export const Countdown = ({timeTillDate, timeFormat}) => {
 	
 }
 const styles = StyleSheet.create({
-    countdownWrapper: {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-evenly",
-        flexDirection: "row",
-        flexWrap: "wrap",
-        padding: 20
-    },
+	countdownWrapper: {
+		display: "flex",
+		alignItems: "center",
+		backgroundColor: "#EF364B",
+		justifyContent: "space-evenly",
+		flexDirection: "row",
+		flexWrap: "wrap",
+		padding: 20
+	},
     countdownItem: {
         color: "#FFF",
         fontSize: 30,
