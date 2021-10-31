@@ -1,5 +1,6 @@
 import React from "react"
 import { View, Text, StyleSheet, Image, Button, ScrollView, Linking, Pressable} from "react-native"
+import { SocialIcon } from 'react-native-elements'
 import { Countdown } from "./Countdown"
 import logo from "../assets/images/c4k-logo2.png"
 import { OpenUrlButton } from "../components/OpenUrlButton"
@@ -15,7 +16,7 @@ export const TempHome = () => {
         <Image source={logo} style={{ width: 124, height: 59, alignSelf: "center", backgroundColor: "#112430" }} />
       </View>
         <View style={styles.countdownContainer}>
-          <Text style={{ fontFamily: "FjallaOne", fontSize: 16 }}>Name, Get Ready to Shop In:</Text>
+          <Text style={{ fontFamily: "FjallaOne", fontSize: 16 }}>Get Ready to Shop In:</Text>
           <Countdown 
           timeTillDate="12 14 2021, 9:00 am" 
             timeFormat="MM DD YYYY, hh:mm a" 
@@ -33,8 +34,21 @@ export const TempHome = () => {
        </View>
        <View style={styles.sectionContainer}>
         <View style={styles.socialsWrapper}>
-          <Text>Share With a a Friend</Text>
-          <Text>Social Icons and links go here</Text>
+          <SocialIcon
+            light
+            onPress={() => {Linking.openURL('https://www.facebook.com/Christmas4Kids/')}}
+            type='facebook'
+          />
+          <SocialIcon
+            light
+            onPress={() => {Linking.openURL('https://www.instagram.com/christmas4kidstn/')}}
+            type='instagram'
+          />
+          <SocialIcon
+            light
+            onPress={() => {Linking.openURL('https://twitter.com/nashvillec4k')}}
+            type='twitter'
+          />
         </View>
       </View>
       </ScrollView>
