@@ -1,10 +1,13 @@
 import React from "react"
-import { View, Text, StyleSheet, Image, Button, ScrollView} from "react-native"
+import { View, Text, StyleSheet, Image, Button, ScrollView, Linking, Pressable} from "react-native"
 import { Countdown } from "./Countdown"
 import logo from "../assets/images/c4k-logo2.png"
 import { OpenUrlButton } from "../components/OpenUrlButton"
 
 export const TempHome = () => {
+  const openDonateLink = () => {
+    Linking.openURL('https://paypal.com/donate/?cmd=_s-xclick&hosted_button_id=ZM6NKQZHSCH2A')
+  }
   return (
     <View style={styles.page}>
       <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={{ flexGrow: 1 }}>
@@ -21,9 +24,12 @@ export const TempHome = () => {
 
         <View style={styles.sectionContainer}>
 
-        <OpenUrlButton styles={styles.button} url="https://paypal.com/donate/?cmd=_s-xclick&hosted_button_id=ZM6NKQZHSCH2A">
+        {/* <OpenUrlButton styles={styles.button} url="https://paypal.com/donate/?cmd=_s-xclick&hosted_button_id=ZM6NKQZHSCH2A">
           <Text style={styles.buttonText}>{"DONATE"}</Text>
-        </OpenUrlButton>
+        </OpenUrlButton> */}
+          <Pressable style={styles.button} onPress={openDonateLink}>
+            <Text style={styles.buttonText}>{"Donate"}</Text>
+          </Pressable>
        </View>
        <View style={styles.sectionContainer}>
         <View style={styles.socialsWrapper}>
@@ -45,32 +51,30 @@ const styles = StyleSheet.create({
     fontFamily: "ZillaSlab-Medium",
   },
   button: {
-    backgroundColor: "#EF334C",
+    backgroundColor: "#318AC7",
     padding: 20,
+    justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
+    width: 264,
+    height: 70,
+  // background: linear-gradient(94.08deg, #318AC7 0.48%, #41B187 100.57%);
   },
   buttonText: {
-    fontSize: 18,
+    backgroundColor: "#318AC7",
+    fontSize: 30,
     color: "#FFF",
-    fontFamily: "ZillaSlab-Medium",
+    fontFamily: "Fregata-Sans",
   },
-  // sectionTextTop: {
-  //   fontSize: 60,
-  //   fontFamily: "Fregata-Sans",
-  //   color: "#fff",
-  //   textAlign: "center",
-  //   marginTop: 10,
-  // },
   sectionContainer: {
     flex: 1,
-    // backgroundColor: "#112430",
     alignItems: "center",
     marginTop: 20,
     paddingVertical: 11,
     paddingHorizontal: 24,
   },
   socialsWrapper: {
+    fontFamily: "FjallaOne",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
