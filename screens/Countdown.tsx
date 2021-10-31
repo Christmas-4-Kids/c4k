@@ -38,25 +38,25 @@ export const Countdown = ({timeTillDate, timeFormat}) => {
 	return (
 			<View style={styles.countdownWrapper}>
 				{daysLeft && (
-					<View>
+					<View style={styles.countdownItemContainer}>
 						<Text style={styles.countdownItem}>{daysLeft} </Text>
 						<Text style={styles.countdownLabel}>days</Text>
 					</View>
 				)}
 				{hoursLeft && (
-					<View>
+					<View style={styles.countdownItemContainer}>
 						<Text style={styles.countdownItem}>{hoursLeft} </Text>
 						<Text style={styles.countdownLabel}>hours</Text>
 					</View>
 				)}
 				{minutesLeft && (
-					<View>
+					<View style={styles.countdownItemContainer}>
 					    <Text style={styles.countdownItem}>{minutesLeft} </Text>
 						<Text style={styles.countdownLabel}>minutes</Text>
 					</View>
 				)}
 				
-					<View>
+					<View style={styles.countdownItemContainer}>
 						<Text style={styles.countdownItem}>{secondsLeft} </Text>
 						<Text style={styles.countdownLabel}>seconds</Text>
 					</View>
@@ -69,29 +69,38 @@ const styles = StyleSheet.create({
 	countdownWrapper: {
 		display: "flex",
 		alignItems: "center",
-		backgroundColor: "#EF364B",
-		justifyContent: "space-evenly",
+		backgroundColor: "#FFF",
+		justifyContent: "center",
 		flexDirection: "row",
 		flexWrap: "wrap",
-		padding: 20
 	},
     countdownItem: {
         color: "#FFF",
-        fontSize: 30,
+        fontSize: 50,
         display: "flex",
-        margin: 2,
-        paddingTop: 2,
-        position: "relative",
+		fontFamily: "Fregata-Sans",
+		width: 34,
+		height: 60
  
+    },
+    countdownItemContainer: {
+        backgroundColor: "#EF364B",
+        display: "flex",
+        margin: 1,
+        paddingHorizontal: 10,
+        paddingVertical: 1,
+        position: "relative", 
     },
     countdownLabel: {
         color: "#FFF",
-        fontSize: 12,
+        fontSize: 10,
+		lineHeight: 13,
         fontWeight: "600",
-        textTransform: "uppercase"
+        textTransform: "uppercase",
+		fontFamily: "FjallaOne",
+		width: 34,
+		height: 13,
+		paddingBottom: 20
     }
-    
-  
-
 })
   
