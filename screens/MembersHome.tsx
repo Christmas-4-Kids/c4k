@@ -1,28 +1,48 @@
 import React from "react"
 import { ScrollView, View, Text, TouchableOpacity } from "react-native"
-import styles from "../styles"
+import { useStyles } from "../context/styles.context"
 import { useUser } from "../context/user.context"
 
-const MembersHome = props => {
+const MembersHome = (props) => {
   const { user, setUser } = useUser()
+  const styles = useStyles().styles
   return (
     <View style={styles.page}>
       <View style={styles.sectionContainer}>
-        <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={{ flexGrow: 1 }} style={styles.scrollView}>
+        <ScrollView
+          contentInsetAdjustmentBehavior="automatic"
+          contentContainerStyle={{ flexGrow: 1 }}
+          style={styles.scrollView}
+        >
           {user.type === "Organizer" && (
             <View>
               <View style={styles.sectionContainer}>
-                <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate("AllDayChaperonesPage")}>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() =>
+                    props.navigation.navigate("AllDayChaperonesPage")
+                  }
+                >
                   <Text style={styles.buttonText}>View All Day Chaperones</Text>
                 </TouchableOpacity>
               </View>
               <View style={styles.sectionContainer}>
-                <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate("EveningChaperonesPage")}>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() =>
+                    props.navigation.navigate("EveningChaperonesPage")
+                  }
+                >
                   <Text style={styles.buttonText}>View Evening Chaperones</Text>
                 </TouchableOpacity>
               </View>
               <View style={styles.sectionContainer}>
-                <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate("LebanonChaperonesPage")}>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={() =>
+                    props.navigation.navigate("LebanonChaperonesPage")
+                  }
+                >
                   <Text style={styles.buttonText}>View Lebanon Chaperones</Text>
                 </TouchableOpacity>
               </View>
@@ -30,7 +50,10 @@ const MembersHome = props => {
           )}
         </ScrollView>
         <View style={styles.sectionContainer}>
-          <TouchableOpacity style={styles.closeButton} onPress={() => props.navigation.pop()}>
+          <TouchableOpacity
+            style={styles.closeButton}
+            onPress={() => props.navigation.pop()}
+          >
             <Text style={styles.buttonText}> Close </Text>
           </TouchableOpacity>
         </View>

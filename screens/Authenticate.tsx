@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react"
 import { View, TextInput, TouchableOpacity, Text } from "react-native"
 import { Formik } from "formik"
-import styles from "../styles"
+import { useStyles } from "../context/styles.context"
 import { useUser } from "../context/user.context"
 import firestore from "firebase/firestore"
 import Device from "expo-device"
 import { setMembersByValue } from "../services/firestore.service"
 
-const Authenticate = props => {
+const Authenticate = (props) => {
   const { user, setUser } = useUser()
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [isFinished, setIsFinished] = useState(false)
@@ -17,20 +17,25 @@ const Authenticate = props => {
   const [matchingFirestoreMembers, setMatchingFirestoreMembers] = useState([])
   const [fetch, setFetch] = useState({ complete: false })
   const [submitting, setSubmitting] = useState(false)
+  const styles = useStyles().styles
 
   useEffect(() => {
     if (isAuthenticated && isFinished) {
       props.navigation.navigate("HomePage")
     } else if (!isAuthenticated && isFinished) {
       console.log(isFinished)
-      setErrorMessage("Couldn't find a user registered with that email and phone number")
+      setErrorMessage(
+        "Couldn't find a user registered with that email and phone number"
+      )
     }
   }, [isFinished, isAuthenticated])
 
   function getMatch(matchingEmails) {
     if (!matchingEmails) return []
-    const matchingPhones = matchingEmails.filter(user => {
-      return user.phone.replace(/\D/g, "") === formValues.phone.replace(/\D/g, "")
+    const matchingPhones = matchingEmails.filter((user) => {
+      return (
+        user.phone.replace(/\D/g, "") === formValues.phone.replace(/\D/g, "")
+      )
     })
     console.log(`got ${matchingPhones.length} matching phones`)
     return matchingPhones
@@ -61,7 +66,10 @@ const Authenticate = props => {
       setSubmitting(false)
       return () => {}
     }
-    firestoreUser = matchingFirestoreMembers.length > 1 ? getMatch(matchingFirestoreMembers)[0] : matchingFirestoreMembers[0]
+    firestoreUser =
+      matchingFirestoreMembers.length > 1
+        ? getMatch(matchingFirestoreMembers)[0]
+        : matchingFirestoreMembers[0]
 
     if (firestoreUser) {
       console.log("found matching user")
@@ -83,44 +91,88 @@ const Authenticate = props => {
     return () => {}
   }, [fetch, formValues])
 
-  const authenticateOrganizer = values => {
+  const authenticateOrganizer = (values) => {
     if (values.code === "8259") props.navigation.navigate("HomePage")
   }
 
-  const authenticateUser = values => {
+  const authenticateUser = (values) => {
     setErrorMessage("")
     setSubmitting(true)
-    setMembersByValue(values.email.toLowerCase(), "emailLower", setMatchingFirestoreMembers, setFetch)
+    setMembersByValue(
+      values.email.toLowerCase(),
+      "emailLower",
+      setMatchingFirestoreMembers,
+      setFetch
+    )
     setFormValues(values)
   }
 
   return (
     <View style={styles.page}>
-      <Formik initialValues={user} onSubmit={values => (user.type === "Organizer" ? authenticateOrganizer(values) : authenticateUser(values))}>
+      <Formik
+        initialValues={user}
+        onSubmit={(values) =>
+          user.type === "Organizer"
+            ? authenticateOrganizer(values)
+            : authenticateUser(values)
+        }
+      >
         {({ handleChange, handleBlur, handleSubmit, values }) => (
           <View style={styles.sectionContainer}>
             {user.type === "Organizer" ? (
               <View style={styles.sectionContainer}>
                 <Text style={styles.sectionText}>Code</Text>
-                <TextInput style={styles.textInput} onChangeText={handleChange("code")} onBlur={handleBlur("code")} value={values.code} />
+                <TextInput
+                  style={styles.textInput}
+                  onChangeText={handleChange("code")}
+                  onBlur={handleBlur("code")}
+                  value={values.code}
+                />
               </View>
             ) : (
               <View>
                 <Text style={styles.sectionText}>First Name</Text>
-                <TextInput style={styles.textInput} onChangeText={handleChange("firstName")} onBlur={handleBlur("firstName")} value={values.firstName} />
+                <TextInput
+                  style={styles.textInput}
+                  onChangeText={handleChange("firstName")}
+                  onBlur={handleBlur("firstName")}
+                  value={values.firstName}
+                />
                 <Text style={styles.sectionText}>Last Name</Text>
-                <TextInput style={styles.textInput} onChangeText={handleChange("lastName")} onBlur={handleBlur("lastName")} value={values.lastName} />
+                <TextInput
+                  style={styles.textInput}
+                  onChangeText={handleChange("lastName")}
+                  onBlur={handleBlur("lastName")}
+                  value={values.lastName}
+                />
                 <Text style={styles.sectionText}>Email</Text>
-                <TextInput style={styles.textInput} onChangeText={handleChange("email")} onBlur={handleBlur("email")} value={values.email} />
+                <TextInput
+                  style={styles.textInput}
+                  onChangeText={handleChange("email")}
+                  onBlur={handleBlur("email")}
+                  value={values.email}
+                />
                 <Text style={styles.sectionText}>Phone</Text>
-                <TextInput style={styles.textInput} onChangeText={handleChange("phone")} onBlur={handleBlur("phone")} value={values.phone} />
+                <TextInput
+                  style={styles.textInput}
+                  onChangeText={handleChange("phone")}
+                  onBlur={handleBlur("phone")}
+                  value={values.phone}
+                />
               </View>
             )}
-            {!!errorMessage && fetch.complete && <Text style={styles.errorMessage}>{errorMessage}</Text>}
-            {submitting && <Text style={styles.sectionText}>Signing in...</Text>}
+            {!!errorMessage && fetch.complete && (
+              <Text style={styles.errorMessage}>{errorMessage}</Text>
+            )}
+            {submitting && (
+              <Text style={styles.sectionText}>Signing in...</Text>
+            )}
 
             <View style={styles.sectionContainer}>
-              <TouchableOpacity style={styles.button} onPress={() => handleSubmit}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => handleSubmit}
+              >
                 <Text style={styles.buttonText}> Submit </Text>
               </TouchableOpacity>
             </View>

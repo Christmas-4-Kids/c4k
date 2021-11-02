@@ -22,9 +22,9 @@ const MyTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    background: "#112430",
-    primary: "#112430",
-    card: "#112430",
+    background: "#FFFFFF",
+    primary: "green",
+    card: "orange",
   },
 }
 
@@ -48,8 +48,16 @@ function RootNavigator() {
     <Stack.Navigator>
       {userIsSignedIn ? (
         <>
-          <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
-          <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: "Oops!" }} />
+          <Stack.Screen
+            name="Root"
+            component={BottomTabNavigator}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="NotFound"
+            component={NotFoundScreen}
+            options={{ title: "Oops!" }}
+          />
           <Stack.Group screenOptions={{ presentation: "fullScreenModal" }}>
             <Stack.Screen name="Modal" component={ModalScreen} />
           </Stack.Group>
@@ -104,7 +112,9 @@ function BottomTabNavigator() {
         options={{
           title: "Rules",
           headerShown: false,
-          tabBarIcon: ({ color }) => <TabBarIcon name="th-list" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="th-list" color={color} />
+          ),
         }}
       />
       <BottomTab.Screen
@@ -123,6 +133,9 @@ function BottomTabNavigator() {
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
-function TabBarIcon(props: { name: React.ComponentProps<typeof FontAwesome>["name"]; color: string }) {
+function TabBarIcon(props: {
+  name: React.ComponentProps<typeof FontAwesome>["name"]
+  color: string
+}) {
   return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />
 }

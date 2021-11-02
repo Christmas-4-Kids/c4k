@@ -1,10 +1,11 @@
 import React from "react"
 import { View, TouchableOpacity, Text } from "react-native"
-import styles from "../styles"
+import { useStyles } from "../context/styles.context"
 import { useUser } from "../context/user.context"
 
-const UserInfo = props => {
+const UserInfo = (props) => {
   const { user, setUser } = useUser()
+  const styles = useStyles().styles
   return (
     <View style={styles.page}>
       <View style={styles.sectionContainer}>
@@ -26,7 +27,10 @@ const UserInfo = props => {
       </View>
 
       <View style={styles.sectionContainer}>
-        <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate("UserEditPage")}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => props.navigation.navigate("UserEditPage")}
+        >
           <Text style={styles.buttonText}> Edit </Text>
         </TouchableOpacity>
       </View>
