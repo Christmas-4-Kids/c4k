@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react"
 import { SafeAreaView, ScrollView, View, Text, Button, TouchableOpacity } from "react-native"
-import styles from "../styles"
+import { useStyles } from "../context/styles.context"
 import firestore from "firebase/firestore"
 
 const Schedule = props => {
   const [schedule, setSchedule] = useState(null)
+  const { styles } = useStyles()
   useEffect(() => {
     let list = []
     // const unsubscribe = firestore()

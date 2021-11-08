@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { TouchableOpacity, Platform, Text, View, Image } from "react-native"
-import styles from "../styles"
+import { useStyles } from "../context/styles.context"
 const BlinkIDReactNative = require("blinkid-react-native")
 import firestore from "firebase/firestore"
 import { addCollectionsToFirestoreMembers } from "../services/firestore.service"
@@ -12,6 +12,7 @@ const DriversLicenseScan = props => {
   const [updatedFirestoreUser, setUpdatedFirestoreUser] = useState(false)
   const [firestoreMembers, setFirestoreMembers] = useState([])
   const [fetch, setFetch] = useState({ complete: false })
+  const { styles } = useStyles()
 
   useEffect(() => {
     setFirestoreMembers([])

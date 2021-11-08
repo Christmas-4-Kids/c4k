@@ -4,34 +4,10 @@ import logo from "../assets/images/logo-transparent.png"
 import busLogo from "../assets/images/c4k-logo.png"
 import { fetchRules } from "../services/firestore.service"
 import { Loading } from "./Loading"
+import { useStyles } from "../context/styles.context"
 
 export const Rules = () => {
-  const styles = StyleSheet.create({
-    page: {
-      flex: 1,
-      paddingTop: 30,
-      paddingBottom: 20,
-      backgroundColor: "#112430",
-    },
-    sectionContainer: {
-      flex: 1,
-      backgroundColor: "#112430",
-      marginTop: 20,
-      paddingHorizontal: 24,
-    },
-    sectionTitle: {
-      fontSize: 24,
-      color: "#fff",
-      fontFamily: "ZillaSlab-Bold",
-    },
-    sectionDescription: {
-      marginVertical: 5,
-      fontSize: 18,
-      color: "#fff",
-      textAlign: "center",
-      fontFamily: "ZillaSlab-Medium",
-    },
-  })
+  const { styles } = useStyles()
 
   const [rules, setRules] = useState([])
 
@@ -45,7 +21,15 @@ export const Rules = () => {
     <View style={styles.page}>
       <View style={styles.sectionContainer}>
         <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={{ flexGrow: 1 }}>
-          <Image source={busLogo} style={{ width: 180, height: 180, alignSelf: "center", marginBottom: 20 }} />
+          <Image
+            source={busLogo}
+            style={{
+              width: 180,
+              height: 180,
+              alignSelf: "center",
+              marginBottom: 20,
+            }}
+          />
           {rules.length > 0 ? (
             rules
               .sort((first, last) => first.order - last.order)

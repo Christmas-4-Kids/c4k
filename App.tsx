@@ -6,6 +6,7 @@ import UserProvider from "./context/user.context"
 import useCachedResources from "./hooks/useCachedResources"
 import Navigation from "./navigation"
 import { useFonts } from "expo-font"
+import StylesProvider from "./context/styles.context"
 
 export default function App() {
   const isLoadingComplete = useCachedResources()
@@ -21,8 +22,10 @@ export default function App() {
     return (
       <SafeAreaProvider style={{ backgroundColor: "#112430" }}>
         <UserProvider>
-          <Navigation />
-          <StatusBar />
+          <StylesProvider>
+            <Navigation />
+            <StatusBar />
+          </StylesProvider>
         </UserProvider>
       </SafeAreaProvider>
     )

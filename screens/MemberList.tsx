@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { ScrollView, View, Text, Button, TouchableOpacity } from "react-native"
-import styles from "../styles"
+import { useStyles } from "../context/styles.context"
 import call from "react-native-phone-call"
 // import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 // import { faTimes, faCheck, faMobile } from "@fortawesome/free-solid-svg-icons";
@@ -13,7 +13,7 @@ function MemberList(props: any) {
     }
     call(args).catch(console.error)
   }
-
+  const { styles } = useStyles()
   return (
     <View style={styles.page}>
       <View style={styles.sectionContainer}>

@@ -1,10 +1,11 @@
 import React from "react"
 import { SafeAreaView, ScrollView, View, Text, TouchableOpacity } from "react-native"
-import styles from "../styles"
+import { useStyles } from "../context/styles.context"
 import { useUser } from "../context/user.context"
 
 const CheckIn = props => {
   const { user, setUser } = useUser()
+  const { styles } = useStyles()
   console.log(user)
   return (
     <SafeAreaView>

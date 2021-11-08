@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { View, TextInput, TouchableOpacity, Text } from "react-native"
 import { Formik } from "formik"
-import styles from "../styles"
+import { useStyles } from "../context/styles.context"
 import { useUser } from "../context/user.context"
 import firestore from "firebase/firestore"
 import Device from "expo-device"
@@ -17,6 +17,7 @@ const Authenticate = props => {
   const [matchingFirestoreMembers, setMatchingFirestoreMembers] = useState([])
   const [fetch, setFetch] = useState({ complete: false })
   const [submitting, setSubmitting] = useState(false)
+  const { styles } = useStyles()
 
   useEffect(() => {
     if (isAuthenticated && isFinished) {

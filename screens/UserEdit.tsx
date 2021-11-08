@@ -1,12 +1,13 @@
 import React from "react"
 import { View, TextInput, TouchableOpacity, Text } from "react-native"
 import { Formik } from "formik"
-import styles from "../styles"
+import { useStyles } from "../context/styles.context"
 import { useUser } from "../context/user.context"
 import firestore from "firebase/firestore"
 
 const UserEdit = props => {
   const { user, setUser } = useUser()
+  const { styles } = useStyles()
   const updateUser = async user => {
     // get firebase user
     let firestoreUser = null

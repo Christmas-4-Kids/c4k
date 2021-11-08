@@ -5,6 +5,8 @@ import logo from "../assets/images/c4k-logo.png"
 import { Loading } from "./Loading"
 import { OpenUrlLink } from "../components/OpenUrlLink"
 import { checkIfRegistered, createMailchimpUserInFirestore, verifyCode, verifyNumber } from "../services/firestore.service"
+import { useTheme } from "@react-navigation/native"
+import { useStyles } from "../context/styles.context"
 
 export const SignIn = () => {
   const [phoneNumber, setPhoneNumber] = useState("")
@@ -18,6 +20,8 @@ export const SignIn = () => {
   const [showRegistration, setShowRegistration] = useState(false)
   const { saveUser, user } = useUser()
 
+  const { colors } = useTheme()
+  const { styles } = useStyles()
   // validate E164 format
   const validE164 = (num: string) => {
     return /^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/.test(num)
@@ -127,7 +131,15 @@ export const SignIn = () => {
   return (
     <View style={styles.page}>
       <View style={styles.sectionContainer}>
-        <Image source={logo} style={{ width: 180, height: 180, alignSelf: "center", marginTop: 20 }} />
+        <Image
+          source={logo}
+          style={{
+            width: 180,
+            height: 180,
+            alignSelf: "center",
+            marginTop: 20,
+          }}
+        />
         <Text style={styles.sectionTitle}>Sign In</Text>
         {errorMessage.length > 0 && <Text style={styles.errorMessage}>{errorMessage}</Text>}
         {showRegistration && (
@@ -187,76 +199,3 @@ export const SignIn = () => {
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  page: {
-    flex: 1,
-    paddingTop: 5,
-    paddingBottom: 20,
-    backgroundColor: "#112430",
-  },
-  button: {
-    backgroundColor: "#EF334C",
-    padding: 20,
-    alignItems: "center",
-    borderRadius: 10,
-  },
-  buttonDisabled: {
-    backgroundColor: "#EF334C",
-    padding: 20,
-    alignItems: "center",
-    borderRadius: 10,
-    opacity: 0.8,
-  },
-  buttonText: {
-    fontSize: 18,
-    color: "#FFF",
-    fontFamily: "ZillaSlab-Medium",
-  },
-  textInput: {
-    height: 50,
-    borderColor: "gray",
-    borderWidth: 1,
-    fontSize: 18,
-    borderRadius: 10,
-    marginBottom: 20,
-    padding: 5,
-    color: "#fff",
-  },
-  errorMessage: {
-    color: "#EF334C",
-    fontSize: 14,
-    textAlign: "center",
-    fontFamily: "ZillaSlab-Medium",
-  },
-  sectionTitle: {
-    fontSize: 34,
-    color: "#fff",
-    alignSelf: "center",
-    fontFamily: "Fregata-Sans",
-  },
-  sectionContainer: {
-    flex: 1,
-    backgroundColor: "#112430",
-    marginTop: 20,
-    paddingHorizontal: 20,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: "400",
-    color: "#fff",
-  },
-  sectionText: {
-    color: "#fff",
-    fontFamily: "ZillaSlab-Medium",
-    textDecorationLine: "underline",
-    alignSelf: "center",
-  },
-  textInputText: {
-    color: "#cbcbcb",
-    fontSize: 12,
-    paddingBottom: 5,
-    fontFamily: "ZillaSlab-Medium",
-  },
-})

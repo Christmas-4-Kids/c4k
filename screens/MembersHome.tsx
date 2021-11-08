@@ -1,10 +1,11 @@
 import React from "react"
 import { ScrollView, View, Text, TouchableOpacity } from "react-native"
-import styles from "../styles"
+import { useStyles } from "../context/styles.context"
 import { useUser } from "../context/user.context"
 
 const MembersHome = props => {
   const { user, setUser } = useUser()
+  const { styles } = useStyles()
   return (
     <View style={styles.page}>
       <View style={styles.sectionContainer}>
