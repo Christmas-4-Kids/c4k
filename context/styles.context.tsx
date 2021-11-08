@@ -160,24 +160,37 @@ export default function StylesProvider({ children }: { children: any }) {
     countdownWrapper: {
       display: "flex",
       alignItems: "center",
-      justifyContent: "space-evenly",
+      backgroundColor: "#FFF",
+      justifyContent: "center",
       flexDirection: "row",
       flexWrap: "wrap",
-      padding: 20,
     },
     countdownItem: {
       color: "#FFF",
-      fontSize: 30,
+      fontSize: 50,
       display: "flex",
-      margin: 2,
-      paddingTop: 2,
+      fontFamily: "Fregata-Sans",
+      width: 34,
+      height: 60,
+    },
+    countdownItemContainer: {
+      backgroundColor: "#EF364B",
+      display: "flex",
+      margin: 1,
+      paddingHorizontal: 10,
+      paddingVertical: 1,
       position: "relative",
     },
     countdownLabel: {
       color: "#FFF",
-      fontSize: 12,
+      fontSize: 10,
+      lineHeight: 13,
       fontWeight: "600",
       textTransform: "uppercase",
+      fontFamily: "FjallaOne",
+      width: 34,
+      height: 13,
+      paddingBottom: 20,
     },
     container: {
       flex: 1,
@@ -221,11 +234,7 @@ export default function StylesProvider({ children }: { children: any }) {
     },
   }
   const [styles, setStyles] = useState<any>(initialState)
-  return (
-    <StylesContext.Provider value={{ styles, setStyles }}>
-      {children}
-    </StylesContext.Provider>
-  )
+  return <StylesContext.Provider value={{ styles, setStyles }}>{children}</StylesContext.Provider>
 }
 
 export const useStyles = () => {

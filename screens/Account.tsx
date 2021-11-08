@@ -5,7 +5,7 @@ import logo from "../assets/images/c4k-logo.png"
 import { useStyles } from "../context/styles.context"
 
 export const Account = () => {
-  const styles = useStyles().styles
+  const { styles } = useStyles()
   const { signOut } = useUser()
 
   return (

@@ -1,7 +1,7 @@
 import moment from "moment"
 import { useState, useEffect } from "react"
 import React from "react"
-import { View, Text, StyleSheet, Image } from "react-native"
+import { View, Text } from "react-native"
 import { useStyles } from "../context/styles.context"
 
 export const Countdown = ({ timeTillDate, timeFormat }) => {
@@ -33,30 +33,31 @@ export const Countdown = ({ timeTillDate, timeFormat }) => {
     return () => clearInterval(interval)
   }, [])
 
-  const styles = useStyles().styles
+  const { styles } = useStyles()
+  // console.log(`styles`, styles)
 
   return (
     <View style={styles.countdownWrapper}>
       {daysLeft && (
-        <View>
+        <View style={styles.countdownItemContainer}>
           <Text style={styles.countdownItem}>{daysLeft} </Text>
           <Text style={styles.countdownLabel}>days</Text>
         </View>
       )}
       {hoursLeft && (
-        <View>
+        <View style={styles.countdownItemContainer}>
           <Text style={styles.countdownItem}>{hoursLeft} </Text>
           <Text style={styles.countdownLabel}>hours</Text>
         </View>
       )}
       {minutesLeft && (
-        <View>
+        <View style={styles.countdownItemContainer}>
           <Text style={styles.countdownItem}>{minutesLeft} </Text>
           <Text style={styles.countdownLabel}>minutes</Text>
         </View>
       )}
 
-      <View>
+      <View style={styles.countdownItemContainer}>
         <Text style={styles.countdownItem}>{secondsLeft} </Text>
         <Text style={styles.countdownLabel}>seconds</Text>
       </View>

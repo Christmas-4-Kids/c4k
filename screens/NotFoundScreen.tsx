@@ -5,17 +5,12 @@ import { useStyles } from "../context/styles.context"
 
 import { RootStackParamList } from "../types"
 
-export default function NotFoundScreen({
-  navigation,
-}: StackScreenProps<RootStackParamList, "NotFound">) {
-  const styles = useStyles().styles
+export default function NotFoundScreen({ navigation }: StackScreenProps<RootStackParamList, "NotFound">) {
+  const { styles } = useStyles()
   return (
     <View style={styles.container}>
       <Text style={styles.title}>This screen doesn't exist.</Text>
-      <TouchableOpacity
-        onPress={() => navigation.replace("Root")}
-        style={styles.link}
-      >
+      <TouchableOpacity onPress={() => navigation.replace("Root")} style={styles.link}>
         <Text style={styles.linkText}>Go to home screen!</Text>
       </TouchableOpacity>
     </View>

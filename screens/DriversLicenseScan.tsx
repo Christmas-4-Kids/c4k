@@ -5,17 +5,14 @@ const BlinkIDReactNative = require("blinkid-react-native")
 import firestore from "firebase/firestore"
 import { addCollectionsToFirestoreMembers } from "../services/firestore.service"
 
-const DriversLicenseScan = (props) => {
+const DriversLicenseScan = props => {
   const [driversLicense, setDriversLicense] = useState(null)
-  const [
-    userHasValidDriversLicenseAndMailchimpMember,
-    setUserHasValidDriversLicenseAndMailchimpMember,
-  ] = useState(false)
+  const [userHasValidDriversLicenseAndMailchimpMember, setUserHasValidDriversLicenseAndMailchimpMember] = useState(false)
   const [scanComplete, setScanComplete] = useState(false)
   const [updatedFirestoreUser, setUpdatedFirestoreUser] = useState(false)
   const [firestoreMembers, setFirestoreMembers] = useState([])
   const [fetch, setFetch] = useState({ complete: false })
-  const styles = useStyles().styles
+  const { styles } = useStyles()
 
   useEffect(() => {
     setFirestoreMembers([])
@@ -45,15 +42,9 @@ const DriversLicenseScan = (props) => {
 
       function getMatch(matchingLastNames, driversLicense) {
         if (!matchingLastNames) return []
-        const matchingFirstNames = matchingLastNames.filter((user) => {
-          const firstName =
-            user.firstName.length > 0
-              ? user.firstName.toLowerCase().trim()
-              : user.mailchimpMemberInfo.mergeFields.fname.toLowerCase().trim()
-          return (
-            firstName ===
-            driversLicense.firstName.split(" ")[0].toLowerCase().trim()
-          )
+        const matchingFirstNames = matchingLastNames.filter(user => {
+          const firstName = user.firstName.length > 0 ? user.firstName.toLowerCase().trim() : user.mailchimpMemberInfo.mergeFields.fname.toLowerCase().trim()
+          return firstName === driversLicense.firstName.split(" ")[0].toLowerCase().trim()
         })
         console.log(`got ${matchingFirstNames.length} matching first names`)
         return matchingFirstNames
@@ -62,7 +53,7 @@ const DriversLicenseScan = (props) => {
       function getFirestoreUser() {
         const lastName = driversLicense.lastName.toLowerCase().trim()
         console.log(`looking for last name: ${lastName}`)
-        let matchingLastNames = firestoreMembers.filter((m) => {
+        let matchingLastNames = firestoreMembers.filter(m => {
           const foundMatch = m.lastNameLower === lastName
           return foundMatch
         })
@@ -81,12 +72,8 @@ const DriversLicenseScan = (props) => {
           firestoreUser.driversLicense = driversLicense
           updateFirestoreUser(firestoreUser.collection)
         }
-        let driversLicenseNameMatchesFirestoreUser =
-          driversLicenseFirstNameMatchesFirestoreUser &&
-          driversLicenseLastNameMatchesFirestoreUser
-        setUserHasValidDriversLicenseAndMailchimpMember(
-          driversLicense.isValid && driversLicenseNameMatchesFirestoreUser
-        )
+        let driversLicenseNameMatchesFirestoreUser = driversLicenseFirstNameMatchesFirestoreUser && driversLicenseLastNameMatchesFirestoreUser
+        setUserHasValidDriversLicenseAndMailchimpMember(driversLicense.isValid && driversLicenseNameMatchesFirestoreUser)
       }
       getFirestoreUser()
 
@@ -141,9 +128,7 @@ const DriversLicenseScan = (props) => {
 
       const scanningResults = await BlinkIDReactNative.BlinkID.scanWithCamera(
         new BlinkIDReactNative.BlinkIdOverlaySettings(),
-        new BlinkIDReactNative.RecognizerCollection([
-          blinkIdRecognizer /*, mrtdSuccessFrameGrabber*/,
-        ]),
+        new BlinkIDReactNative.RecognizerCollection([blinkIdRecognizer /*, mrtdSuccessFrameGrabber*/]),
         licenseKey
       )
 
@@ -160,19 +145,16 @@ const DriversLicenseScan = (props) => {
 
         for (let i = 0; i < scanningResults.length; ++i) {
           let localState = handleResult(scanningResults[i])
-          newState.showImageDocument =
-            newState.showImageDocument || localState.showImageDocument
+          newState.showImageDocument = newState.showImageDocument || localState.showImageDocument
           if (localState.resultImageDocument) {
             newState.resultImageDocument = localState.resultImageDocument
           }
-          newState.showImageFace =
-            newState.showImageFace || localState.showImageFace
+          newState.showImageFace = newState.showImageFace || localState.showImageFace
           if (localState.resultImageFace) {
             newState.resultImageFace = localState.resultImageFace
           }
           newState.results += localState.results
-          newState.showSuccessFrame =
-            newState.showSuccessFrame || localState.showSuccessFrame
+          newState.showSuccessFrame = newState.showSuccessFrame || localState.showSuccessFrame
           if (localState.successFrame) {
             newState.successFrame = localState.successFrame
           }
@@ -194,7 +176,7 @@ const DriversLicenseScan = (props) => {
     }
   }
 
-  const handleResult = (result) => {
+  const handleResult = result => {
     let fieldDelim = ";\n"
 
     let localState = {
@@ -224,36 +206,17 @@ const DriversLicenseScan = (props) => {
         //     .substr(0, 2),
         //   zip: result.address.split('\n')[2].match(/\d+/g),
         // },
-        dateOfBirth: new Date(
-          parseInt(result.dateOfBirth.year),
-          parseInt(result.dateOfBirth.month) - 1,
-          parseInt(result.dateOfBirth.day)
-        ),
-        expirationDate: new Date(
-          parseInt(result.dateOfExpiry.year),
-          parseInt(result.dateOfExpiry.month) - 1,
-          parseInt(result.dateOfExpiry.day)
-        ),
-        isValid:
-          new Date(
-            parseInt(result.dateOfExpiry.year),
-            parseInt(result.dateOfExpiry.month) - 1,
-            parseInt(result.dateOfExpiry.day)
-          ) > new Date(),
-        issueDate:
-          new Date(
-            parseInt(result.dateOfIssue.year),
-            parseInt(result.dateOfIssue.month) - 1,
-            parseInt(result.dateOfIssue.day)
-          ) > new Date(),
+        dateOfBirth: new Date(parseInt(result.dateOfBirth.year), parseInt(result.dateOfBirth.month) - 1, parseInt(result.dateOfBirth.day)),
+        expirationDate: new Date(parseInt(result.dateOfExpiry.year), parseInt(result.dateOfExpiry.month) - 1, parseInt(result.dateOfExpiry.day)),
+        isValid: new Date(parseInt(result.dateOfExpiry.year), parseInt(result.dateOfExpiry.month) - 1, parseInt(result.dateOfExpiry.day)) > new Date(),
+        issueDate: new Date(parseInt(result.dateOfIssue.year), parseInt(result.dateOfIssue.month) - 1, parseInt(result.dateOfIssue.day)) > new Date(),
         gender: result.sex,
       })
 
       // Document image is returned as Base64 encoded JPEG
       if (result.fullDocumentImage) {
         localState.showImageDocument = true
-        localState.resultImageDocument =
-          "data:image/jpg;base64," + result.fullDocumentImage
+        localState.resultImageDocument = "data:image/jpg;base64," + result.fullDocumentImage
       }
       // Face image is returned as Base64 encoded JPEG
       if (result.faceImage) {
@@ -286,12 +249,9 @@ const DriversLicenseScan = (props) => {
       // Document image is returned as Base64 encoded JPEG
       if (mrtdResult.fullDocumentImage) {
         localState.showImageDocument = true
-        localState.resultImageDocument =
-          "data:image/jpg;base64," + mrtdResult.fullDocumentImage
+        localState.resultImageDocument = "data:image/jpg;base64," + mrtdResult.fullDocumentImage
       }
-    } else if (
-      result instanceof BlinkIDReactNative.SuccessFrameGrabberRecognizerResult
-    ) {
+    } else if (result instanceof BlinkIDReactNative.SuccessFrameGrabberRecognizerResult) {
       // first handle slave result, and then add success frame image
       localState = handleResult(result.slaveRecognizerResult)
 

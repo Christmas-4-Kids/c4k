@@ -7,12 +7,12 @@ import { Loading } from "./Loading"
 import { useStyles } from "../context/styles.context"
 
 export const Rules = () => {
-  const styles = useStyles().styles
+  const { styles } = useStyles()
 
   const [rules, setRules] = useState([])
 
   useEffect(() => {
-    fetchRules().then((data) => {
+    fetchRules().then(data => {
       setRules(data.data)
     })
   }, [])
@@ -20,10 +20,7 @@ export const Rules = () => {
   return (
     <View style={styles.page}>
       <View style={styles.sectionContainer}>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          contentContainerStyle={{ flexGrow: 1 }}
-        >
+        <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={{ flexGrow: 1 }}>
           <Image
             source={busLogo}
             style={{
@@ -36,14 +33,9 @@ export const Rules = () => {
           {rules.length > 0 ? (
             rules
               .sort((first, last) => first.order - last.order)
-              .map((rule) => (
+              .map(rule => (
                 <React.Fragment key={rule.order}>
-                  {rule.order !== 1 && !!rule.title && (
-                    <Image
-                      source={logo}
-                      style={{ width: 50, height: 50, alignSelf: "center" }}
-                    />
-                  )}
+                  {rule.order !== 1 && !!rule.title && <Image source={logo} style={{ width: 50, height: 50, alignSelf: "center" }} />}
                   {!!rule.title && (
                     <View style={{ marginBottom: rule.description ? 0 : 0 }}>
                       <Text
@@ -53,19 +45,14 @@ export const Rules = () => {
                           lineHeight: rule.order === 1 ? 35 : 25,
                           color: "#fff",
                           textAlign: "center",
-                          fontFamily:
-                            rule.order === 1
-                              ? "Fregata-Sans"
-                              : "ZillaSlab-Bold",
+                          fontFamily: rule.order === 1 ? "Fregata-Sans" : "ZillaSlab-Bold",
                         }}
                       >
                         {rule.title}
                       </Text>
                     </View>
                   )}
-                  <Text style={styles.sectionDescription}>
-                    {rule.description}
-                  </Text>
+                  <Text style={styles.sectionDescription}>{rule.description}</Text>
                 </React.Fragment>
               ))
           ) : (

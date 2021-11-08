@@ -5,10 +5,10 @@ import { useStyles } from "../context/styles.context"
 import { useUser } from "../context/user.context"
 import firestore from "firebase/firestore"
 
-const UserEdit = (props) => {
+const UserEdit = props => {
   const { user, setUser } = useUser()
-  const styles = useStyles().styles
-  const updateUser = async (user) => {
+  const { styles } = useStyles()
+  const updateUser = async user => {
     // get firebase user
     let firestoreUser = null
     // const querySnapshot = await firestore().collection(user.collection).where("emailLower", "==", user.email.toLowerCase()).get()
@@ -19,11 +19,8 @@ const UserEdit = (props) => {
     //   firestoreUserList.push(d)
     // })
     if (firestoreUserList.length > 1) {
-      const match = firestoreUserList.filter((firestoreUser) => {
-        return (
-          firestoreUser.phone.replace(/\D/g, "") ===
-          user.phone.replace(/\D/g, "")
-        )
+      const match = firestoreUserList.filter(firestoreUser => {
+        return firestoreUser.phone.replace(/\D/g, "") === user.phone.replace(/\D/g, "")
       })
       if (match.length === 1) {
         firestoreUser = match[0]
@@ -60,50 +57,24 @@ const UserEdit = (props) => {
   return (
     <View style={styles.page}>
       <Text style={styles.sectionTitle}>Update User Information</Text>
-      <Formik initialValues={user} onSubmit={(values) => updateUser(values)}>
+      <Formik initialValues={user} onSubmit={values => updateUser(values)}>
         {({ handleChange, handleBlur, handleSubmit, values }) => (
           <View style={styles.sectionContainer}>
             <Text style={styles.sectionText}>First Name</Text>
-            <TextInput
-              style={styles.textInput}
-              onChangeText={handleChange("firstName")}
-              onBlur={handleBlur("firstName")}
-              value={values.firstName}
-            />
+            <TextInput style={styles.textInput} onChangeText={handleChange("firstName")} onBlur={handleBlur("firstName")} value={values.firstName} />
             <Text style={styles.sectionText}>Last Name</Text>
-            <TextInput
-              style={styles.textInput}
-              onChangeText={handleChange("lastName")}
-              onBlur={handleBlur("lastName")}
-              value={values.lastName}
-            />
+            <TextInput style={styles.textInput} onChangeText={handleChange("lastName")} onBlur={handleBlur("lastName")} value={values.lastName} />
             <Text style={styles.sectionText}>Email</Text>
-            <TextInput
-              style={styles.textInput}
-              onChangeText={handleChange("email")}
-              onBlur={handleBlur("email")}
-              value={values.email}
-            />
+            <TextInput style={styles.textInput} onChangeText={handleChange("email")} onBlur={handleBlur("email")} value={values.email} />
             <Text style={styles.sectionText}>Phone</Text>
-            <TextInput
-              style={styles.textInput}
-              onChangeText={handleChange("phone")}
-              onBlur={handleBlur("phone")}
-              value={values.phone}
-            />
+            <TextInput style={styles.textInput} onChangeText={handleChange("phone")} onBlur={handleBlur("phone")} value={values.phone} />
             <View style={styles.sectionContainer}>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => handleSubmit}
-              >
+              <TouchableOpacity style={styles.button} onPress={() => handleSubmit}>
                 <Text style={styles.buttonText}> Save </Text>
               </TouchableOpacity>
             </View>
             <View style={styles.sectionContainer}>
-              <TouchableOpacity
-                style={styles.closeButton}
-                onPress={() => props.navigation.pop()}
-              >
+              <TouchableOpacity style={styles.closeButton} onPress={() => props.navigation.pop()}>
                 <Text style={styles.buttonText}> Cancel </Text>
               </TouchableOpacity>
             </View>

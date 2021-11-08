@@ -10,7 +10,7 @@ export const TempHome = () => {
   const openDonateLink = () => {
     Linking.openURL("https://paypal.com/donate/?cmd=_s-xclick&hosted_button_id=ZM6NKQZHSCH2A")
   }
-  const styles = useStyles().styles
+  const { styles } = useStyles()
   return (
     <View style={styles.page}>
       <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={{ flexGrow: 1 }}>
