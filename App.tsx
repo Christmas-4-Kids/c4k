@@ -15,12 +15,12 @@ export default function App() {
     "ZillaSlab-Medium": require("./assets/fonts/ZillaSlab-Medium.ttf"),
     "ZillaSlab-Bold": require("./assets/fonts/ZillaSlab-Bold.ttf"),
     "ZillaSlab-SemiBold": require("./assets/fonts/ZillaSlab-SemiBold.ttf"),
-    "FjallaOne": require("./assets/fonts/FjallaOne-Regular.ttf")
+    FjallaOne: require("./assets/fonts/FjallaOne-Regular.ttf"),
   })
 
   if (isLoadingComplete && fontsLoaded) {
     return (
-      <SafeAreaProvider style={{ backgroundColor: "#112430" }}>
+      <SafeAreaProvider>
         <UserProvider>
           <StylesProvider>
             <Navigation />
