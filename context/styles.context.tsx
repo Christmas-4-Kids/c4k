@@ -1,6 +1,5 @@
-import React, { useState } from "react"
+import React from "react"
 import { StyleSheet } from "react-native"
-//import { Colors } from "react-native/Libraries/NewAppScreen"
 import { useTheme } from "@react-navigation/native"
 
 const StylesContext = React.createContext({})
@@ -15,8 +14,26 @@ export default function StylesProvider({ children }: { children: any }) {
       backgroundColor: colors.background,
       fontFamily: "ZillaSlab-Medium",
     },
+    stickyHeader: {
+      position: "fixed",
+      top: 0,
+      backgroundColor: "#15232E",
+      width: "100%",
+      height: 150,
+      borderBottomRightRadius: 15,
+      borderBottomLeftRadius: 15,
+    },
     scrollView: {
       backgroundColor: colors.background,
+    },
+    card: {
+      backgroundColor: "#FFF",
+      alignSelf: "center",
+      padding: 20,
+      width: "85%",
+      margin: 20,
+      borderRadius: 10,
+      boxShadow: "0px 0px 9px rgba(0, 0, 0, 0.16)",
     },
     button: {
       backgroundColor: colors.primary,
@@ -157,15 +174,15 @@ export default function StylesProvider({ children }: { children: any }) {
       fontSize: 30,
       color: "#FFF",
     },
-    countdownWrapper: {
+    countdownItemWrapper: {
       display: "flex",
       alignItems: "center",
-      backgroundColor: "#FFF",
+      alignSelf: "center",
       justifyContent: "center",
       flexDirection: "row",
       flexWrap: "wrap",
     },
-    countdownItem: {
+    countdownTime: {
       color: "#FFF",
       fontSize: 50,
       display: "flex",
@@ -173,7 +190,7 @@ export default function StylesProvider({ children }: { children: any }) {
       width: 34,
       height: 60,
     },
-    countdownItemContainer: {
+    countdownItem: {
       backgroundColor: "#EF364B",
       display: "flex",
       margin: 1,
@@ -233,8 +250,8 @@ export default function StylesProvider({ children }: { children: any }) {
       fontFamily: "ZillaSlab-Medium",
     },
   }
-  const [styles, setStyles] = useState<any>(initialState)
-  return <StylesContext.Provider value={{ styles, setStyles }}>{children}</StylesContext.Provider>
+  const styles = StyleSheet.create(initialState)
+  return <StylesContext.Provider value={{ styles }}>{children}</StylesContext.Provider>
 }
 
 export const useStyles = () => {

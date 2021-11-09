@@ -3,7 +3,7 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { FontAwesome } from "@expo/vector-icons"
+import { FontAwesome5 } from "@expo/vector-icons"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
@@ -48,16 +48,8 @@ function RootNavigator() {
     <Stack.Navigator>
       {userIsSignedIn ? (
         <>
-          <Stack.Screen
-            name="Root"
-            component={BottomTabNavigator}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="NotFound"
-            component={NotFoundScreen}
-            options={{ title: "Oops!" }}
-          />
+          <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
+          <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: "Oops!" }} />
           <Stack.Group screenOptions={{ presentation: "fullScreenModal" }}>
             <Stack.Screen name="Modal" component={ModalScreen} />
           </Stack.Group>
@@ -91,9 +83,9 @@ function BottomTabNavigator() {
       initialRouteName="Home"
       screenOptions={{
         tabBarActiveTintColor: "#FFF",
-        tabBarInactiveTintColor: "#919191",
-        tabBarActiveBackgroundColor: "#112430",
-        tabBarInactiveBackgroundColor: "#112430",
+        tabBarInactiveTintColor: "#ffe5e5",
+        tabBarActiveBackgroundColor: "#EF364B",
+        tabBarInactiveBackgroundColor: "#EF364B",
         headerTintColor: "#112430",
       }}
     >
@@ -112,9 +104,7 @@ function BottomTabNavigator() {
         options={{
           title: "Rules",
           headerShown: false,
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="th-list" color={color} />
-          ),
+          tabBarIcon: ({ color }) => <TabBarIcon name="clipboard-check" color={color} />,
         }}
       />
       <BottomTab.Screen
@@ -123,7 +113,7 @@ function BottomTabNavigator() {
         options={{
           title: "Account",
           headerShown: false,
-          tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="user-alt" color={color} />,
         }}
       />
     </BottomTab.Navigator>
@@ -133,9 +123,6 @@ function BottomTabNavigator() {
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>["name"]
-  color: string
-}) {
-  return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />
+function TabBarIcon(props: { name: React.ComponentProps<typeof FontAwesome5>["name"]; color: string }) {
+  return <FontAwesome5 size={30} style={{ marginBottom: -3 }} {...props} />
 }

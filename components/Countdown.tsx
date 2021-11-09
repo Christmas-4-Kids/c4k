@@ -3,9 +3,11 @@ import { useState, useEffect } from "react"
 import React from "react"
 import { View, Text } from "react-native"
 import { useStyles } from "../context/styles.context"
+import { Card } from "./Card"
 
-export const Countdown = ({ timeTillDate, timeFormat }) => {
-  const [monthsLeft, setMonthsLeft] = useState("")
+export const Countdown = () => {
+  const timeTillDate = "12 14 2021, 9:00 am"
+  const timeFormat = "MM DD YYYY, hh:mm a"
   const [daysLeft, setDaysLeft] = useState("")
   const [hoursLeft, setHoursLeft] = useState("")
   const [minutesLeft, setMinutesLeft] = useState("")
@@ -34,33 +36,36 @@ export const Countdown = ({ timeTillDate, timeFormat }) => {
   }, [])
 
   const { styles } = useStyles()
-  // console.log(`styles`, styles)
 
   return (
-    <View style={styles.countdownWrapper}>
-      {daysLeft && (
-        <View style={styles.countdownItemContainer}>
-          <Text style={styles.countdownItem}>{daysLeft} </Text>
-          <Text style={styles.countdownLabel}>days</Text>
-        </View>
-      )}
-      {hoursLeft && (
-        <View style={styles.countdownItemContainer}>
-          <Text style={styles.countdownItem}>{hoursLeft} </Text>
-          <Text style={styles.countdownLabel}>hours</Text>
-        </View>
-      )}
-      {minutesLeft && (
-        <View style={styles.countdownItemContainer}>
-          <Text style={styles.countdownItem}>{minutesLeft} </Text>
-          <Text style={styles.countdownLabel}>minutes</Text>
-        </View>
-      )}
+    <Card>
+      <Text style={{ fontFamily: "FjallaOne", fontSize: 16 }}>Get Ready to Shop In:</Text>
 
-      <View style={styles.countdownItemContainer}>
-        <Text style={styles.countdownItem}>{secondsLeft} </Text>
-        <Text style={styles.countdownLabel}>seconds</Text>
+      <View style={styles.countdownItemWrapper}>
+        {daysLeft && (
+          <View style={styles.countdownItem}>
+            <Text style={styles.countdownTime}>{daysLeft} </Text>
+            <Text style={styles.countdownLabel}>days</Text>
+          </View>
+        )}
+        {hoursLeft && (
+          <View style={styles.countdownItem}>
+            <Text style={styles.countdownTime}>{hoursLeft} </Text>
+            <Text style={styles.countdownLabel}>hours</Text>
+          </View>
+        )}
+        {minutesLeft && (
+          <View style={styles.countdownItem}>
+            <Text style={styles.countdownTime}>{minutesLeft} </Text>
+            <Text style={styles.countdownLabel}>minutes</Text>
+          </View>
+        )}
+
+        <View style={styles.countdownItem}>
+          <Text style={styles.countdownTime}>{secondsLeft} </Text>
+          <Text style={styles.countdownLabel}>seconds</Text>
+        </View>
       </View>
-    </View>
+    </Card>
   )
 }
