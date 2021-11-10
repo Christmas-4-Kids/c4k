@@ -257,7 +257,7 @@ export default function StylesProvider({ children }: { children: any }) {
       marginBottom: "8px",
     },
     UpcomingEventsCardDivider: {
-      width: "266px",
+      width: "100%",
       height: "1px",
       backgroundColor: "rgba(196, 196, 196, 0.5)",
       marginTop: "7px",
