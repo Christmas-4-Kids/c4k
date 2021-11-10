@@ -2,6 +2,7 @@ import React from "react"
 import { View, Text, Image, Linking, Pressable } from "react-native"
 import { SocialIcon } from "react-native-elements"
 import { Countdown } from "../components/Countdown"
+import UpcomingEventsCard from "../components/UpcomingEventsCard"
 import { useStyles } from "../context/styles.context"
 import ScreenWrapper from "./ScreenWrapper"
 
@@ -43,6 +44,7 @@ export const TempHome = () => {
           />
         </View>
       </View>
+      <UpcomingEventsCard />
     </ScreenWrapper>
   )
 }
