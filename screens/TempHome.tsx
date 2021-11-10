@@ -1,5 +1,5 @@
 import React from "react"
-import { View, Text, Image, Linking, Pressable } from "react-native"
+import { View, Text, Linking, Pressable } from "react-native"
 import { SocialIcon } from "react-native-elements"
 import { Countdown } from "../components/Countdown"
 import UpcomingEventsCard from "../components/UpcomingEventsCard"
