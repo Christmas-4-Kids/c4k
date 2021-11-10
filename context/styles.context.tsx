@@ -249,9 +249,93 @@ export default function StylesProvider({ children }: { children: any }) {
       paddingBottom: 5,
       fontFamily: "ZillaSlab-Medium",
     },
+    upcomingEventsCardTitle: {
+      fontFamily: "FjallaOne",
+      fontStyle: "normal",
+      fontWeight: 400,
+      fontSize: 15.5,
+      marginBottom: "8px",
+    },
+    UpcomingEventsCardDivider: {
+      width: "266px",
+      height: "1px",
+      backgroundColor: "rgba(196, 196, 196, 0.5)",
+      marginTop: "7px",
+      marginBottom: "7px",
+    },
+    upcomingEventContainer: {
+      alignItems: "center",
+      flexDirection: "row",
+      justifyContent: "space-between",
+    },
+    upcomingEventBox: {
+      backgroundColor: "#318AC7",
+      width: "35px",
+      height: "35px",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    upcomingEventMonth: {
+      fontFamily: "FjallaOne",
+      fontStyle: "normal",
+      fontWeight: "normal",
+      fontSize: 10,
+      margin: -3,
+      color: "#FFFFFF",
+    },
+    upcomingEventDay: {
+      margin: -9,
+      fontFamily: "Fregata-Sans",
+      fontStyle: "normal",
+      fontWeight: 400,
+      fontSize: 25,
+      textAlign: "center",
+      color: "#FFFFFF",
+    },
+    upcomingEventDetailsContainer: {
+      flexDirection: "column",
+    },
+    upcomingEventTitle: {
+      width: "110px",
+      fontFamily: "FjallaOne",
+      fontStyle: "normal",
+      fontWeight: 400,
+      fontSize: 10,
+      lineHeight: 13,
+      color: "#318AC7",
+    },
+    upcomingEventDescription: {
+      width: "110px",
+      fontFamily: "ZillaSlab-Medium",
+      fontStyle: "normal",
+      fontWeight: 600,
+      fontSize: 8,
+      color: "#15232E",
+    },
+    upcomingEventButton: {
+      alignItems: "center",
+      justifyContent: "center",
+      width: "60px",
+      height: "20px",
+      border: "1px solid #EF364B",
+      boxSizing: "border-box",
+    },
+    upcomingEventButtonText: {
+      fontFamily: "ZillaSlab-Medium",
+      fontStyle: "normal",
+      fontWeight: 600,
+      fontSize: 8,
+      alignItems: "center",
+      color: "#EF364B",
+    },
   }
   const styles = StyleSheet.create(initialState)
-  return <StylesContext.Provider value={{ styles }}>{children}</StylesContext.Provider>
+  return (
+    <StylesContext.Provider value={{ styles }}>
+      {children}
+    </StylesContext.Provider>
+  )
 }
 
 export const useStyles = () => {
