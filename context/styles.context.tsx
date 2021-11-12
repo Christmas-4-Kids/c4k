@@ -518,6 +518,55 @@ export default function StylesProvider({ children }: { children: any }) {
       justifyContent: "space-evenly",
       flexDirection: "row",
     },
+
+    // RULES CARD
+    ruleCard: {
+      margin: 20,
+      borderRadius: 10,
+      boxShadow: "0px 0px 9px rgba(0, 0, 0, 0.16)",
+    },
+    ruleCardTitle: {
+      borderTopRightRadius: 10,
+      borderTopLeftRadius: 10,
+      position: "relative",
+      height: "46px",
+      backgroundColor: "#318AC7",
+      color: "#FFFFFF",
+      fontFamily: "FjallaOne",
+      fontSize: 13,
+      alignItems: "center",
+      justifyContent: "center",
+      padding: 25,
+    },
+    ruleCardDescription: {
+      alignItems: "center",
+      justifyContent: "center",
+      height: "61px",
+      fontFamily: "ZillaSlab-Medium",
+      fontWeight: 600,
+      fontSize: "7px",
+      overflowY: "scroll",
+      padding: 25,
+    },
+    rulesCardNumber: {
+      zIndex: 10,
+      position: "absolute",
+      top: 10,
+      left: -2,
+      fontFamily: "Fregata-Sans",
+      fontSize: 20,
+      fontStyle: "normal",
+      fontWeight: 400,
+      color: "#FFFFFF",
+    },
+    ruleCardOrnament: {
+      zIndex: 10,
+      position: "absolute",
+      top: 5,
+      left: -18,
+      width: "40px",
+      height: "34px",
+    },
   }
   const styles = StyleSheet.create(initialState)
   return <StylesContext.Provider value={{ styles }}>{children}</StylesContext.Provider>

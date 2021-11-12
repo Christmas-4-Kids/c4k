@@ -6,6 +6,7 @@ import { Loading } from "./Loading"
 import { useStyles } from "../context/styles.context"
 import ScreenWrapper from "./ScreenWrapper"
 import { Card } from "../components/Card"
+import RuleCard from "../components/RuleCard"
 
 export const Rules = () => {
   const { styles } = useStyles()
@@ -30,24 +31,7 @@ export const Rules = () => {
           .sort((first, last) => first.order - last.order)
           .map(rule => (
             <React.Fragment key={rule.order}>
-              {rule.order !== 1 && !!rule.title ? <Image source={logo} style={{ width: 50, height: 50, alignSelf: "center" }} /> : null}
-              {!!rule.title ? (
-                <View style={{ marginBottom: rule.description ? 0 : 0 }}>
-                  <Text
-                    style={{
-                      marginTop: 5,
-                      fontSize: rule.order === 1 ? 50 : 24,
-                      lineHeight: rule.order === 1 ? 35 : 25,
-                      color: "#fff",
-                      textAlign: "center",
-                      fontFamily: rule.order === 1 ? "Fregata-Sans" : "ZillaSlab-Bold",
-                    }}
-                  >
-                    {rule.title}
-                  </Text>
-                </View>
-              ) : null}
-              <Text style={styles.sectionDescription}>{rule.description}</Text>
+              <RuleCard number={rule.order} title={rule.title} description={rule.description} />
             </React.Fragment>
           ))
       ) : (
@@ -56,3 +40,22 @@ export const Rules = () => {
     </ScreenWrapper>
   )
 }
+
+// {rule.order !== 1 && !!rule.title && <Image source={logo} style={{ width: 50, height: 50, alignSelf: "center" }} />}
+// {!!rule.title && (
+//   <View style={{ marginBottom: rule.description ? 0 : 0 }}>
+//     <Text
+//       style={{
+//         marginTop: 5,
+//         fontSize: rule.order === 1 ? 50 : 24,
+//         lineHeight: rule.order === 1 ? 35 : 25,
+//         color: "#fff",
+//         textAlign: "center",
+//         fontFamily: rule.order === 1 ? "Fregata-Sans" : "ZillaSlab-Bold",
+//       }}
+//     >
+//       {rule.title}
+//     </Text>
+//   </View>
+// )}
+// <Text style={styles.sectionDescription}>{rule.description}</Text>
