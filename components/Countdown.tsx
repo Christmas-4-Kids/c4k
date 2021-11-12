@@ -42,24 +42,24 @@ export const Countdown = () => {
       <Text style={{ fontFamily: "FjallaOne", fontSize: 16 }}>Get Ready to Shop In:</Text>
 
       <View style={styles.countdownItemWrapper}>
-        {daysLeft && (
+        {!!daysLeft ? (
           <View style={styles.countdownItem}>
             <Text style={styles.countdownTime}>{daysLeft} </Text>
             <Text style={styles.countdownLabel}>days</Text>
           </View>
-        )}
-        {hoursLeft && (
+        ) : null}
+        {!!hoursLeft ? (
           <View style={styles.countdownItem}>
             <Text style={styles.countdownTime}>{hoursLeft} </Text>
             <Text style={styles.countdownLabel}>hours</Text>
           </View>
-        )}
-        {minutesLeft && (
+        ) : null}
+        {!!minutesLeft ? (
           <View style={styles.countdownItem}>
             <Text style={styles.countdownTime}>{minutesLeft} </Text>
             <Text style={styles.countdownLabel}>minutes</Text>
           </View>
-        )}
+        ) : null}
 
         <View style={styles.countdownItem}>
           <Text style={styles.countdownTime}>{secondsLeft} </Text>

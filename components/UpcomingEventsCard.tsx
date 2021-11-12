@@ -38,19 +38,10 @@ const UpcomingEventsCard = () => {
     <Card>
       <Text style={styles.upcomingEventsCardTitle}>Upcoming Events</Text>
       {hardCodedEvents.map((event, index) => (
-        <>
-          <UpcomingEvent
-            month={event.month}
-            day={event.day}
-            title={event.title}
-            description={event.description}
-            buttonText={event.buttonText}
-            buttonUrl={event.buttonUrl}
-          />
-          {index === hardCodedEvents.length - 1 ? null : (
-            <View style={styles.UpcomingEventsCardDivider}></View>
-          )}
-        </>
+        <React.Fragment key={index}>
+          <UpcomingEvent month={event.month} day={event.day} title={event.title} description={event.description} buttonText={event.buttonText} buttonUrl={event.buttonUrl} />
+          {index === hardCodedEvents.length - 1 ? null : <View style={styles.UpcomingEventsCardDivider}></View>}
+        </React.Fragment>
       ))}
     </Card>
   )
