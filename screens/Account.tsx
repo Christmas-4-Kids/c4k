@@ -5,6 +5,7 @@ import logo from "../assets/images/c4k-logo.png"
 import { useStyles } from "../context/styles.context"
 import UserCard from "../components/UserCard"
 import { Entypo } from "@expo/vector-icons"
+import ScreenWrapper from "./ScreenWrapper"
 
 const hardCodedUser = {
   user: "Robbie Green",
@@ -18,30 +19,19 @@ export const Account = () => {
   const { signOut } = useUser()
 
   return (
-    <View style={styles.page}>
-      <View style={styles.sectionContainer}>
-        <Image
-          source={logo}
-          style={{
-            width: 180,
-            height: 180,
-            alignSelf: "center",
-            marginBottom: 100,
-          }}
-        />
-        <UserCard
-          user={hardCodedUser.user}
-          role={hardCodedUser.role}
-          phone={hardCodedUser.phone}
-          email={hardCodedUser.email}
-        />
-        <TouchableOpacity onPress={signOut}>
-          <View style={styles.signOut}>
-            Sign Out&nbsp;&nbsp;
-            <Entypo name="log-out" size={12} color="#808080" />
-          </View>
-        </TouchableOpacity>
-      </View>
-    </View>
+    <ScreenWrapper>
+      <UserCard
+        user={hardCodedUser.user}
+        role={hardCodedUser.role}
+        phone={hardCodedUser.phone}
+        email={hardCodedUser.email}
+      />
+      <TouchableOpacity onPress={signOut}>
+        <View style={styles.signOut}>
+          Sign Out&nbsp;&nbsp;
+          <Entypo name="log-out" size={12} color="#808080" />
+        </View>
+      </TouchableOpacity>
+    </ScreenWrapper>
   )
 }
