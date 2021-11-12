@@ -1,9 +1,10 @@
 import React from "react"
-import { View, Text, Pressable, Image } from "react-native"
+import { View, Text, Pressable, Image, TouchableOpacity } from "react-native"
 import { useUser } from "../context/user.context"
 import logo from "../assets/images/c4k-logo.png"
 import { useStyles } from "../context/styles.context"
 import UserCard from "../components/UserCard"
+import { Entypo } from "@expo/vector-icons"
 
 const hardCodedUser = {
   user: "Robbie Green",
@@ -34,11 +35,12 @@ export const Account = () => {
           phone={hardCodedUser.phone}
           email={hardCodedUser.email}
         />
-        <View style={styles.sectionContainer}>
-          <Pressable style={styles.button} onPress={signOut}>
-            <Text style={styles.buttonText}>{"SIGN OUT"}</Text>
-          </Pressable>
-        </View>
+        <TouchableOpacity onPress={signOut}>
+          <View style={styles.signOut}>
+            Sign Out&nbsp;&nbsp;
+            <Entypo name="log-out" size={12} color="#808080" />
+          </View>
+        </TouchableOpacity>
       </View>
     </View>
   )

@@ -409,8 +409,19 @@ export default function StylesProvider({ children }: { children: any }) {
     userCardDivider: {
       width: "100%",
       height: 1,
-      backgroundColor: "rgba(196, 196, 196, 0.5)",
+      backgroundColor: "#C4C4C4",
       marginBottom: 7,
+    },
+
+    // SIGN OUT
+    signOut: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+      fontFamily: "ZillaSlab-Medium",
+      fontWeight: 700,
+      fontSize: 7.5,
+      color: "#808080",
     },
   }
   const styles = StyleSheet.create(initialState)
