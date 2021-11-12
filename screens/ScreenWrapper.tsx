@@ -8,8 +8,8 @@ export default function ScreenWrapper({ children }) {
   const { styles } = useStyles()
   return (
     <View style={styles.page}>
-      <View style={styles.stickyHeader}></View>
       <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={{ flexGrow: 1 }}>
+        <View style={styles.stickyHeader}></View>
         <View>
           <Image source={logo} style={{ width: 124, height: 59, alignSelf: "center" }} />
         </View>

@@ -15,7 +15,7 @@ export default function StylesProvider({ children }: { children: any }) {
       fontFamily: "ZillaSlab-Medium",
     },
     stickyHeader: {
-      position: "fixed",
+      position: "absolute",
       top: 0,
       backgroundColor: "#15232E",
       width: "100%",
@@ -33,11 +33,14 @@ export default function StylesProvider({ children }: { children: any }) {
       width: "85%",
       margin: 20,
       borderRadius: 10,
-      boxShadow: "0px 0px 9px rgba(0, 0, 0, 0.16)",
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 0 },
+      shadowOpacity: 16,
+      shadowRadius: 9,
     },
     button: {
       backgroundColor: "#EF364B",
-      padding: 20,
+      padding: 12,
       alignItems: "center",
     },
     closeButton: {
@@ -64,14 +67,15 @@ export default function StylesProvider({ children }: { children: any }) {
     textInput: {
       color: "#2C363D",
       fontFamily: "FjallaOne",
-      fontSize: ".9rem",
+      fontSize: 14,
       width: "80%",
-      height: 42,
     },
     errorMessage: {
       color: "red",
-      fontSize: 16,
+      fontSize: 14,
       textAlign: "center",
+      fontFamily: "ZillaSlab-Medium",
+      paddingBottom: 15,
     },
     sectionContainer: {
       flex: 1,
@@ -91,7 +95,8 @@ export default function StylesProvider({ children }: { children: any }) {
       color: "#fff",
     },
     sectionText: {
-      color: "#fff",
+      fontFamily: "FjallaOne",
+      color: "#2C363D",
     },
     highlight: {
       fontWeight: "700",
@@ -149,9 +154,8 @@ export default function StylesProvider({ children }: { children: any }) {
       color: "#898989",
     },
     buttonText: {
-      fontSize: 18,
+      fontSize: 22,
       color: "#FFF",
-      //
       fontFamily: "FjallaOne",
     },
     sectionTextTop: {
@@ -235,7 +239,7 @@ export default function StylesProvider({ children }: { children: any }) {
 
     buttonDisabled: {
       backgroundColor: "#EF334C",
-      padding: 20,
+      padding: 12,
       alignItems: "center",
       opacity: 0.8,
     },
@@ -250,13 +254,59 @@ export default function StylesProvider({ children }: { children: any }) {
       position: "absolute",
       bottom: "0px",
     },
+
+    // SIGN IN PAGE
+    register: {
+      fontFamily: "FjallaOne",
+      color: "#2C363D",
+      textAlign: "center",
+      paddingBottom: 15,
+    },
+    checkInWrapper: {
+      flex: 1,
+      backgroundColor: "#FFFFFF",
+      width: "100%",
+      paddingHorizontal: 56,
+      paddingVertical: 31,
+      textAlign: "center",
+      borderTopLeftRadius: 25,
+      borderTopRightRadius: 25,
+      position: "absolute",
+      bottom: 0,
+      maxHeight: 430,
+      minHeight: 230,
+    },
+    textInputView: {
+      flexDirection: "row",
+      alignItems: "center",
+      borderColor: "black",
+      borderWidth: 1,
+      marginBottom: 5,
+      color: "#2C363D",
+      fontSize: 14,
+      minHeight: 50,
+    },
+    textInputIcon: {
+      color: "#E8364D",
+      fontSize: 20,
+      margin: 10,
+    },
+    checkInTitle: {
+      fontFamily: "FjallaOne",
+      fontWeight: "400",
+      fontSize: 27,
+      textAlign: "center",
+    },
+    checkInSubtitle: {
+      fontFamily: "ZillaSlab-Medium",
+      fontSize: 12,
+      color: "#E8364D",
+      paddingBottom: 10,
+      textAlign: "center",
+    },
   }
   const styles = StyleSheet.create(initialState)
-  return (
-    <StylesContext.Provider value={{ styles }}>
-      {children}
-    </StylesContext.Provider>
-  )
+  return <StylesContext.Provider value={{ styles }}>{children}</StylesContext.Provider>
 }
 
 export const useStyles = () => {

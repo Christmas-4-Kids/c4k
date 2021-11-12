@@ -34,8 +34,8 @@ export const Rules = () => {
           .sort((first, last) => first.order - last.order)
           .map(rule => (
             <React.Fragment key={rule.order}>
-              {rule.order !== 1 && !!rule.title && <Image source={logo} style={{ width: 50, height: 50, alignSelf: "center" }} />}
-              {!!rule.title && (
+              {rule.order !== 1 && !!rule.title ? <Image source={logo} style={{ width: 50, height: 50, alignSelf: "center" }} /> : null}
+              {!!rule.title ? (
                 <View style={{ marginBottom: rule.description ? 0 : 0 }}>
                   <Text
                     style={{
@@ -50,7 +50,7 @@ export const Rules = () => {
                     {rule.title}
                   </Text>
                 </View>
-              )}
+              ) : null}
               <Text style={styles.sectionDescription}>{rule.description}</Text>
             </React.Fragment>
           ))

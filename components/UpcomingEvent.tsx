@@ -1,15 +1,8 @@
 import React from "react"
 import { useStyles } from "../context/styles.context"
-import { View, Linking, Pressable } from "react-native"
+import { View, Linking, Pressable, Text } from "react-native"
 
-const UpcomingEvent = ({
-  month,
-  day,
-  title,
-  description,
-  buttonText,
-  buttonUrl,
-}) => {
+const UpcomingEvent = ({ month, day, title, description, buttonText, buttonUrl }) => {
   const { styles } = useStyles()
 
   const openLink = () => {
@@ -19,16 +12,16 @@ const UpcomingEvent = ({
   return (
     <View style={styles.upcomingEventContainer}>
       <View style={styles.upcomingEventBox}>
-        <View style={styles.upcomingEventMonth}>{month}</View>
-        <View style={styles.upcomingEventDay}>{day}</View>
+        <Text style={styles.upcomingEventMonth}>{month}</Text>
+        <Text style={styles.upcomingEventDay}>{day}</Text>
       </View>
       <View style={styles.upcomingEventDetailsContainer}>
-        <View style={styles.upcomingEventTitle}>{title}</View>
-        <View style={styles.upcomingEventDescription}>{description}</View>
+        <Text style={styles.upcomingEventTitle}>{title}</Text>
+        <Text style={styles.upcomingEventDescription}>{description}</Text>
       </View>
       <Pressable onPress={openLink}>
         <View style={styles.upcomingEventButton}>
-          <View style={styles.upcomingEventButtonText}>{buttonText}</View>
+          <Text style={styles.upcomingEventButtonText}>{buttonText}</Text>
         </View>
       </Pressable>
     </View>
