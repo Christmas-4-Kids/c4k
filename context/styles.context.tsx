@@ -387,9 +387,38 @@ export default function StylesProvider({ children }: { children: any }) {
       alignItems: "center",
       color: "#EF364B",
     },
+
+    // USER CARD
+    userCardName: {
+      fontFamily: "Fregata-Sans",
+      fontSize: 44,
+    },
+    userCardPhoneEmail: {
+      fontFamily: "ZillaSlab-Medium",
+      fontWeight: 600,
+      fontSize: 11,
+    },
+    userCardRegisteredAs: {
+      fontFamily: "ZillaSlab-Medium",
+      fontSize: "5px",
+      fontSyle: "normal",
+      fontWeight: 700,
+      color: "#EF364B",
+      marginBottom: "-16px",
+    },
+    userCardDivider: {
+      width: "100%",
+      height: 1,
+      backgroundColor: "rgba(196, 196, 196, 0.5)",
+      marginBottom: 7,
+    },
   }
   const styles = StyleSheet.create(initialState)
-  return <StylesContext.Provider value={{ styles }}>{children}</StylesContext.Provider>
+  return (
+    <StylesContext.Provider value={{ styles }}>
+      {children}
+    </StylesContext.Provider>
+  )
 }
 
 export const useStyles = () => {
