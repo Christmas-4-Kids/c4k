@@ -562,10 +562,10 @@ export default function StylesProvider({ children }: { children: any }) {
     ruleCardOrnament: {
       zIndex: 10,
       position: "absolute",
-      top: 5,
+      top: -5,
       left: -18,
       width: "40px",
-      height: "34px",
+      height: "51.5px",
     },
   }
   const styles = StyleSheet.create(initialState)
