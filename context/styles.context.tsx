@@ -468,6 +468,32 @@ export default function StylesProvider({ children }: { children: any }) {
       backgroundColor: "#EF364B",
       ...cardStyles,
     },
+    // SOCIAL MEDIA SHARE CARD
+    socialMediaShareCard: {
+      alignSelf: "center",
+      padding: 20,
+      width: "85%",
+      margin: 20,
+      borderRadius: 10,
+      // backgroundColor: "linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c)",
+      // backgroundColor:
+      // "linear-gradient(94.08deg, #318AC7 0.48%, #41B187 100.57%)",
+      boxShadow: "0px 0px 9px rgba(0, 0, 0, 0.16)",
+    },
+    socialMediaShareCardLeftText: {
+      fontFamily: "Fregata-Sans",
+      fontStyle: "normal",
+      fontWeight: "normal",
+      fontSize: "30px",
+      color: "#FFF",
+    },
+    socialMediaShareCardRightText: {
+      fontFamily: "ZillaSlab-Medium",
+      fontStyle: "normal",
+      fontWeight: "600",
+      fontSize: "8px",
+      color: "#FFF",
+    },
   }
   const styles = StyleSheet.create(initialState)
   return <StylesContext.Provider value={{ styles }}>{children}</StylesContext.Provider>
