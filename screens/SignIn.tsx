@@ -1,21 +1,6 @@
 import React, { useEffect, useState } from "react"
-import {
-  Image,
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  NativeSyntheticEvent,
-  TextInputChangeEventData,
-  Button,
-  Alert,
-  Pressable,
-  ImageBackground,
-  KeyboardAvoidingView,
-  Platform,
-  KeyboardAvoidingViewComponent,
-} from "react-native"
-import { Ionicons } from "@expo/vector-icons"
+import { Image, View, Text, TextInput, NativeSyntheticEvent, TextInputChangeEventData, Pressable, ImageBackground, KeyboardAvoidingView, Platform } from "react-native"
+import { Ionicons, Feather } from "@expo/vector-icons"
 import { useUser } from "../context/user.context"
 import logo from "../assets/images/c4k-logo.png"
 import backgroundImage from "../assets/images/SignIn_BG.png"
@@ -30,6 +15,7 @@ export const SignIn = () => {
   const [email, setEmail] = useState("")
   const [verificationCode, setVerificationCode] = useState("")
   const [phoneNumberIsVerified, setPhoneNumberIsVerified] = useState(false)
+  const [userIsUpdatedInFirestore, setUserIsUpdatedInFirestore] = useState(false)
   const [verifyButtonDisabled, setVerifyButtonDisabled] = useState(true)
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
@@ -37,7 +23,6 @@ export const SignIn = () => {
   const [showRegistration, setShowRegistration] = useState(false)
   const { saveUser, user } = useUser()
 
-  const { colors } = useTheme()
   const { styles } = useStyles()
   // validate E164 format
   const validE164 = (num: string) => {
@@ -91,6 +76,21 @@ export const SignIn = () => {
       return registrationError("Oops! Looks like you forgot to register.", null, true)
     }
 
+    // save user's mailchimp info to firestore database
+    try {
+      const { data } = await createMailchimpUserInFirestore(mailchimpUser)
+      const { mailchimpMemberInfo, ...userWithoutMemberInfo } = data.user
+      saveUser(userWithoutMemberInfo)
+      setUserIsUpdatedInFirestore(true)
+    } catch (err) {
+      setUserIsUpdatedInFirestore(false)
+      return registrationError(
+        "Oops! Something went wrong! We'll get our elves on it right away!",
+        { message: `There was an error in the createMailchimpUserInFirestore firebase function: `, err },
+        false
+      )
+    }
+
     // send twilio verification
     try {
       await verifyNumber(`+1${phoneNumber}`)
@@ -100,15 +100,6 @@ export const SignIn = () => {
         message: `There was an error in the verifyNumber firebase function: `,
         err,
       })
-    }
-
-    // save user's mailchimp info to firestore database
-    try {
-      const { data } = await createMailchimpUserInFirestore(mailchimpUser)
-      const { mailchimpMemberInfo, ...userWithoutMemberInfo } = data.user
-      saveUser(userWithoutMemberInfo)
-    } catch (err) {
-      console.log(`There was an error in the createMailchimpUserInFirestore firebase function: `, err)
     }
 
     setIsLoading(false)
@@ -146,18 +137,20 @@ export const SignIn = () => {
   }, [isLoading, verificationCode])
 
   return (
-    <ImageBackground source={backgroundImage} style={{ height: 800, width: "auto" }}>
+    <React.Fragment>
       <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1 }}>
         <View style={{ flex: 1 }}>
-          <Image
-            source={logo}
-            style={{
-              width: 166,
-              height: 170,
-              alignSelf: "center",
-              marginTop: "35%",
-            }}
-          />
+          <ImageBackground source={backgroundImage} style={{ height: 800, width: "auto", overflow: "hidden" }}>
+            <Image
+              source={logo}
+              style={{
+                width: 166,
+                height: 170,
+                alignSelf: "center",
+                marginTop: "35%",
+              }}
+            />
+          </ImageBackground>
           {isLoading ? <Loading /> : null}
 
           <View style={styles.checkInWrapper}>
@@ -169,7 +162,7 @@ export const SignIn = () => {
                 Tap Here to Register
               </OpenUrlLink>
             ) : null}
-            {!phoneNumberIsVerified ? (
+            {!phoneNumberIsVerified || !userIsUpdatedInFirestore ? (
               <>
                 <Text style={styles.checkInSubtitle}>In the form below, enter the phone number & email that you registered with.</Text>
                 <View style={styles.textInputView}>
@@ -205,6 +198,7 @@ export const SignIn = () => {
               <>
                 <Text style={styles.checkInSubtitle}>Enter the Verification Code you just received.</Text>
                 <View style={styles.textInputView}>
+                  <Feather name="check" style={styles.textInputIcon} />
                   <TextInput
                     style={styles.textInput}
                     placeholder="verification code"
@@ -223,6 +217,6 @@ export const SignIn = () => {
           </View>
         </View>
       </KeyboardAvoidingView>
-    </ImageBackground>
+    </React.Fragment>
   )
 }

@@ -10,13 +10,14 @@ if (!firebase.apps.length) {
     storageBucket: "c4k-events.appspot.com",
     messagingSenderId: "692878505754",
     appId: "1:692878505754:web:15631f9543142a72a95ea3",
+    measurementId: "G-VTN84TXM85",
   })
 } else {
   firebase.app()
 }
 
 // Uncomment to run firebase functions locally
-//firebase.functions().useEmulator("localhost", 5001)
+// firebase.functions().useEmulator("localhost", 5001)
 
 // firebase functions
 export const checkIfRegistered = firebase.functions().httpsCallable("checkIfRegistered")

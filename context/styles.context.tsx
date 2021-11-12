@@ -191,6 +191,7 @@ export default function StylesProvider({ children }: { children: any }) {
       fontSize: 50,
       display: "flex",
       fontFamily: "Fregata-Sans",
+      fontWeight: "600",
       width: 34,
       height: 60,
     },
@@ -391,20 +392,19 @@ export default function StylesProvider({ children }: { children: any }) {
     // USER CARD
     userCardName: {
       fontFamily: "Fregata-Sans",
-      fontSize: 44,
+      fontSize: 46,
     },
     userCardPhoneEmail: {
       fontFamily: "ZillaSlab-Medium",
-      fontWeight: 600,
-      fontSize: 11,
+      fontWeight: "600",
+      fontSize: 12,
     },
     userCardRegisteredAs: {
       fontFamily: "ZillaSlab-Medium",
-      fontSize: "5px",
-      fontSyle: "normal",
-      fontWeight: 700,
+      fontSize: 8,
+      fontWeight: "700",
       color: "#EF364B",
-      marginBottom: "-16px",
+      marginBottom: -16,
     },
     userCardDivider: {
       width: "100%",
@@ -418,18 +418,17 @@ export default function StylesProvider({ children }: { children: any }) {
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "center",
+    },
+    signOutText: {
+      textAlign: "center",
       fontFamily: "ZillaSlab-Medium",
-      fontWeight: 700,
-      fontSize: 7.5,
+      fontWeight: "700",
+      fontSize: 14,
       color: "#808080",
     },
   }
   const styles = StyleSheet.create(initialState)
-  return (
-    <StylesContext.Provider value={{ styles }}>
-      {children}
-    </StylesContext.Provider>
-  )
+  return <StylesContext.Provider value={{ styles }}>{children}</StylesContext.Provider>
 }
 
 export const useStyles = () => {

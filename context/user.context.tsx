@@ -25,7 +25,7 @@ type UserContext = {
   signOut: () => void
 }
 
-const initUser = {
+const initUser: User = {
   checkedIn: false,
   driversLicense: "",
   email: "",
@@ -66,7 +66,7 @@ export default function UserProvider({ children }: { children: any }) {
     const localUserString = await AsyncStorage.getItem("@store:user")
     const localUser: User = JSON.parse(localUserString)
     if (localUser && localUser.verified) {
-      setUser(user)
+      setUser(localUser)
       setUserIsSignedIn(true)
     }
   }

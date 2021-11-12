@@ -14,7 +14,7 @@ export const TempHome = () => {
   return (
     <ScreenWrapper>
       <Countdown />
-      <View style={styles.sectionContainer}>
+      {/* <View style={styles.sectionContainer}>
         <Pressable style={styles.button} onPress={openDonateLink}>
           <Text style={styles.buttonText}>{"Donate"}</Text>
         </Pressable>
@@ -43,7 +43,7 @@ export const TempHome = () => {
             type="twitter"
           />
         </View>
-      </View>
+      </View> */}
       <UpcomingEventsCard />
     </ScreenWrapper>
   )

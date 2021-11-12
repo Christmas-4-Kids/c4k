@@ -16,20 +16,15 @@ const hardCodedUser = {
 
 export const Account = () => {
   const { styles } = useStyles()
-  const { signOut } = useUser()
-
+  const { signOut, user } = useUser()
+  console.log(`user`, user)
   return (
     <ScreenWrapper>
-      <UserCard
-        user={hardCodedUser.user}
-        role={hardCodedUser.role}
-        phone={hardCodedUser.phone}
-        email={hardCodedUser.email}
-      />
+      <UserCard user={`${user.firstName} ${user.lastName}`} role={hardCodedUser.role} phone={user.phoneNumber} email={user.email} />
       <TouchableOpacity onPress={signOut}>
         <View style={styles.signOut}>
-          Sign Out&nbsp;&nbsp;
-          <Entypo name="log-out" size={12} color="#808080" />
+          <Text style={styles.signOutText}>Sign Out&nbsp;&nbsp;</Text>
+          <Entypo name="log-out" size={14} color="#808080" />
         </View>
       </TouchableOpacity>
     </ScreenWrapper>
