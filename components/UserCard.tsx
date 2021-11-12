@@ -9,20 +9,18 @@ const UserCard = ({ user, role, phone, email }) => {
 
   return (
     <Card>
-      <Text style={styles.userCardRegisteredAs}>
-        Registered As:&nbsp;{role}
-      </Text>
+      <Text style={styles.userCardRegisteredAs}>Registered As:&nbsp;{role}</Text>
       <Text style={styles.userCardName}>{user}</Text>
 
       <View style={styles.userCardDivider}></View>
 
       <Text style={styles.userCardPhoneEmail}>
-        <FontAwesome5 name="phone-alt" size={11} color="#318AC7" />
+        <FontAwesome5 name="phone-alt" size={12} color="#318AC7" />
         &nbsp;&nbsp;{phone}
       </Text>
 
       <Text style={styles.userCardPhoneEmail}>
-        <FontAwesome name="envelope" size={11} color="#318AC7" />
+        <FontAwesome name="envelope" size={12} color="#318AC7" />
         &nbsp;&nbsp;{email}
       </Text>
     </Card>
