@@ -39,7 +39,7 @@ export const Countdown = () => {
 
   return (
     <Card>
-      <Text style={{ fontFamily: "FjallaOne", fontSize: 16 }}>Get Ready to Shop In:</Text>
+      <Text style={styles.countdownCardTitle}>Get Ready to Shop In:</Text>
 
       <View style={styles.countdownItemWrapper}>
         {!!daysLeft ? (

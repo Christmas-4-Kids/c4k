@@ -44,6 +44,11 @@ export default function StylesProvider({ children }: { children: any }) {
       backgroundColor: "#FFF",
       ...cardStyles,
     },
+    countdownCardTitle: {
+      alignSelf: "center",
+      fontFamily: "FjallaOne",
+      fontSize: 16,
+    },
     button: {
       backgroundColor: "#EF364B",
       padding: 12,
