@@ -41,28 +41,32 @@ export const Countdown = () => {
     <Card>
       <Text style={styles.countdownCardTitle}>Get Ready to Shop In:</Text>
 
-      <View style={styles.countdownItemWrapper}>
+      <View style={styles.countdownItemsWrapper}>
         {!!daysLeft ? (
           <View style={styles.countdownItem}>
             <Text style={styles.countdownTime}>{daysLeft} </Text>
+            <View style={styles.countdownItemDivider}></View>
             <Text style={styles.countdownLabel}>days</Text>
           </View>
         ) : null}
         {!!hoursLeft ? (
           <View style={styles.countdownItem}>
             <Text style={styles.countdownTime}>{hoursLeft} </Text>
+            <View style={styles.countdownItemDivider}></View>
             <Text style={styles.countdownLabel}>hours</Text>
           </View>
         ) : null}
         {!!minutesLeft ? (
           <View style={styles.countdownItem}>
             <Text style={styles.countdownTime}>{minutesLeft} </Text>
+            <View style={styles.countdownItemDivider}></View>
             <Text style={styles.countdownLabel}>minutes</Text>
           </View>
         ) : null}
 
         <View style={styles.countdownItem}>
           <Text style={styles.countdownTime}>{secondsLeft} </Text>
+          <View style={styles.countdownItemDivider}></View>
           <Text style={styles.countdownLabel}>seconds</Text>
         </View>
       </View>
