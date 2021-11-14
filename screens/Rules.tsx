@@ -27,7 +27,7 @@ export const Rules = () => {
           width: '320px',
           height: '127px',
           margin: 'auto',
-          marginTop: '25px',
+          marginTop: '35px',
           borderRadius: 10
           }}>
           <Text style={styles.ruleTabHeader}>HOW TO AVOID <br></br> SANTA'S NAUGHTY LIST</Text>
