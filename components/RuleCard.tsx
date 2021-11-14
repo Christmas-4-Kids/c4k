@@ -1,6 +1,6 @@
 import React from "react"
 import { useStyles } from "../context/styles.context"
-import { View, Image } from "react-native"
+import { Text, TextInput, View, Image, ScrollView } from "react-native"
 
 interface Rule {
   order: number
@@ -12,7 +12,7 @@ interface RuleCardProps {
   rule: Rule
 }
 
-const RuleCard = (RuleCardProps) => {
+const RuleCard = ({ order, title, description }) => {
   const { styles } = useStyles()
 
   return (
@@ -21,10 +21,27 @@ const RuleCard = (RuleCardProps) => {
         style={styles.RuleCardOrnament}
         source={require("../assets/images/o.svg")}
       />
-      <View style={styles.RulesCardNumber}>{RuleCardProps.number}</View>
-      <View style={styles.RuleCardTitle}>{RuleCardProps.title}</View>
-      <View style={styles.RuleCardDescription}>
-        {RuleCardProps.description}
+
+      <Text style={styles.RulesCardNumber}>{order}</Text>
+
+      <View style={styles.RuleCardTitle}>
+        <Text style={{ color: "#FFF", fontFamily: "FjallaOne", fontSize: 13 }}>
+          {title}
+        </Text>
+      </View>
+
+      <View style={styles.RulesCardDescription}>
+        <Text
+          style={{
+            padding: 5,
+            height: 61,
+            fontFamily: "ZillaSlab-Medium",
+            fontWeight: "600",
+            fontSize: 7,
+          }}
+        >
+          {description}
+        </Text>
       </View>
     </View>
   )

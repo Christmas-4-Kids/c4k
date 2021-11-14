@@ -16,6 +16,7 @@ export default function StylesProvider({ children }: { children: any }) {
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.16,
     shadowRadius: 9,
+    elevation: 5, // fixes boxshadow on android
   }
   const initialState: any = {
     page: {
@@ -523,15 +524,19 @@ export default function StylesProvider({ children }: { children: any }) {
     ruleCard: {
       margin: 20,
       borderRadius: 10,
-      boxShadow: "0px 0px 9px rgba(0, 0, 0, 0.16)",
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 0 },
+      shadowOpacity: 0.16,
+      shadowRadius: 9,
+      elevation: 5, // fixes boxshadow on android
     },
     ruleCardTitle: {
       borderTopRightRadius: 10,
       borderTopLeftRadius: 10,
       position: "relative",
-      height: "46px",
+      height: 46,
       backgroundColor: "#318AC7",
-      color: "#FFFFFF",
+      color: "#FFF",
       fontFamily: "FjallaOne",
       fontSize: 13,
       alignItems: "center",
@@ -541,11 +546,11 @@ export default function StylesProvider({ children }: { children: any }) {
     ruleCardDescription: {
       alignItems: "center",
       justifyContent: "center",
-      height: "61px",
+      height: 61,
       fontFamily: "ZillaSlab-Medium",
-      fontWeight: 600,
-      fontSize: "7px",
-      overflowY: "scroll",
+      fontWeight: "600",
+      fontSize: 7,
+      // overflowY: "scroll",
       padding: 25,
     },
     rulesCardNumber: {
@@ -556,7 +561,7 @@ export default function StylesProvider({ children }: { children: any }) {
       fontFamily: "Fregata-Sans",
       fontSize: 20,
       fontStyle: "normal",
-      fontWeight: 400,
+      fontWeight: "400",
       color: "#FFFFFF",
     },
     ruleCardOrnament: {
@@ -564,8 +569,8 @@ export default function StylesProvider({ children }: { children: any }) {
       position: "absolute",
       top: -5,
       left: -18,
-      width: "40px",
-      height: "51.5px",
+      width: 40,
+      height: 51,
     },
   }
   const styles = StyleSheet.create(initialState)

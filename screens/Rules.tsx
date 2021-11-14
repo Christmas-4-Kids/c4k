@@ -30,7 +30,7 @@ export const Rules = () => {
           .sort((first, last) => first.order - last.order)
           .map(rule => (
             <React.Fragment key={rule.order}>
-              <RuleCard number={rule.order} title={rule.title} description={rule.description} />
+              <RuleCard order={rule.order} title={rule.title} description={rule.description} />
             </React.Fragment>
           ))
       ) : (
