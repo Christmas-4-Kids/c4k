@@ -19,10 +19,16 @@ const RuleCard = ({ order, title, description }) => {
     <View style={styles.RuleCard}>
       <Image
         style={styles.RuleCardOrnament}
-        source={require("../assets/images/o.svg")}
+        source={require("../assets/images/ornament.png")}
       />
 
-      <Text style={styles.RulesCardNumber}>{order}</Text>
+      <Text
+        style={
+          order < 10 ? styles.RulesCardSingleDigit : styles.RulesCardDoubleDigit
+        }
+      >
+        {order}
+      </Text>
 
       <View style={styles.RuleCardTitle}>
         <Text style={{ color: "#FFF", fontFamily: "FjallaOne", fontSize: 13 }}>

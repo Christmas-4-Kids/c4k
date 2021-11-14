@@ -553,10 +553,21 @@ export default function StylesProvider({ children }: { children: any }) {
       // overflowY: "scroll",
       padding: 25,
     },
-    rulesCardNumber: {
+    RulesCardSingleDigit: {
       zIndex: 10,
       position: "absolute",
-      top: 10,
+      top: 18,
+      left: 2,
+      fontFamily: "Fregata-Sans",
+      fontSize: 20,
+      fontStyle: "normal",
+      fontWeight: "400",
+      color: "#FFFFFF",
+    },
+    RulesCardDoubleDigit: {
+      zIndex: 10,
+      position: "absolute",
+      top: 18,
       left: -2,
       fontFamily: "Fregata-Sans",
       fontSize: 20,
@@ -564,13 +575,16 @@ export default function StylesProvider({ children }: { children: any }) {
       fontWeight: "400",
       color: "#FFFFFF",
     },
-    ruleCardOrnament: {
+    RuleCardOrnament: {
+      textAlign: "center",
+      alignItems: "center",
+      justifyContent: "center",
       zIndex: 10,
       position: "absolute",
-      top: -5,
-      left: -18,
-      width: 40,
-      height: 51,
+      top: 9,
+      left: -12,
+      width: 34,
+      height: 32,
     },
   }
   const styles = StyleSheet.create(initialState)
