@@ -14,7 +14,6 @@ export const Rules = () => {
 
   useEffect(() => {
     fetchRules().then(data => {
-      console.log(data)
       setRules(data.data)
     })
   }, [])
