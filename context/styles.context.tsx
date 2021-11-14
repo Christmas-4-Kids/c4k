@@ -426,6 +426,29 @@ export default function StylesProvider({ children }: { children: any }) {
       fontSize: 14,
       color: "#808080",
     },
+    ruleTabHeader: {
+      fontSize: "43px",
+      fontFamily: "Fregata-Sans",
+      textAlign: "center",
+      letterSpacing: "-0.02em",
+      lineHeight: "26px",
+      display: "flex",
+      alignItems: "center",
+      color: "white",
+    },
+    ruleTabSubtext: {
+      fontStyle: "normal",
+      lineHeight: "18px",
+      display: "flex",
+      fontFamily: "Zilla Slab",
+      fontWeight: 600,
+      fontSize: "14px",
+      textAlign: "center",
+      position: "absolute",
+      top: "64px",
+      letterSpacing: "0.02em",
+      color: "white",
+    },
   }
   const styles = StyleSheet.create(initialState)
   return <StylesContext.Provider value={{ styles }}>{children}</StylesContext.Provider>
