@@ -426,6 +426,7 @@ export default function StylesProvider({ children }: { children: any }) {
       fontSize: 14,
       color: "#808080",
     },
+    // RULES TAB HEADER
     ruleTabHeader: {
       fontSize: "43px",
       fontFamily: "Fregata-Sans",

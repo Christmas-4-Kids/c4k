@@ -14,6 +14,7 @@ export const Rules = () => {
 
   useEffect(() => {
     fetchRules().then(data => {
+      console.log(data)
       setRules(data.data)
     })
   }, [])
@@ -27,6 +28,7 @@ export const Rules = () => {
           width: '320px',
           height: '127px',
           margin: 'auto',
+          marginTop: '25px',
           borderRadius: 10
           }}>
           <Text style={styles.ruleTabHeader}>HOW TO AVOID <br></br> SANTA'S NAUGHTY LIST</Text>
