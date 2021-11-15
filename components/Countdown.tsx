@@ -4,8 +4,12 @@ import React from "react"
 import { View, Text } from "react-native"
 import { useStyles } from "../context/styles.context"
 import { Card } from "./Card"
+import { useUser } from "../context/user.context"
 
 export const Countdown = () => {
+  const { styles } = useStyles()
+  const { user } = useUser()
+
   const timeTillDate = "12 14 2021, 9:00 am"
   const timeFormat = "MM DD YYYY, hh:mm a"
   const [daysLeft, setDaysLeft] = useState("")
@@ -35,34 +39,36 @@ export const Countdown = () => {
     return () => clearInterval(interval)
   }, [])
 
-  const { styles } = useStyles()
-
   return (
     <Card>
-      <Text style={{ fontFamily: "FjallaOne", fontSize: 16 }}>Get Ready to Shop In:</Text>
+      <Text style={styles.countdownCardTitle}>{user?.firstName}, Get Ready to Shop In:</Text>
 
-      <View style={styles.countdownItemWrapper}>
+      <View style={styles.countdownItemsWrapper}>
         {!!daysLeft ? (
           <View style={styles.countdownItem}>
             <Text style={styles.countdownTime}>{daysLeft} </Text>
+            <View style={styles.countdownItemDivider}></View>
             <Text style={styles.countdownLabel}>days</Text>
           </View>
         ) : null}
         {!!hoursLeft ? (
           <View style={styles.countdownItem}>
             <Text style={styles.countdownTime}>{hoursLeft} </Text>
+            <View style={styles.countdownItemDivider}></View>
             <Text style={styles.countdownLabel}>hours</Text>
           </View>
         ) : null}
         {!!minutesLeft ? (
           <View style={styles.countdownItem}>
             <Text style={styles.countdownTime}>{minutesLeft} </Text>
+            <View style={styles.countdownItemDivider}></View>
             <Text style={styles.countdownLabel}>minutes</Text>
           </View>
         ) : null}
 
         <View style={styles.countdownItem}>
           <Text style={styles.countdownTime}>{secondsLeft} </Text>
+          <View style={styles.countdownItemDivider}></View>
           <Text style={styles.countdownLabel}>seconds</Text>
         </View>
       </View>
