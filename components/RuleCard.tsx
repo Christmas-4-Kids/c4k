@@ -22,13 +22,7 @@ const RuleCard = ({ order, title, description }) => {
         source={require("../assets/images/ornament.png")}
       />
 
-      <Text
-        style={
-          order < 10 ? styles.RulesCardSingleDigit : styles.RulesCardDoubleDigit
-        }
-      >
-        {order}
-      </Text>
+      <Text style={styles.RuleCardOrder}>{order}</Text>
 
       <View style={styles.RuleCardTitle}>
         <Text style={{ color: "#FFF", fontFamily: "FjallaOne", fontSize: 13 }}>
