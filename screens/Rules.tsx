@@ -36,6 +36,8 @@ export const Rules = () => {
       ) : (
         <Loading />
       )}
+      {/* Added this blank View so that very last rule card displays. it wasn't scrolling down all the way for some reason */}
+      <View style={{height: 110}}></View> 
     </ScreenWrapper>
   )
 }

@@ -576,7 +576,6 @@ export default function StylesProvider({ children }: { children: any }) {
       color: "#FFFFFF",
     },
     RuleCardOrnament: {
-      textAlign: "center",
       alignItems: "center",
       justifyContent: "center",
       zIndex: 10,
