@@ -16,6 +16,7 @@ export default function StylesProvider({ children }: { children: any }) {
     shadowOffset: { width: 0, height: 0 },
     shadowOpacity: 0.16,
     shadowRadius: 9,
+    elevation: 5, // fixes boxshadow on android
   }
   const initialState: any = {
     page: {
@@ -363,7 +364,6 @@ export default function StylesProvider({ children }: { children: any }) {
       color: "#FFFFFF",
     },
     upcomingEventDay: {
-      marginTop: -15,
       fontFamily: "Fregata-Sans",
       fontStyle: "normal",
       fontWeight: "400",
@@ -517,6 +517,56 @@ export default function StylesProvider({ children }: { children: any }) {
       width: "90%",
       justifyContent: "space-evenly",
       flexDirection: "row",
+    },
+
+    // RULES CARD
+    ruleCard: {
+      marginHorizontal: 30,
+      marginTop: 20,
+      borderRadius: 10,
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 0 },
+      shadowOpacity: 0.16,
+      shadowRadius: 9,
+      elevation: 5, // fixes boxshadow on android
+      backgroundColor: "#FFF",
+    },
+    ruleCardTitle: {
+      borderTopRightRadius: 10,
+      borderTopLeftRadius: 10,
+      height: 46,
+      backgroundColor: "#318AC7",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    ruleCardDescription: {
+      alignItems: "center",
+      justifyContent: "center",
+      height: 61,
+      backgroundColor: "#FFF",
+    },
+    ruleCardOrder: {
+      textAlign: "center",
+      width: 16,
+      zIndex: 10,
+      position: "absolute",
+      top: 18,
+      left: -3,
+      fontFamily: "Fregata-Sans",
+      fontSize: 20,
+      fontStyle: "normal",
+      fontWeight: "400",
+      color: "#FFFFFF",
+    },
+    ruleCardOrnament: {
+      alignItems: "center",
+      justifyContent: "center",
+      zIndex: 10,
+      position: "absolute",
+      top: 15,
+      left: -12,
+      width: 34,
+      height: 32,
     },
   }
   const styles = StyleSheet.create(initialState)

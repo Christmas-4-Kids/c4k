@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react"
-import { Image, View, Text } from "react-native"
-import logo from "../assets/images/logo-transparent.png"
+import { Text, View } from "react-native"
 import { fetchRules } from "../services/firestore.service"
 import { Loading } from "./Loading"
 import { useStyles } from "../context/styles.context"
 import ScreenWrapper from "./ScreenWrapper"
 import { Card } from "../components/Card"
+import RuleCard from "../components/RuleCard"
 
 export const Rules = () => {
   const { styles } = useStyles()
@@ -15,13 +15,14 @@ export const Rules = () => {
   useEffect(() => {
     fetchRules().then(data => {
       setRules(data.data)
+      console.log(data.data)
     })
   }, [])
 
   return (
     <ScreenWrapper>
       <Card overrideStyles={styles.rulesHeaderCard}>
-        <Text style={styles.rulesTabHeader}>HOW TO AVOID SANTA'S NAUGHTY LIST</Text>
+        <Text style={styles.rulesTabHeader}>how to avoid santa's naughty list</Text>
         <Text style={styles.rulesTabSubtext}>Everything you need to know about being a chaperone on the big shopping day.</Text>
       </Card>
 
@@ -30,29 +31,14 @@ export const Rules = () => {
           .sort((first, last) => first.order - last.order)
           .map(rule => (
             <React.Fragment key={rule.order}>
-              {rule.order !== 1 && !!rule.title ? <Image source={logo} style={{ width: 50, height: 50, alignSelf: "center" }} /> : null}
-              {!!rule.title ? (
-                <View style={{ marginBottom: rule.description ? 0 : 0 }}>
-                  <Text
-                    style={{
-                      marginTop: 5,
-                      fontSize: rule.order === 1 ? 50 : 24,
-                      lineHeight: rule.order === 1 ? 35 : 25,
-                      color: "#fff",
-                      textAlign: "center",
-                      fontFamily: rule.order === 1 ? "Fregata-Sans" : "ZillaSlab-Bold",
-                    }}
-                  >
-                    {rule.title}
-                  </Text>
-                </View>
-              ) : null}
-              <Text style={styles.sectionDescription}>{rule.description}</Text>
+              <RuleCard order={rule.order} title={rule.title} description={rule.description} />
             </React.Fragment>
           ))
       ) : (
         <Loading />
       )}
+      {/* Added this blank View so that very last rule card displays. it wasn't scrolling down all the way for some reason */}
+      <View style={{ height: 110 }}></View>
     </ScreenWrapper>
   )
 }
