@@ -427,28 +427,24 @@ export default function StylesProvider({ children }: { children: any }) {
       color: "#808080",
     },
     // RULES TAB HEADER
-    ruleTabHeader: {
-      fontSize: "43px",
+    rulesTabHeader: {
+      fontSize: 43,
       fontFamily: "Fregata-Sans",
       textAlign: "center",
-      letterSpacing: "-0.02em",
-      lineHeight: "26px",
       display: "flex",
       alignItems: "center",
       color: "white",
     },
-    ruleTabSubtext: {
-      fontStyle: "normal",
-      lineHeight: "18px",
+    rulesTabSubtext: {
       display: "flex",
-      fontFamily: "Zilla Slab",
-      fontWeight: 600,
-      fontSize: "14px",
+      fontFamily: "ZillaSlab-Medium",
+      fontWeight: "600",
+      fontSize: 14,
       textAlign: "center",
-      position: "absolute",
-      top: "64px",
-      letterSpacing: "0.02em",
       color: "white",
+    },
+    rulesHeaderCard: {
+      backgroundColor: "#EF364B",
     },
   }
   const styles = StyleSheet.create(initialState)
