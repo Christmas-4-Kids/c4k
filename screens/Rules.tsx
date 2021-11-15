@@ -20,7 +20,7 @@ export const Rules = () => {
 
   return (
     <ScreenWrapper>
-      <Card styles={styles.rulesHeaderCard}>
+      <Card overrideStyles={styles.rulesHeaderCard}>
         <Text style={styles.rulesTabHeader}>HOW TO AVOID SANTA'S NAUGHTY LIST</Text>
         <Text style={styles.rulesTabSubtext}>Everything you need to know about being a chaperone on the big shopping day.</Text>
       </Card>
