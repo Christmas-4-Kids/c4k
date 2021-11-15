@@ -2,11 +2,6 @@ import React from "react"
 import { View, Text, ImageBackground } from "react-native"
 import { useStyles } from "../context/styles.context"
 import { FontAwesome5 } from "@expo/vector-icons"
-import gradientBg from "../assets/images/gradient.png"
-
-// const image = { uri: "https://images.unsplash.com/photo-1557683316-973673baf926?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8&w=1000&q=80" };
-
-const image = { uri: "../assets/images/gradient.png" }
 
 const SocialMediaShareCard = () => {
   const { styles } = useStyles()
@@ -55,5 +50,3 @@ const SocialMediaShareCard = () => {
 }
 
 export default SocialMediaShareCard
-
-/* </ImageBackground> */
