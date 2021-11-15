@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Text } from "react-native"
+import { Text, View } from "react-native"
 import { fetchRules } from "../services/firestore.service"
 import { Loading } from "./Loading"
 import { useStyles } from "../context/styles.context"
@@ -15,13 +15,14 @@ export const Rules = () => {
   useEffect(() => {
     fetchRules().then(data => {
       setRules(data.data)
+      console.log(data.data)
     })
   }, [])
 
   return (
     <ScreenWrapper>
       <Card overrideStyles={styles.rulesHeaderCard}>
-        <Text style={styles.rulesTabHeader}>HOW TO AVOID SANTA'S NAUGHTY LIST</Text>
+        <Text style={styles.rulesTabHeader}>how to avoid santa's naughty list</Text>
         <Text style={styles.rulesTabSubtext}>Everything you need to know about being a chaperone on the big shopping day.</Text>
       </Card>
 
@@ -37,7 +38,7 @@ export const Rules = () => {
         <Loading />
       )}
       {/* Added this blank View so that very last rule card displays. it wasn't scrolling down all the way for some reason */}
-      <View style={{height: 110}}></View> 
+      <View style={{ height: 110 }}></View>
     </ScreenWrapper>
   )
 }

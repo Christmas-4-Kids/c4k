@@ -16,21 +16,16 @@ const RuleCard = ({ order, title, description }) => {
   const { styles } = useStyles()
 
   return (
-    <View style={styles.RuleCard}>
-      <Image
-        style={styles.RuleCardOrnament}
-        source={require("../assets/images/ornament.png")}
-      />
+    <View style={styles.ruleCard}>
+      <Image style={styles.ruleCardOrnament} source={require("../assets/images/ornament.png")} />
 
-      <Text style={styles.RuleCardOrder}>{order}</Text>
+      <Text style={styles.ruleCardOrder}>{order}</Text>
 
-      <View style={styles.RuleCardTitle}>
-        <Text style={{ color: "#FFF", fontFamily: "FjallaOne", fontSize: 13 }}>
-          {title}
-        </Text>
+      <View style={styles.ruleCardTitle}>
+        <Text style={{ color: "#FFF", fontFamily: "FjallaOne", fontSize: 13, paddingHorizontal: 20 }}>{title === "" ? "Remember..." : title}</Text>
       </View>
 
-      <View style={styles.RulesCardDescription}>
+      <View style={styles.rulesCardDescription}>
         <Text
           style={{
             minHeight: 61,
@@ -38,7 +33,7 @@ const RuleCard = ({ order, title, description }) => {
             paddingHorizontal: 25,
             fontFamily: "ZillaSlab-Medium",
             fontWeight: "600",
-            fontSize: 7,
+            fontSize: 12,
           }}
         >
           {description}

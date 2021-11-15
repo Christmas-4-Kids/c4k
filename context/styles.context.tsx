@@ -521,33 +521,31 @@ export default function StylesProvider({ children }: { children: any }) {
 
     // RULES CARD
     ruleCard: {
-      margin: 20,
+      marginHorizontal: 30,
+      marginTop: 20,
       borderRadius: 10,
       shadowColor: "#000",
       shadowOffset: { width: 0, height: 0 },
       shadowOpacity: 0.16,
       shadowRadius: 9,
       elevation: 5, // fixes boxshadow on android
+      backgroundColor: "#FFF",
     },
     ruleCardTitle: {
       borderTopRightRadius: 10,
       borderTopLeftRadius: 10,
-      position: "relative",
       height: 46,
       backgroundColor: "#318AC7",
-      color: "#FFF",
-      fontFamily: "FjallaOne",
-      fontSize: 13,
       alignItems: "center",
       justifyContent: "center",
-      padding: 25,
     },
     ruleCardDescription: {
       alignItems: "center",
       justifyContent: "center",
       height: 61,
+      backgroundColor: "#FFF",
     },
-    RuleCardOrder: {
+    ruleCardOrder: {
       textAlign: "center",
       width: 16,
       zIndex: 10,
@@ -559,14 +557,13 @@ export default function StylesProvider({ children }: { children: any }) {
       fontStyle: "normal",
       fontWeight: "400",
       color: "#FFFFFF",
-
     },
-    RuleCardOrnament: {
+    ruleCardOrnament: {
       alignItems: "center",
       justifyContent: "center",
       zIndex: 10,
       position: "absolute",
-      top: 9,
+      top: 15,
       left: -12,
       width: 34,
       height: 32,
