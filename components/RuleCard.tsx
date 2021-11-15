@@ -33,6 +33,7 @@ const RuleCard = ({ order, title, description }) => {
       <View style={styles.RulesCardDescription}>
         <Text
           style={{
+            minHeight: 61,
             paddingVertical: 15,
             paddingHorizontal: 25,
             fontFamily: "ZillaSlab-Medium",
