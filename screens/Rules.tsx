@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react"
-import { Image, ScrollView, View, Text, StyleSheet } from "react-native"
+import { Image, View, Text } from "react-native"
 import logo from "../assets/images/logo-transparent.png"
-import busLogo from "../assets/images/c4k-logo.png"
 import { fetchRules } from "../services/firestore.service"
 import { Loading } from "./Loading"
 import { useStyles } from "../context/styles.context"
 import ScreenWrapper from "./ScreenWrapper"
+import { Card } from "../components/Card"
 
 export const Rules = () => {
   const { styles } = useStyles()
@@ -20,15 +20,11 @@ export const Rules = () => {
 
   return (
     <ScreenWrapper>
-      <Image
-        source={busLogo}
-        style={{
-          width: 180,
-          height: 180,
-          alignSelf: "center",
-          marginBottom: 20,
-        }}
-      />
+      <Card overrideStyles={styles.rulesHeaderCard}>
+        <Text style={styles.rulesTabHeader}>HOW TO AVOID SANTA'S NAUGHTY LIST</Text>
+        <Text style={styles.rulesTabSubtext}>Everything you need to know about being a chaperone on the big shopping day.</Text>
+      </Card>
+
       {rules.length > 0 ? (
         rules
           .sort((first, last) => first.order - last.order)

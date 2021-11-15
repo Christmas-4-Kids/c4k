@@ -6,6 +6,17 @@ const StylesContext = React.createContext({})
 
 export default function StylesProvider({ children }: { children: any }) {
   const { colors } = useTheme()
+  const cardStyles = {
+    alignSelf: "center",
+    padding: 20,
+    width: "85%",
+    margin: 20,
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.16,
+    shadowRadius: 9,
+  }
   const initialState: any = {
     page: {
       flex: 1,
@@ -31,15 +42,7 @@ export default function StylesProvider({ children }: { children: any }) {
     },
     card: {
       backgroundColor: "#FFF",
-      alignSelf: "center",
-      padding: 20,
-      width: "85%",
-      margin: 20,
-      borderRadius: 10,
-      shadowColor: "#000",
-      shadowOffset: { width: 0, height: 0 },
-      shadowOpacity: 0.16,
-      shadowRadius: 9,
+      ...cardStyles,
     },
     button: {
       backgroundColor: "#EF364B",
@@ -425,6 +428,31 @@ export default function StylesProvider({ children }: { children: any }) {
       fontWeight: "700",
       fontSize: 14,
       color: "#808080",
+    },
+    // RULES TAB HEADER
+    rulesTabHeader: {
+      fontSize: 48,
+      fontFamily: "Fregata-Sans",
+      fontWeight: "600",
+      textAlign: "center",
+      display: "flex",
+      alignItems: "center",
+      color: "white",
+      letterSpacing: -0.02,
+      lineHeight: 28,
+      paddingVertical: 10,
+    },
+    rulesTabSubtext: {
+      display: "flex",
+      fontFamily: "ZillaSlab-Medium",
+      fontWeight: "600",
+      fontSize: 14,
+      textAlign: "center",
+      color: "white",
+    },
+    rulesHeaderCard: {
+      backgroundColor: "#EF364B",
+      ...cardStyles,
     },
   }
   const styles = StyleSheet.create(initialState)
