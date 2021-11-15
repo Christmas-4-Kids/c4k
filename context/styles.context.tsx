@@ -181,10 +181,13 @@ export default function StylesProvider({ children }: { children: any }) {
       fontSize: 30,
       color: "#FFF",
     },
+
+    // COUNTDOWN CARD
     countdownCardTitle: {
       alignSelf: "center",
       fontFamily: "FjallaOne",
-      fontSize: 16,
+      fontSize: 18,
+      paddingBottom: 5,
     },
     countdownItemsWrapper: {
       display: "flex",
@@ -194,8 +197,9 @@ export default function StylesProvider({ children }: { children: any }) {
     countdownItem: {
       backgroundColor: "#EF364B",
       margin: 1,
-      paddingHorizontal: 10,
-      paddingVertical: 7,
+      paddingHorizontal: 5,
+      paddingTop: 14,
+      paddingBottom: 8,
       width: 54,
       height: 63,
       flexDirection: "column",
@@ -205,9 +209,8 @@ export default function StylesProvider({ children }: { children: any }) {
     countdownTime: {
       color: "#FFF",
       fontSize: 50,
+      lineHeight: 50,
       fontFamily: "Fregata-Sans",
-      fontWeight: "normal",
-      fontStyle: "normal",
       alignItems: "center",
       textAlign: "center",
     },
@@ -215,20 +218,19 @@ export default function StylesProvider({ children }: { children: any }) {
       width: 34,
       height: 1,
       textAlign: "center",
-      backgroundColor: "rgba(0, 0, 0, 0.25)",
-      marginTop: -7,
+      backgroundColor: "#000",
+      opacity: 0.25,
       marginBottom: 2,
     },
     countdownLabel: {
       color: "#FFF",
       fontSize: 10,
-      fontStyle: "normal",
-      fontWeight: "normal",
       textTransform: "uppercase",
       fontFamily: "FjallaOne",
       alignItems: "center",
       textAlign: "center",
     },
+
     container: {
       flex: 1,
       justifyContent: "center",

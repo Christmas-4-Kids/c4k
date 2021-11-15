@@ -4,8 +4,12 @@ import React from "react"
 import { View, Text } from "react-native"
 import { useStyles } from "../context/styles.context"
 import { Card } from "./Card"
+import { useUser } from "../context/user.context"
 
 export const Countdown = () => {
+  const { styles } = useStyles()
+  const { user } = useUser()
+
   const timeTillDate = "12 14 2021, 9:00 am"
   const timeFormat = "MM DD YYYY, hh:mm a"
   const [daysLeft, setDaysLeft] = useState("")
@@ -35,11 +39,9 @@ export const Countdown = () => {
     return () => clearInterval(interval)
   }, [])
 
-  const { styles } = useStyles()
-
   return (
     <Card>
-      <Text style={styles.countdownCardTitle}>Get Ready to Shop In:</Text>
+      <Text style={styles.countdownCardTitle}>{user?.firstName}, Get Ready to Shop In:</Text>
 
       <View style={styles.countdownItemsWrapper}>
         {!!daysLeft ? (

@@ -2,7 +2,12 @@ import React from "react"
 import { View } from "react-native"
 import { useStyles } from "../context/styles.context"
 
-export const Card = ({ children, overrideStyles }) => {
+interface CardProps {
+  children: any
+  overrideStyles?: any
+}
+
+export const Card = ({ children, overrideStyles }: CardProps) => {
   const { styles } = useStyles()
 
   return <View style={overrideStyles ?? styles.card}>{children}</View>
