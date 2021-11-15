@@ -468,6 +468,56 @@ export default function StylesProvider({ children }: { children: any }) {
       backgroundColor: "#EF364B",
       ...cardStyles,
     },
+    // SOCIAL MEDIA SHARE CARD
+    socialMediaShareCard: {
+      backgroundColor: "#FFF",
+      alignSelf: "center",
+      padding: 0,
+      width: "85%",
+      height: 80,
+      borderRadius: 10,
+      flexDirection: "row",
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 0 },
+      shadowOpacity: 0.16,
+      shadowRadius: 9,
+      elevation: 5,
+    },
+    socialMediaShareCardLeft: {
+      flexDirection: "row",
+      flex: 1,
+      alignItems: "center",
+    },
+    socialMediaShareCardLeftText: {
+      textAlign: "center",
+      fontFamily: "Fregata-Sans",
+      fontSize: 36,
+      lineHeight: 19,
+      color: "#FFF",
+      paddingLeft: 14,
+      paddingTop: 20,
+      paddingBottom: 10,
+    },
+    socialMediaShareCardRight: {
+      flex: 1,
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    socialMediaShareCardRightText: {
+      fontFamily: "ZillaSlab-Medium",
+      fontWeight: "600",
+      fontSize: 10,
+      color: "#FFF",
+      paddingRight: 15,
+    },
+    socialMediaShareCardIcons: {
+      marginTop: 3,
+      alignItems: "center",
+      width: "90%",
+      justifyContent: "space-evenly",
+      flexDirection: "row",
+    },
   }
   const styles = StyleSheet.create(initialState)
   return <StylesContext.Provider value={{ styles }}>{children}</StylesContext.Provider>
