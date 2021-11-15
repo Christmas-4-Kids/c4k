@@ -547,10 +547,6 @@ export default function StylesProvider({ children }: { children: any }) {
       alignItems: "center",
       justifyContent: "center",
       height: 61,
-      fontFamily: "ZillaSlab-Medium",
-      fontWeight: "600",
-      fontSize: 7,
-      padding: 25,
     },
     RuleCardOrder: {
       textAlign: "center",

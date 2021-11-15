@@ -1,6 +1,6 @@
 import React from "react"
 import { useStyles } from "../context/styles.context"
-import { Text, TextInput, View, Image, ScrollView } from "react-native"
+import { Text, View, Image } from "react-native"
 
 interface Rule {
   order: number
@@ -33,8 +33,8 @@ const RuleCard = ({ order, title, description }) => {
       <View style={styles.RulesCardDescription}>
         <Text
           style={{
-            padding: 5,
-            height: 61,
+            paddingVertical: 15,
+            paddingHorizontal: 25,
             fontFamily: "ZillaSlab-Medium",
             fontWeight: "600",
             fontSize: 7,
