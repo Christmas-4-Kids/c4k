@@ -364,7 +364,6 @@ export default function StylesProvider({ children }: { children: any }) {
       color: "#FFFFFF",
     },
     upcomingEventDay: {
-      marginTop: -15,
       fontFamily: "Fregata-Sans",
       fontStyle: "normal",
       fontWeight: "400",
