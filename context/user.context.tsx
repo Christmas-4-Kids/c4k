@@ -15,6 +15,7 @@ export interface User {
   phoneNumber: string
   spanish: string
   verified: boolean
+  volunteerType: string
 }
 
 type UserContext = {
@@ -39,6 +40,7 @@ const initUser: User = {
   phoneNumber: "",
   spanish: "",
   verified: false,
+  volunteerType: "",
 }
 
 const saveUserToDevice = async (user: User) => {
@@ -76,6 +78,9 @@ export default function UserProvider({ children }: { children: any }) {
     setUserIsSignedIn(false)
   }
   const saveUser = (user: User) => {
+    if (user.emailLower === "c4kchaperones@gmail.com") {
+      user.firstName = "C4K Admin"
+    }
     setUser(user)
     saveUserToDevice(user)
   }

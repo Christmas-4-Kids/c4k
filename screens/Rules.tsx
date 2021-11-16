@@ -29,9 +29,9 @@ export const Rules = () => {
       {rules.length > 0 ? (
         rules
           .sort((first, last) => first.order - last.order)
-          .map(rule => (
-            <React.Fragment key={rule.order}>
-              <RuleCard order={rule.order} title={rule.title} description={rule.description} />
+          .map((rule, index) => (
+            <React.Fragment key={rule.index}>
+              <RuleCard order={index + 1} title={rule.title} description={rule.description} />
             </React.Fragment>
           ))
       ) : (

@@ -21,8 +21,7 @@ export default function StylesProvider({ children }: { children: any }) {
   const initialState: any = {
     page: {
       flex: 1,
-      paddingTop: 30,
-      paddingBottom: 20,
+      paddingTop: 35,
       backgroundColor: "#FFF",
       fontFamily: "ZillaSlab-Medium",
     },
@@ -360,7 +359,9 @@ export default function StylesProvider({ children }: { children: any }) {
       fontStyle: "normal",
       fontWeight: "normal",
       fontSize: 12,
-      marginTop: 5,
+      marginTop: -12,
+      lineHeight: 50,
+      marginBottom: -30,
       color: "#FFFFFF",
     },
     upcomingEventDay: {
@@ -418,7 +419,7 @@ export default function StylesProvider({ children }: { children: any }) {
     },
     userCardRegisteredAs: {
       fontFamily: "ZillaSlab-Medium",
-      fontSize: 8,
+      fontSize: 10,
       fontWeight: "700",
       color: "#EF364B",
       marginBottom: -16,

@@ -1,17 +1,24 @@
 import React from "react"
-import { View, Text, Pressable, Image, TouchableOpacity } from "react-native"
+import { View, Text, TouchableOpacity } from "react-native"
 import { useUser } from "../context/user.context"
-import logo from "../assets/images/c4k-logo.png"
 import { useStyles } from "../context/styles.context"
 import UserCard from "../components/UserCard"
 import { Entypo } from "@expo/vector-icons"
 import ScreenWrapper from "./ScreenWrapper"
 
-const hardCodedUser = {
-  user: "Robbie Green",
-  role: "Chaperone",
-  phone: "(615) 601-5046",
-  email: "imrobbiegreen@gmail.com",
+const getVolunteerType = (volunteerType: string) => {
+  switch (volunteerType) {
+    case "2021_ADMIN":
+      return "Organizer"
+    case "2021_ALL_DAY_CHAPERONE":
+    case "2021_EVENING_CHAPERONE":
+    case "2021_LEBANON_CHAPERONE":
+      return "Chaperone"
+    case "2021_DRIVER":
+      return "Driver"
+    default:
+      return "Unknown"
+  }
 }
 
 export const Account = () => {
@@ -20,7 +27,7 @@ export const Account = () => {
   console.log(`user`, user)
   return (
     <ScreenWrapper>
-      <UserCard user={`${user.firstName} ${user.lastName}`} role={hardCodedUser.role} phone={user.phoneNumber} email={user.email} />
+      <UserCard user={`${user.firstName} ${user.lastName}`} role={getVolunteerType(user.volunteerType)} phone={user.phoneNumber} email={user.email} />
       <TouchableOpacity onPress={signOut}>
         <View style={styles.signOut}>
           <Text style={styles.signOutText}>Sign Out&nbsp;&nbsp;</Text>
