@@ -15,11 +15,15 @@ admin.initializeApp(functions.config().firebase)
 // mailchimp constants
 const mailchimpServer = functions.config().mailchimp.server
 const mailchimpApiKey = functions.config().mailchimp.key
-const currentListId = functions.config().mailchimp.currentlistid
+const allDayChaperonesListId = functions.config().mailchimp.alldaychaperoneslistid
+const driversListId = functions.config().mailchimp.driverslistid
+const eveningChaperonesListId = functions.config().mailchimp.eveningchaperoneslistid
+const lebanonChaperonesListId = functions.config().mailchimp.lebanonchaperoneslistid
 mailchimp.setConfig({
   apiKey: mailchimpApiKey,
   server: mailchimpServer,
 })
+const memberListIds = [allDayChaperonesListId, driversListId, eveningChaperonesListId, lebanonChaperonesListId]
 
 // twilio constants
 const accountSid = functions.config().twilio.sid
@@ -49,7 +53,10 @@ exports.verifyCode = functions.https.onCall(async (data, context) => {
 
 exports.checkIfRegistered = functions.https.onCall(async (email, context) => {
   const response = await mailchimp.searchMembers.search(email)
-  const mailchimpMember = response?.exact_matches?.members.find(member => member.list_id === currentListId)
+  let mailchimpMember = response?.exact_matches?.members.find(member => memberListIds.includes(member.list_id))
+  if (email.toLowerCase() === "c4kchaperones@gmail.com") {
+    return response?.exact_matches?.members[0]
+  }
   return mailchimpMember
 })
 
@@ -82,10 +89,28 @@ exports.fetchRules = functions.https.onCall(async () => {
   return rules
 })
 
+const getVolunteerType = mailchimpMember => {
+  const listId = mailchimpMember.list_id
+  if (listId === allDayChaperonesListId) {
+    return "2021_ALL_DAY_CHAPERONE"
+  } else if (listId === eveningChaperonesListId) {
+    return "2021_EVENING_CHAPERONE"
+  } else if (listId === lebanonChaperonesListId) {
+    return "2021_LEBANON_CHAPERONE"
+  } else if (listId === driversListId) {
+    return "2021_DRIVER"
+  } else {
+    if (mailchimpMember.email_address.toLowerCase() === "c4kchaperones@gmail.com") {
+      return "2021_ADMIN"
+    }
+    return "2021_INVALID"
+  }
+}
+
 const createVolunteer = mailchimpMember => {
   const volunteer = {
     checkedIn: false,
-    volunteerType: mailchimpMember.list_id,
+    volunteerType: getVolunteerType(mailchimpMember),
     driversLicense: "",
     email: mailchimpMember.email_address,
     emailLower: mailchimpMember.email_address.toLowerCase(),

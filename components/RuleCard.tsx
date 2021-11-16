@@ -22,7 +22,7 @@ const RuleCard = ({ order, title, description }) => {
       <Text style={styles.ruleCardOrder}>{order}</Text>
 
       <View style={styles.ruleCardTitle}>
-        <Text style={{ color: "#FFF", fontFamily: "FjallaOne", fontSize: 13, paddingHorizontal: 20 }}>{title === "" ? "Remember..." : title}</Text>
+        <Text style={{ color: "#FFF", fontFamily: "FjallaOne", fontSize: 14, paddingHorizontal: 20 }}>{title === "" ? "Remember..." : title}</Text>
       </View>
 
       <View style={styles.rulesCardDescription}>

@@ -17,7 +17,7 @@ Below are the important steps. For full documentation please see the [official F
 
    - Ensure they are saved to the `/functions` folder
 
-4. Uncomment this line in `SignIn.tsx`
+4. Uncomment this line in `services/firestore.service.js`
 
    ```javascript
    // Uncomment to run firebase functions locally
