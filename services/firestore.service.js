@@ -17,7 +17,7 @@ if (!firebase.apps.length) {
 }
 
 // Uncomment to run firebase functions locally
-firebase.functions().useEmulator("localhost", 5001)
+// firebase.functions().useEmulator("localhost", 5001)
 
 // firebase functions
 export const checkIfRegistered = firebase.functions().httpsCallable("checkIfRegistered")

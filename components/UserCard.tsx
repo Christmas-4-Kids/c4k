@@ -9,9 +9,10 @@ const UserCard = ({ user, role, phone, email }) => {
 
   return (
     <Card>
-      <Text style={styles.userCardRegisteredAs}>Registered As:&nbsp;{role}</Text>
-      <Text style={styles.userCardName}>{user}</Text>
-
+      <View style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: 50 }}>
+        <Text style={styles.userCardRegisteredAs}>Registered As:&nbsp;{role}</Text>
+        <Text style={styles.userCardName}>{user}</Text>
+      </View>
       <View style={styles.userCardDivider}></View>
 
       <Text style={styles.userCardPhoneEmail}>

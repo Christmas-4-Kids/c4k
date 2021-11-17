@@ -62,9 +62,7 @@ exports.checkIfRegistered = functions.https.onCall(async (email, context) => {
 
 exports.createMailchimpUserInFirestore = functions.region("us-central1").https.onCall(async (mailchimpMember, context) => {
   const volunteer = createVolunteer(mailchimpMember)
-  console.log("volunteer", volunteer)
   let documentRef = admin.firestore().doc("volunteers/" + mailchimpMember.id)
-  console.log(`documentRef`, documentRef)
   return documentRef
     .set(volunteer)
     .then(res => {

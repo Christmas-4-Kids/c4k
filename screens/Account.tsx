@@ -24,16 +24,17 @@ const getVolunteerType = (volunteerType: string) => {
 export const Account = () => {
   const { styles } = useStyles()
   const { signOut, user } = useUser()
-  console.log(`user`, user)
   return (
     <ScreenWrapper>
-      <UserCard user={`${user.firstName} ${user.lastName}`} role={getVolunteerType(user.volunteerType)} phone={user.phoneNumber} email={user.email} />
-      <TouchableOpacity onPress={signOut}>
-        <View style={styles.signOut}>
-          <Text style={styles.signOutText}>Sign Out&nbsp;&nbsp;</Text>
-          <Entypo name="log-out" size={14} color="#808080" />
-        </View>
-      </TouchableOpacity>
+      <View>
+        <UserCard user={`${user.firstName} ${user.lastName}`} role={getVolunteerType(user.volunteerType)} phone={user.phoneNumber} email={user.email} />
+        <TouchableOpacity onPress={signOut}>
+          <View style={styles.signOut}>
+            <Text style={styles.signOutText}>Sign Out &nbsp;&nbsp;</Text>
+            <Entypo name="log-out" size={14} color="#808080" />
+          </View>
+        </TouchableOpacity>
+      </View>
     </ScreenWrapper>
   )
 }

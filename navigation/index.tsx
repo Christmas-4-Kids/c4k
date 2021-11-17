@@ -22,7 +22,7 @@ const MyTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    background: "yellow",
+    background: "#FFF",
     primary: "#EF364B",
     card: "#EF364B",
   },

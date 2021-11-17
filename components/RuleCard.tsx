@@ -17,10 +17,10 @@ const RuleCard = ({ order, title, description }) => {
 
   return (
     <View style={styles.ruleCard}>
-      <Image style={styles.ruleCardOrnament} source={require("../assets/images/ornament.png")} />
-
-      <Text style={styles.ruleCardOrder}>{order}</Text>
-
+      <View style={styles.ruleCardOrnament}>
+        <Text style={styles.ruleCardOrder}>{order}</Text>
+        <Image style={{ width: 34, height: 32 }} source={require("../assets/images/ornament.png")} />
+      </View>
       <View style={styles.ruleCardTitle}>
         <Text style={{ color: "#FFF", fontFamily: "FjallaOne", fontSize: 14, paddingHorizontal: 20 }}>{title === "" ? "Remember..." : title}</Text>
       </View>

@@ -15,7 +15,6 @@ export const Rules = () => {
   useEffect(() => {
     fetchRules().then(data => {
       setRules(data.data)
-      console.log(data.data)
     })
   }, [])
 
@@ -30,7 +29,7 @@ export const Rules = () => {
         rules
           .sort((first, last) => first.order - last.order)
           .map((rule, index) => (
-            <React.Fragment key={rule.index}>
+            <React.Fragment key={index}>
               <RuleCard order={index + 1} title={rule.title} description={rule.description} />
             </React.Fragment>
           ))
