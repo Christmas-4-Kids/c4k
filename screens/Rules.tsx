@@ -5,6 +5,7 @@ import { Loading } from "./Loading"
 import { useStyles } from "../context/styles.context"
 import { useUser } from "../context/user.context"
 import ScreenWrapper from "./ScreenWrapper"
+import StickyScreenWrapper from "./StickyScreenWrapper"
 import { Card } from "../components/Card"
 import RulesGroup from "../components/RulesGroup"
 
@@ -45,16 +46,7 @@ export const Rules = () => {
   }, [rules])
 
   return (
-    <ScreenWrapper>
-      <Card overrideStyles={styles.rulesHeaderCard}>
-        <Text style={styles.rulesTabHeader}>
-          how to avoid santa's naughty list
-        </Text>
-        <Text style={styles.rulesTabSubtext}>
-          Everything you need to know about being a chaperone on the big
-          shopping day.
-        </Text>
-      </Card>
+    <StickyScreenWrapper>
       {rules.length > 0 ? (
         groupedRules.map((item, index) => (
           <RulesGroup key={index} rules={item.rules} groupName={item.group} />
@@ -73,6 +65,6 @@ export const Rules = () => {
       />
       {/* Added this blank View so that very last rule card displays. it wasn't scrolling down all the way for some reason */}
       <View style={{ height: 110 }}></View>
-    </ScreenWrapper>
+    </StickyScreenWrapper>
   )
 }

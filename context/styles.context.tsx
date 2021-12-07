@@ -468,6 +468,7 @@ export default function StylesProvider({ children }: { children: any }) {
     rulesHeaderCard: {
       backgroundColor: "#EF364B",
       ...cardStyles,
+      marginTop: 0,
     },
     // SOCIAL MEDIA SHARE CARD
     socialMediaShareCard: {
