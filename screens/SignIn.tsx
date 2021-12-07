@@ -36,15 +36,6 @@ export const SignIn = () => {
   }
 
   const verifyRegistration = async () => {
-    // backdoor
-    const bypassUser = phoneNumber === "5555555555" && email.toLowerCase() === "c.onnerbush@gmail.com"
-    if (bypassUser) {
-      saveUser({ ...user, verified: bypassUser })
-      setPhoneNumberIsVerified(true)
-      setIsLoading(false)
-      return
-    }
-
     resetLoadingAndMessaging()
 
     const registrationError = (errorMessage: string, internalError?: { message: string; err: any }, shouldShowRegistration: boolean = false) => {
@@ -59,6 +50,19 @@ export const SignIn = () => {
     const phoneNumberIsValid = validE164(`+1` + phoneNumber)
     if (!phoneNumberIsValid) {
       return registrationError("Oops! Looks like that's not a valid number.")
+    }
+
+    // send twilio verification
+    try {
+      if (phoneNumber !== "5555555555") {
+        await verifyNumber(`+1${phoneNumber}`)
+      }
+      setPhoneNumberIsVerified(true)
+    } catch (err) {
+      return registrationError("Oops! Looks like something went wrong! We'll work on fixing it real soon.", {
+        message: `There was an error in the verifyNumber firebase function: `,
+        err,
+      })
     }
 
     // get mailchimp user
@@ -78,9 +82,11 @@ export const SignIn = () => {
 
     // save user's mailchimp info to firestore database
     try {
+      // backdoor
+      const bypassUser = phoneNumber === "5555555555" && email.trim().toLowerCase() === "c4kchaperones@gmail.com"
       const { data } = await createMailchimpUserInFirestore(mailchimpUser)
       const { mailchimpMemberInfo, ...userWithoutMemberInfo } = data.user
-      saveUser(userWithoutMemberInfo)
+      saveUser({ ...userWithoutMemberInfo, verified: bypassUser })
       setUserIsUpdatedInFirestore(true)
     } catch (err) {
       setUserIsUpdatedInFirestore(false)
@@ -89,17 +95,6 @@ export const SignIn = () => {
         { message: `There was an error in the createMailchimpUserInFirestore firebase function: `, err },
         false
       )
-    }
-
-    // send twilio verification
-    try {
-      await verifyNumber(`+1${phoneNumber}`)
-      setPhoneNumberIsVerified(true)
-    } catch (err) {
-      return registrationError("Oops! Looks like something went wrong! We'll work on fixing it real soon.", {
-        message: `There was an error in the verifyNumber firebase function: `,
-        err,
-      })
     }
 
     setIsLoading(false)
