@@ -656,13 +656,10 @@ export default function StylesProvider({ children }: { children: any }) {
       textAlign: "left",
       paddingLeft: 10,
     },
+    //SCHEDULE PAGE
   }
   const styles = StyleSheet.create(initialState)
-  return (
-    <StylesContext.Provider value={{ styles }}>
-      {children}
-    </StylesContext.Provider>
-  )
+  return <StylesContext.Provider value={{ styles }}>{children}</StylesContext.Provider>
 }
 
 export const useStyles = () => {

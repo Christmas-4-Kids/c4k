@@ -2,10 +2,21 @@ import React, { useState, useEffect } from "react"
 import { SafeAreaView, ScrollView, View, Text, Button, TouchableOpacity } from "react-native"
 import { useStyles } from "../context/styles.context"
 import firestore from "firebase/firestore"
-
-const Schedule = props => {
-  const [schedule, setSchedule] = useState(null)
+import { fetchSchedule } from "../services/firestore.service"
+import ScreenWrapper from "./ScreenWrapper"
+ 
+export const Schedule = props => {
   const { styles } = useStyles()
+
+  const [schedule, setSchedule] = useState(null)
+
+  useEffect(() => {
+    fetchSchedule().then(data => {
+      setSchedule(data.data[0].events)
+      console.log("here is the schedule",data.data[0].events)
+    })
+  }, [])
+
   useEffect(() => {
     let list = []
     // const unsubscribe = firestore()
@@ -27,25 +38,18 @@ const Schedule = props => {
     // };
   }, [])
   return (
-    <View style={styles.page}>
+    <ScreenWrapper>
       <View style={styles.sectionContainer}>
         <ScrollView contentInsetAdjustmentBehavior="automatic" contentContainerStyle={{ flexGrow: 1 }}>
           {!!schedule &&
-            schedule.events.map(event => (
+            schedule.map(event => (
               <View style={styles.sectionContainer} key={event.order}>
                 <Text style={styles.sectionTitle}>{event.time}</Text>
                 <Text style={styles.sectionDescription}>{event.name}</Text>
               </View>
             ))}
         </ScrollView>
-        <View style={styles.sectionContainer}>
-          <TouchableOpacity style={styles.closeButton} onPress={() => props.navigation.pop()}>
-            <Text style={styles.buttonText}> Close </Text>
-          </TouchableOpacity>
-        </View>
       </View>
-    </View>
+    </ScreenWrapper>
   )
 }
-
-export default Schedule

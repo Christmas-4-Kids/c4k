@@ -20,6 +20,7 @@ import { Rules } from "../screens/Rules"
 import { ChaperoneList } from "../screens/ChaperoneList"
 import { Pressable } from "react-native"
 import { ScanDriversLicense } from "../screens/ScanDriversLicense"
+import { Schedule } from "../screens/Schedule"
 
 const MyTheme = {
   ...DefaultTheme,
@@ -138,6 +139,15 @@ function BottomTabNavigator() {
           title: "Rules",
           headerShown: false,
           tabBarIcon: ({ color }) => <TabBarIcon name="clipboard-check" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Schedule"
+        component={Schedule}
+        options={{
+          title: "Schedule",
+          headerShown: false,
+          tabBarIcon: ({ color }) => <TabBarIcon name="calendar" color={color} />,
         }}
       />
       <BottomTab.Screen
