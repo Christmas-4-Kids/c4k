@@ -25,6 +25,7 @@ export const verifyNumber = firebase.functions().httpsCallable("verifyNumber")
 export const verifyCode = firebase.functions().httpsCallable("verifyCode")
 export const createMailchimpUserInFirestore = firebase.functions().httpsCallable("createMailchimpUserInFirestore")
 export const fetchRules = firebase.functions().httpsCallable("fetchRules")
+export const fetchSchedule = firebase.functions().httpsCallable("fetchSchedule")
 
 // export const testText = firebase.functions().httpsCallable("textMe")
 /*

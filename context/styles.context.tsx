@@ -569,6 +569,8 @@ export default function StylesProvider({ children }: { children: any }) {
       width: 34,
       height: 32,
     },
+    //SCHEDULE PAGE
+    
   }
   const styles = StyleSheet.create(initialState)
   return <StylesContext.Provider value={{ styles }}>{children}</StylesContext.Provider>

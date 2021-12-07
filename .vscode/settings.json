@@ -7,5 +7,8 @@
   "prettier.jsxSingleQuote": false,
   "editor.wordWrapColumn": 80,
   "typescript.format.insertSpaceAfterCommaDelimiter": true,
-  "prettier.trailingComma": "es5"
+  "prettier.trailingComma": "es5",
+  "cSpell.words": [
+    "mailchimp"
+  ]
 }

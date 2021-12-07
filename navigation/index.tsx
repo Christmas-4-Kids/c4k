@@ -17,6 +17,7 @@ import LinkingConfiguration from "./LinkingConfiguration"
 import { Account } from "../screens/Account"
 import { TempHome } from "../screens/TempHome"
 import { Rules } from "../screens/Rules"
+import { Schedule } from "../screens/Schedule"
 
 const MyTheme = {
   ...DefaultTheme,
@@ -105,6 +106,15 @@ function BottomTabNavigator() {
           title: "Rules",
           headerShown: false,
           tabBarIcon: ({ color }) => <TabBarIcon name="clipboard-check" color={color} />,
+        }}
+      />
+      <BottomTab.Screen 
+        name="Schedule"
+        component={Schedule}
+        options={{
+          title: "Schedule",
+          headerShown: false,
+          tabBarIcon: ({ color }) => <TabBarIcon name="calendar" color={color} />
         }}
       />
       <BottomTab.Screen
