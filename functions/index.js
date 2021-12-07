@@ -89,6 +89,55 @@ exports.fetchRules = functions.https.onCall(async () => {
   return rules
 })
 
+exports.syncMailchimpVolunteers = functions.https.onCall(async () => {
+  const mailchimpVolunteers = new Map()
+  const mapMailchimpVolunteers = volunteers => {
+    for (const volunteer of volunteers) {
+      mailchimpVolunteers.set(volunteer.id, volunteer)
+    }
+  }
+  // get all mailchimp users for all 4 list ids
+  const opts = { count: 1000 }
+  const allDayList = await mailchimp.lists.getListMembersInfo(allDayChaperonesListId, opts)
+  mapMailchimpVolunteers(allDayList)
+  const eveningList = await mailchimp.lists.getListMembersInfo(eveningChaperonesListId, opts)
+  mapMailchimpVolunteers(eveningList)
+  const lebanonList = await mailchimp.lists.getListMembersInfo(lebanonChaperonesListId, opts)
+  mapMailchimpVolunteers(lebanonList)
+  const driversList = await mailchimp.lists.getListMembersInfo(driversListId, opts)
+  mapMailchimpVolunteers(driversList)
+
+  // get all volunteers in firebase
+  let firebaseVolunteers = new Map()
+  await firestore
+    .collection("volunteers")
+    .get()
+    .then(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        // doc.data() is never undefined for query doc snapshots
+        const volunteer = doc.data()
+        firebaseVolunteers.set(volunteer.id, volunteer)
+      })
+    })
+
+  // if mailchimp user is not in list of volunteers then create user
+  let membersInMailchimpNotInFirebase = []
+  for (const [key, value] of mailchimpVolunteers) {
+    const firebaseVolunteer = firebaseVolunteers.get(key)
+    if (!firebaseVolunteer) {
+      membersInMailchimpNotInFirebase.push(value)
+    }
+  }
+
+  for (const member of membersInMailchimpNotInFirebase) {
+    const volunteer = createVolunteer(member)
+    let documentRef = admin.firestore().doc("volunteers/" + member.id)
+    documentRef.set(volunteer).catch(err => {
+      return { error: `Failed to create document: ${err}` }
+    })
+  }
+})
+
 const getVolunteerType = mailchimpMember => {
   const listId = mailchimpMember.list_id
   if (listId === allDayChaperonesListId) {
