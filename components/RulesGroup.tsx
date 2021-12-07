@@ -68,7 +68,7 @@ const CheckListItem = ({ item }) => {
   const [isSelected, setSelection] = useState(false)
 
   return (
-    <View style={{ flexDirection: "row" }}>
+    <View style={{ flexDirection: "row", paddingBottom: 20 }}>
       <Text>
         <CheckBox value={isSelected} onValueChange={setSelection} />
       </Text>
