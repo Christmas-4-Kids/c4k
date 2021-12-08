@@ -569,8 +569,37 @@ export default function StylesProvider({ children }: { children: any }) {
       width: 34,
       height: 32,
     },
-    //SCHEDULE PAGE
-    
+    //Schedule
+    scheduleCardWrapper: {
+      marginBottom: 11,
+      justifyContent: "space-evenly",
+      display: "flex",
+      flexDirection: "row",
+      fontFamily: "ZillaSlab-Medium",
+      width: "100%",
+    },
+    scheduleTime: {
+      borderTopLeftRadius: 10,
+      borderBottomLeftRadius: 10,
+      color: "white",
+      fontFamily: "inherit",
+      backgroundColor: "#15232E",
+      padding: 18,
+      textAlign: "left",
+      justifyContent: "center",
+      width: "30%",
+      height: "100%",
+    },
+    scheduleName: {
+      borderTopRightRadius: 10,
+      borderBottomRightRadius: 10,
+      color: "white",
+      backgroundColor: "#318AC7",
+      display: "flex",
+      flexDirection: "column",
+      width: "70%",
+      padding: 13,
+    },
   }
   const styles = StyleSheet.create(initialState)
   return <StylesContext.Provider value={{ styles }}>{children}</StylesContext.Provider>

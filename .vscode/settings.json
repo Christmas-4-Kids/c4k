@@ -9,6 +9,7 @@
   "typescript.format.insertSpaceAfterCommaDelimiter": true,
   "prettier.trailingComma": "es5",
   "cSpell.words": [
+    "Ionicons",
     "mailchimp"
   ]
 }
