@@ -1,4 +1,4 @@
-import React, { useState }  from "react";
+import React, { useState, useEffect }  from "react";
 import { View, Text, Modal, TextInput, NativeSyntheticEvent, TextInputChangeEventData, Pressable } from "react-native"
 import { Entypo } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
@@ -7,22 +7,44 @@ import { useStyles } from "../context/styles.context"
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const BusDriverCard = () => {
 
+export const BusDriverCard = () => {
+    
     const [busDriverModalOpen, setBusDriverModalOpen ] = useState(false);
     const [driverName, setDriverName] = useState("")
     const [phoneNumber, setPhoneNumber] = useState("")
-    const [busNumber, setbusNumber] = useState("")
+    const [busNumber, setBusNumber] = useState("")
+    // const [driverInfo, setDriverInfo] = useState({})
 
     const { styles } = useStyles()
-    // const storeData = async (value) => {
-    //     try {
-    //       const jsonValue = JSON.stringify(value)
-    //       await AsyncStorage.setItem('@storage_Key', jsonValue)
-    //     } catch (e) {
-    //       // saving error
-    //     }
-    //   }
+
+    const storeDriverInfo = async (busDriver) => {
+        try {
+          const jsonValue = JSON.stringify(busDriver)
+          await AsyncStorage.setItem('driverInfo', jsonValue)
+        } catch (e) {
+           alert(e)
+        }
+      }
+    
+      const getDriverInfo = async () => {
+        try {
+          const jsonValue = await AsyncStorage.getItem('driverInfo')
+          const driverInfo = JSON.parse(jsonValue)
+
+          if(driverInfo !== null){
+              setDriverName(driverInfo.driverName)
+              setPhoneNumber(driverInfo.phoneNumber)
+              setBusNumber(driverInfo.busNumber)
+          }
+        } catch(e) {
+          // error reading value
+        }
+      }
+
+      useEffect(() => {
+        getDriverInfo()
+      }, [])
 
     return (
         <Card>
@@ -69,7 +91,7 @@ export const BusDriverCard = () => {
                         
                                 <TextInput
                                     style={styles.textInput}
-                                    onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => setbusNumber(e.nativeEvent.text)}
+                                    onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => setBusNumber(e.nativeEvent.text)}
                                     placeholder="bus #"
                                     value={busNumber}
                                     keyboardType="phone-pad"
@@ -78,15 +100,21 @@ export const BusDriverCard = () => {
                                     autoFocus={true}
                                 />
                             </View>
-                            <Pressable style={styles.button} onPress={() => console.log('save data')}>
-                    <Text style={styles.buttonText}>{"Save Driver Info"}</Text>
+                            <Pressable 
+                                style={styles.button} 
+                                onPress={() => {
+                                    storeDriverInfo({driverName, phoneNumber, busNumber})
+                                    setBusDriverModalOpen(false)
+                                }}>
+                                <Text style={styles.buttonText}>{"Save Driver Info"}</Text>
                             </Pressable>
                         </View>
 
                     </View>
                 </Modal>
-                    
-                <Text>Bus Driver</Text>
+                <Text>Driver Name: {driverName}</Text>
+                <Text>Bus: {busNumber}</Text>
+                <Text>Phone: {phoneNumber}</Text>
             </View>
         </Card>
     )
