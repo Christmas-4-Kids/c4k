@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from "react"
-import {
-  View,
-  Text,
-  TextInput,
-  Modal,
-  NativeSyntheticEvent,
-  TextInputChangeEventData,
-  Pressable,
-  Linking,
-} from "react-native"
+import { View, Text, TextInput, Modal, NativeSyntheticEvent, TextInputChangeEventData, Pressable, Linking } from "react-native"
 import { Card } from "./Card"
 import { Entypo } from "@expo/vector-icons"
 import { useStyles } from "../context/styles.context"
@@ -60,44 +51,21 @@ const ChaperoneGroupCard = () => {
           >
             Chaperone Group
           </Text>
-          <Entypo
-            name="squared-plus"
-            size={24}
-            color="#EF364B"
-            onPress={() => setModalOpen(true)}
-          />
+          <Entypo name="squared-plus" size={24} color="#EF364B" onPress={() => setModalOpen(true)} />
         </View>
         <View style={styles.chaperoneGroupCardBody}>
           {chaperoneList.length > 0 ? (
             chaperoneList.map((chaperone, index) => (
               <>
-                <ChaperoneListItem
-                  key={index}
-                  name={chaperone.name}
-                  phone={chaperone.phone}
-                  chaperoneList={chaperoneList}
-                  setChaperoneList={setChaperoneList}
-                />
-                {index === chaperoneList.length - 1 ? null : (
-                  <View
-                    key={`d${index}`}
-                    style={styles.chaperoneGroupItemDivider}
-                  ></View>
-                )}
+                <ChaperoneListItem key={index} name={chaperone.name} phone={chaperone.phone} chaperoneList={chaperoneList} setChaperoneList={setChaperoneList} />
+                {index === chaperoneList.length - 1 ? null : <View key={`d${index}`} style={styles.chaperoneGroupItemDivider}></View>}
               </>
             ))
           ) : (
-            <Text style={styles.chaperoneGroupCardBodyText}>
-              Add your fellow chaperones here!
-            </Text>
+            <Text style={styles.chaperoneGroupCardBodyText}>Add your fellow chaperones here!</Text>
           )}
         </View>
-        <ChaperoneModal
-          visible={modalOpen}
-          setVisible={setModalOpen}
-          chaperoneList={chaperoneList}
-          setChaperoneList={setChaperoneList}
-        />
+        <ChaperoneModal visible={modalOpen} setVisible={setModalOpen} chaperoneList={chaperoneList} setChaperoneList={setChaperoneList} />
       </Card>
     </View>
   )
@@ -105,12 +73,7 @@ const ChaperoneGroupCard = () => {
 
 export default ChaperoneGroupCard
 
-const ChaperoneListItem = ({
-  name,
-  phone,
-  chaperoneList,
-  setChaperoneList,
-}) => {
+const ChaperoneListItem = ({ name, phone, chaperoneList, setChaperoneList }) => {
   const { styles } = useStyles()
 
   const pressCall = () => {
@@ -118,17 +81,10 @@ const ChaperoneListItem = ({
     Linking.openURL(url)
   }
 
-  const removeContact = (phone) => {
-    console.log(chaperoneList.filter((chaperone) => chaperone.phone !== phone))
-    setChaperoneList(
-      chaperoneList.filter((chaperone) => chaperone.phone !== phone)
-    )
-    AsyncStorage.setItem(
-      "chaperoneList",
-      JSON.stringify(
-        chaperoneList.filter((chaperone) => chaperone.phone !== phone)
-      )
-    )
+  const removeContact = phone => {
+    console.log(chaperoneList.filter(chaperone => chaperone.phone !== phone))
+    setChaperoneList(chaperoneList.filter(chaperone => chaperone.phone !== phone))
+    AsyncStorage.setItem("chaperoneList", JSON.stringify(chaperoneList.filter(chaperone => chaperone.phone !== phone)))
   }
 
   return (
@@ -139,32 +95,16 @@ const ChaperoneListItem = ({
         flexDirection: "row",
       }}
     >
-      <FontAwesome5
-        onPress={() => removeContact(phone)}
-        name="trash-alt"
-        size={11}
-        color="red"
-      />
+      <FontAwesome5 onPress={() => removeContact(phone)} name="trash-alt" size={11} color="red" />
 
       <Text style={styles.chaperoneGroupCardBodyText}>{name}</Text>
 
-      <FontAwesome5
-        name="phone-alt"
-        size={8}
-        color="#FFF"
-        style={{ backgroundColor: "#23A57F", borderRadius: 3, padding: 5 }}
-        onPress={() => pressCall()}
-      />
+      <FontAwesome5 name="phone-alt" size={8} color="#FFF" style={{ backgroundColor: "#23A57F", borderRadius: 3, padding: 5 }} onPress={() => pressCall()} />
     </View>
   )
 }
 
-const ChaperoneModal = ({
-  visible,
-  setVisible,
-  chaperoneList,
-  setChaperoneList,
-}) => {
+const ChaperoneModal = ({ visible, setVisible, chaperoneList, setChaperoneList }) => {
   const [name, setName] = useState("")
   const [number, setNumber] = useState("")
 
@@ -174,20 +114,13 @@ const ChaperoneModal = ({
     <Modal visible={visible} animationType="slide">
       <View>
         <View>
-          <FontAwesome
-            name="window-close"
-            size={24}
-            color="#EF364B"
-            onPress={() => setVisible(false)}
-          />
+          <FontAwesome name="window-close" size={24} color="#EF364B" onPress={() => setVisible(false)} />
 
           <Text>Add a fellow chaperone</Text>
           <View style={styles.textInputView}>
             <TextInput
               style={styles.textInput}
-              onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
-                setName(e.nativeEvent.text)
-              }
+              onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => setName(e.nativeEvent.text)}
               placeholder="name"
               value={name}
               returnKeyType="next"
@@ -198,9 +131,7 @@ const ChaperoneModal = ({
           <View style={styles.textInputView}>
             <TextInput
               style={styles.textInput}
-              onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) =>
-                setNumber(e.nativeEvent.text)
-              }
+              onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => setNumber(e.nativeEvent.text)}
               placeholder="phone number"
               value={number}
               keyboardType="phone-pad"
@@ -212,17 +143,8 @@ const ChaperoneModal = ({
           <Pressable
             style={styles.button}
             onPress={() => {
-              setChaperoneList([
-                ...chaperoneList,
-                { name: name, phone: number },
-              ])
-              AsyncStorage.setItem(
-                "chaperoneList",
-                JSON.stringify([
-                  ...chaperoneList,
-                  { name: name, phone: number },
-                ])
-              )
+              setChaperoneList([...chaperoneList, { name: name, phone: number }])
+              AsyncStorage.setItem("chaperoneList", JSON.stringify([...chaperoneList, { name: name, phone: number }]))
               setName("")
               setNumber("")
               setVisible(false)

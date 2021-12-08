@@ -15,7 +15,7 @@ import NotFoundScreen from "../screens/NotFoundScreen"
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from "../types"
 import LinkingConfiguration from "./LinkingConfiguration"
 import { Account } from "../screens/Account"
-import { TempHome } from "../screens/TempHome"
+import { Home } from "../screens/Home"
 import { Rules } from "../screens/Rules"
 import { ChaperoneList } from "../screens/ChaperoneList"
 import { Pressable } from "react-native"
@@ -114,7 +114,7 @@ function BottomTabNavigator() {
     >
       <BottomTab.Screen
         name="Home"
-        component={TempHome}
+        component={Home}
         options={{
           title: "Home",
           headerShown: false,
