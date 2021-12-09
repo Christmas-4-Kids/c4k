@@ -1,12 +1,11 @@
 import React, { useState, useEffect }  from "react";
-import { View, Text, Modal, TextInput, NativeSyntheticEvent, TextInputChangeEventData, Pressable } from "react-native"
+import { View, Text, Modal, TextInput, NativeSyntheticEvent, TextInputChangeEventData, Pressable, Image } from "react-native"
 import { Entypo } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 import { Card } from "./Card"
 import { useStyles } from "../context/styles.context"
-
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import c4kBus from '../assets/images/C4K-Bus.png'
 
 export const BusDriverCard = () => {
     
@@ -47,6 +46,7 @@ export const BusDriverCard = () => {
 
     return (
         <Card overrideStyles={styles.busDriverCard}>
+            <View>
             <View style={styles.budDriverCardHeader}>    
                 <View>
                 <Text                    
@@ -84,6 +84,18 @@ export const BusDriverCard = () => {
                 </View>
             </View>
 
+            </View>
+            <View>
+                <Image 
+                    source={c4kBus} 
+                    style={{
+                        width: 131,
+                        height: 114,
+                        marginLeft: 40,
+                        
+                      }}
+                />
+            </View>
                 <Modal visible={busDriverModalOpen} animationType="slide">
                     <View>
                         <View>
