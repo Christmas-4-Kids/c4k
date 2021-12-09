@@ -687,6 +687,54 @@ export default function StylesProvider({ children }: { children: any }) {
       width: "70%",
       paddingVertical: 10,
     },
+    // CHAPERONE GROUP CARD
+    chaperoneGroupCard: {
+      alignSelf: "center",
+      backgroundColor: "#318AC7",
+      width: 136,
+      margin: 20,
+      borderRadius: 10,
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 0 },
+      shadowOpacity: 0.16,
+      shadowRadius: 9,
+      elevation: 5, // fixes boxshadow on android
+      padding: 0,
+      overflow: "hidden",
+      height: 150,
+    },
+    chaperoneGroupCardHeader: {
+      flexDirection: "row",
+      height: 46,
+      backgroundColor: "#1B2C39",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    chaperoneGroupCardBody: {
+      flex: 1,
+      backgroundColor: "#318AC7",
+      color: "#FFF",
+      // padding: 20,
+      paddingHorizontal: 3,
+      // justifyContent: "center",
+    },
+    chaperoneGroupCardBodyText: {
+      fontSize: 11,
+      lineHeight: 21,
+      color: "#FFF",
+      fontWeight: "400",
+      fontFamily: "FjallaOne",
+      textAlign: "center",
+    },
+    chaperoneGroupItemDivider: {
+      width: "100%",
+      height: 1,
+      textAlign: "center",
+      backgroundColor: "#000",
+      opacity: 0.25,
+      marginBottom: 2,
+      marginTop: 2,
+    },
   }
   const styles = StyleSheet.create(initialState)
   return <StylesContext.Provider value={{ styles }}>{children}</StylesContext.Provider>
