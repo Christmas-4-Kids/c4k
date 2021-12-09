@@ -14,7 +14,6 @@ export const BusDriverCard = () => {
     const [driverName, setDriverName] = useState("")
     const [phoneNumber, setPhoneNumber] = useState("")
     const [busNumber, setBusNumber] = useState("")
-    // const [driverInfo, setDriverInfo] = useState({})
 
     const { styles } = useStyles()
 
@@ -47,21 +46,50 @@ export const BusDriverCard = () => {
       }, [])
 
     return (
-        <Card>
-            <View>    
+        <Card overrideStyles={styles.busDriverCard}>
+            <View style={styles.budDriverCardHeader}>    
+                <View>
+                <Text                    
+                    style={{fontSize: 25,
+                    color: "#FFF",
+                    fontFamily: "Fregata-Sans",
+                    lineHeight: 15,
+                    textAlign: "left",
+                    width: "70%",
+                    paddingTop: 10,
+                    flexWrap: "wrap",
+                }}
+                >
+                    Bus Driver
+                </Text>
+                </View>
+                <View>
                 <Entypo 
                     name="squared-plus" 
                     size={24} 
                     color="#EF364B" 
                     onPress={() => setBusDriverModalOpen(true)}
                 />
+                </View>
+            </View>
+            <View style={styles.busDriverCardInfo}>
+
+                <View style={styles.busNumberBox}>
+                    <Text style={styles.busTitleText}>BUS</Text>
+                    <Text style={styles.busNumberText}>{busNumber}</Text>
+                </View>
+                <View style={styles.busDriverInfo}>
+                    <Text style={styles.busDriverNameText}>{driverName}</Text>
+                    <Text style={styles.busDriverPhoneText}>Phone: {phoneNumber}</Text>
+                </View>
+            </View>
 
                 <Modal visible={busDriverModalOpen} animationType="slide">
                     <View>
                         <View>
                             <FontAwesome name="window-close" size={24} color="#EF364B" onPress={() => setBusDriverModalOpen(false)} />
 
-                            <Text>Hello from Bus Driver Form</Text>
+                            <Text>Add Bus Driver Information</Text>
                             <View style={styles.textInputView}>
                         
                                 <TextInput
@@ -112,10 +140,7 @@ export const BusDriverCard = () => {
 
                     </View>
                 </Modal>
-                <Text>Driver Name: {driverName}</Text>
-                <Text>Bus: {busNumber}</Text>
-                <Text>Phone: {phoneNumber}</Text>
-            </View>
+            
         </Card>
     )
 }
