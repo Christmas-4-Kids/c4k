@@ -569,6 +569,84 @@ export default function StylesProvider({ children }: { children: any }) {
       width: 34,
       height: 32,
     },
+    // CHAPERONE SEARCH CARD
+    chaperoneSearchCardTitle: {
+      fontFamily: "Fregata-Sans",
+      fontStyle: "normal",
+      fontWeight: "bold",
+      letterSpacing: -0.03,
+      fontSize: 56,
+      textAlign: "center",
+      color: "#15232E",
+      marginTop: -30,
+    },
+    chaperoneSearchCardSubtext: {
+      fontFamily: "ZillaSlab-Medium",
+      fontWeight: "600",
+      textAlign: "center",
+      fontSize: 8,
+      color: "#EF364B",
+      marginTop: -8,
+      marginBottom: 8,
+    },
+    searchFilterPills: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-evenly",
+      width: 300,
+    },
+    searchFilterPillTextOn: {
+      backgroundColor: "#EF364B",
+      color: "#fff",
+      fontFamily: "FjallaOne",
+      fontSize: 10,
+      padding: 5,
+      margin: 2,
+    },
+    searchFilterPillTextOff: {
+      backgroundColor: "#C4C4C4",
+      color: "#fff",
+      fontFamily: "FjallaOne",
+      fontSize: 10,
+      padding: 5,
+      margin: 2,
+    },
+    searchResultCountText: {
+      color: "#1B2C39",
+      fontFamily: "FjallaOne",
+      fontSize: 22,
+      textAlign: "center",
+    },
+    // CHAPERONE LIST CARD
+    chaperoneListCard: {
+      backgroundColor: "#FFF",
+      height: 360,
+      ...cardStyles,
+    },
+    chaperoneListItemName: {
+      color: "#1B2C39",
+      fontFamily: "FjallaOne",
+      fontSize: 20,
+      textAlign: "left",
+    },
+    chaperoneListItemVolunteerType: {
+      color: "#1B2C39",
+      fontFamily: "ZillaSlab-Medium",
+      fontSize: 10,
+      textAlign: "left",
+    },
+    // VOLUNTEER CARD
+    volunteerCardInfoRow: {
+      flexDirection: "row",
+      paddingVertical: 5,
+    },
+    volunteerCardInfoText: {
+      color: "#1B2C39",
+      fontFamily: "ZillaSlab-Medium",
+      fontSize: 14,
+      textAlign: "left",
+      paddingLeft: 10,
+    },
   }
   const styles = StyleSheet.create(initialState)
   return <StylesContext.Provider value={{ styles }}>{children}</StylesContext.Provider>

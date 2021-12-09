@@ -62,9 +62,7 @@ exports.checkIfRegistered = functions.https.onCall(async (email, context) => {
 
 exports.createMailchimpUserInFirestore = functions.region("us-central1").https.onCall(async (mailchimpMember, context) => {
   const volunteer = createVolunteer(mailchimpMember)
-  console.log("volunteer", volunteer)
   let documentRef = admin.firestore().doc("volunteers/" + mailchimpMember.id)
-  console.log(`documentRef`, documentRef)
   return documentRef
     .set(volunteer)
     .then(res => {
@@ -89,6 +87,12 @@ exports.fetchRules = functions.https.onCall(async () => {
   return rules
 })
 
+exports.updateVolunteerCheckedIn = functions.https.onCall(async ({ checkedIn, refId }) => {
+  await firestore.collection("volunteers").doc(refId).update({
+    checkedIn: checkedIn,
+  })
+})
+
 exports.syncMailchimpVolunteers = functions.https.onCall(async () => {
   const mailchimpVolunteers = new Map()
   const mapMailchimpVolunteers = volunteers => {
@@ -98,13 +102,13 @@ exports.syncMailchimpVolunteers = functions.https.onCall(async () => {
   }
   // get all mailchimp users for all 4 list ids
   const opts = { count: 1000 }
-  const allDayList = await mailchimp.lists.getListMembersInfo(allDayChaperonesListId, opts)
+  const { members: allDayList } = await mailchimp.lists.getListMembersInfo(allDayChaperonesListId, opts)
   mapMailchimpVolunteers(allDayList)
-  const eveningList = await mailchimp.lists.getListMembersInfo(eveningChaperonesListId, opts)
+  const { members: eveningList } = await mailchimp.lists.getListMembersInfo(eveningChaperonesListId, opts)
   mapMailchimpVolunteers(eveningList)
-  const lebanonList = await mailchimp.lists.getListMembersInfo(lebanonChaperonesListId, opts)
+  const { members: lebanonList } = await mailchimp.lists.getListMembersInfo(lebanonChaperonesListId, opts)
   mapMailchimpVolunteers(lebanonList)
-  const driversList = await mailchimp.lists.getListMembersInfo(driversListId, opts)
+  const { members: driversList } = await mailchimp.lists.getListMembersInfo(driversListId, opts)
   mapMailchimpVolunteers(driversList)
 
   // get all volunteers in firebase

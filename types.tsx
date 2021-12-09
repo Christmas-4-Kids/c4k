@@ -24,11 +24,26 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> = Nati
 
 export type RootTabParamList = {
   Account: undefined
+  Chaperones: undefined
   Home: undefined
+  Modal: undefined
   Rules: undefined
+  ScanDriversLicense: undefined
 }
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<
   BottomTabScreenProps<RootTabParamList, Screen>,
   NativeStackScreenProps<RootStackParamList>
 >
+
+export type SearchFilters = {
+  lebanon: boolean
+  evening: boolean
+  allDay: boolean
+  admin: boolean
+  driver: boolean
+  checkedIn: boolean
+  notCheckedIn: boolean
+  espanol: boolean
+  medical: boolean
+}
