@@ -142,6 +142,20 @@ exports.syncMailchimpVolunteers = functions.https.onCall(async () => {
   }
 })
 
+//retrieve schedule from firestore
+exports.fetchSchedule = functions.https.onCall(async () => {
+  let events = []
+  await firestore
+    .collection("schedule")
+    .get()
+    .then(querySnapshot => {
+      querySnapshot.forEach(doc => {
+        events.push(doc.data())
+      })
+    })
+  return events
+})
+
 const getVolunteerType = mailchimpMember => {
   const listId = mailchimpMember.list_id
   if (listId === allDayChaperonesListId) {

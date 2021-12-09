@@ -30,5 +30,6 @@ export const createMailchimpUserInFirestore = httpsCallable(functions, "createMa
 export const fetchRules = httpsCallable(functions, "fetchRules")
 export const syncMailchimpVolunteers = httpsCallable(functions, "syncMailchimpVolunteers")
 export const updateVolunteerCheckedIn = httpsCallable(functions, "updateVolunteerCheckedIn")
+export const fetchSchedule = httpsCallable(functions, "fetchSchedule")
 
 export const db = getFirestore()
