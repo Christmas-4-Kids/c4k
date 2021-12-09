@@ -37,7 +37,7 @@ const VolunteerItem = (props: {
     setModalVolunteer(volunteer)
   }
   useEffect(() => {
-    if (volunteer.mailchimpMemberId === modalVolunteer.mailchimpMemberId) {
+    if (volunteer?.mailchimpMemberId === modalVolunteer?.mailchimpMemberId) {
       setModalVolunteer(volunteer)
     }
   })

@@ -468,6 +468,7 @@ export default function StylesProvider({ children }: { children: any }) {
     rulesHeaderCard: {
       backgroundColor: "#EF364B",
       ...cardStyles,
+      marginTop: 0,
     },
     // SOCIAL MEDIA SHARE CARD
     socialMediaShareCard: {
@@ -537,7 +538,15 @@ export default function StylesProvider({ children }: { children: any }) {
       borderTopLeftRadius: 10,
       height: 46,
       backgroundColor: "#318AC7",
-      alignItems: "center",
+      justifyContent: "center",
+    },
+    ruleCardTitleCollapsed: {
+      borderTopRightRadius: 10,
+      borderTopLeftRadius: 10,
+      borderBottomLeftRadius: 10,
+      borderBottomRightRadius: 10,
+      height: 46,
+      backgroundColor: "#318AC7",
       justifyContent: "center",
     },
     ruleCardDescription: {
@@ -649,7 +658,11 @@ export default function StylesProvider({ children }: { children: any }) {
     },
   }
   const styles = StyleSheet.create(initialState)
-  return <StylesContext.Provider value={{ styles }}>{children}</StylesContext.Provider>
+  return (
+    <StylesContext.Provider value={{ styles }}>
+      {children}
+    </StylesContext.Provider>
+  )
 }
 
 export const useStyles = () => {
