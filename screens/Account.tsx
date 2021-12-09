@@ -24,7 +24,6 @@ const getVolunteerType = (volunteerType: string) => {
 export const Account = () => {
   const { styles } = useStyles()
   const { signOut, user } = useUser()
-  console.log(`user`, user)
   return (
     <ScreenWrapper>
       <UserCard user={`${user.firstName} ${user.lastName}`} role={getVolunteerType(user.volunteerType)} phone={user.phoneNumber} email={user.email} />

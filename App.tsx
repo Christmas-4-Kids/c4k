@@ -7,6 +7,7 @@ import useCachedResources from "./hooks/useCachedResources"
 import Navigation from "./navigation"
 import { useFonts } from "expo-font"
 import StylesProvider from "./context/styles.context"
+import VolunteerProvider from "./context/volunteer.context"
 
 export default function App() {
   const isLoadingComplete = useCachedResources()
@@ -22,10 +23,12 @@ export default function App() {
     return (
       <SafeAreaProvider>
         <UserProvider>
-          <StylesProvider>
-            <Navigation />
-            <StatusBar />
-          </StylesProvider>
+          <VolunteerProvider>
+            <StylesProvider>
+              <Navigation />
+              <StatusBar />
+            </StylesProvider>
+          </VolunteerProvider>
         </UserProvider>
       </SafeAreaProvider>
     )

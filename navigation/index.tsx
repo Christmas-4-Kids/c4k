@@ -3,7 +3,7 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { FontAwesome5 } from "@expo/vector-icons"
+import { FontAwesome, FontAwesome5 } from "@expo/vector-icons"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
@@ -12,17 +12,20 @@ import { useUser } from "../context/user.context"
 import { SignIn } from "../screens/SignIn"
 import ModalScreen from "../screens/ModalScreen"
 import NotFoundScreen from "../screens/NotFoundScreen"
-import { RootStackParamList, RootTabParamList } from "../types"
+import { RootStackParamList, RootTabParamList, RootTabScreenProps } from "../types"
 import LinkingConfiguration from "./LinkingConfiguration"
 import { Account } from "../screens/Account"
 import { TempHome } from "../screens/TempHome"
 import { Rules } from "../screens/Rules"
+import { ChaperoneList } from "../screens/ChaperoneList"
+import { Pressable } from "react-native"
+import { ScanDriversLicense } from "../screens/ScanDriversLicense"
 
 const MyTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    background: "yellow",
+    background: "white",
     primary: "#EF364B",
     card: "#EF364B",
   },
@@ -51,7 +54,24 @@ function RootNavigator() {
           <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
           <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: "Oops!" }} />
           <Stack.Group screenOptions={{ presentation: "fullScreenModal" }}>
-            <Stack.Screen name="Modal" component={ModalScreen} />
+            <Stack.Screen
+              name="Modal"
+              component={ScanDriversLicense}
+              options={({ navigation }: RootTabScreenProps<"Modal">) => ({
+                title: "Scan Driver's License",
+                headerShown: true,
+                headerRight: () => (
+                  <Pressable
+                    onPress={() => navigation.goBack()}
+                    style={({ pressed }) => ({
+                      opacity: pressed ? 0.5 : 1,
+                    })}
+                  >
+                    <FontAwesome name="window-close" size={25} color={"#1B2C39"} style={{ marginRight: 15 }} />
+                  </Pressable>
+                ),
+              })}
+            />
           </Stack.Group>
         </>
       ) : (
@@ -78,6 +98,8 @@ function RootNavigator() {
 const BottomTab = createBottomTabNavigator<RootTabParamList>()
 
 function BottomTabNavigator() {
+  const { user } = useUser()
+  const isAdmin = user.volunteerType.endsWith("ADMIN")
   return (
     <BottomTab.Navigator
       initialRouteName="Home"
@@ -98,6 +120,17 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
         }}
       />
+      {isAdmin ? (
+        <BottomTab.Screen
+          name="Chaperones"
+          component={ChaperoneList}
+          options={{
+            title: "Chaperones",
+            headerShown: false,
+            tabBarIcon: ({ color }) => <TabBarIcon name="users" color={color} />,
+          }}
+        />
+      ) : null}
       <BottomTab.Screen
         name="Rules"
         component={Rules}
