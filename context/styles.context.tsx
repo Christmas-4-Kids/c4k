@@ -422,7 +422,6 @@ export default function StylesProvider({ children }: { children: any }) {
       fontSize: 10,
       fontWeight: "700",
       color: "#EF364B",
-      marginBottom: -16,
     },
     userCardDivider: {
       width: "100%",
@@ -468,7 +467,6 @@ export default function StylesProvider({ children }: { children: any }) {
     rulesHeaderCard: {
       backgroundColor: "#EF364B",
       ...cardStyles,
-      marginTop: 0,
     },
     // SOCIAL MEDIA SHARE CARD
     socialMediaShareCard: {
@@ -581,13 +579,11 @@ export default function StylesProvider({ children }: { children: any }) {
     // CHAPERONE SEARCH CARD
     chaperoneSearchCardTitle: {
       fontFamily: "Fregata-Sans",
-      fontStyle: "normal",
-      fontWeight: "bold",
       letterSpacing: -0.03,
       fontSize: 56,
       textAlign: "center",
       color: "#15232E",
-      marginTop: -30,
+      marginTop: -20,
     },
     chaperoneSearchCardSubtext: {
       fontFamily: "ZillaSlab-Medium",
@@ -631,6 +627,7 @@ export default function StylesProvider({ children }: { children: any }) {
       backgroundColor: "#FFF",
       height: 360,
       ...cardStyles,
+      paddingTop: 0,
     },
     chaperoneListItemName: {
       color: "#1B2C39",
@@ -659,6 +656,9 @@ export default function StylesProvider({ children }: { children: any }) {
     //SCHEDULE PAGE
     //Schedule
     scheduleCardWrapper: {
+      ...cardStyles,
+      margin: 0,
+      padding: 0,
       marginBottom: 11,
       justifyContent: "space-evenly",
       display: "flex",
@@ -777,30 +777,34 @@ export default function StylesProvider({ children }: { children: any }) {
       width: 45,
       alignItems: "center",
       justifyContent: "center",
+      padding: 3,
+      margin: 0,
     },
     busNumberText: {
       fontSize: 24,
-      lineHeight: 20,
+      padding: 0,
+      margin: 0,
       color: "#FFF",
       fontWeight: "400",
       fontFamily: "Fregata-Sans",
     },
     busTitleText: {
       fontSize: 14,
-      lineHeight: 15,
+      padding: 0,
+      paddingTop: 4,
+      margin: 0,
       color: "#FFF",
       fontWeight: "400",
       fontFamily: "FjallaOne",
     },
     // EMERGENCY CONTACTS CARD
     emergencyContactsCard: {
-      backgroundColor: "#318AC7",
       ...cardStyles,
       width: "40%",
       padding: 0,
       margin: 0,
       marginLeft: -15,
-      overflow: "scroll",
+      overflow: "hidden",
       height: 180,
     },
     emergencyContactsHeader: {
@@ -810,20 +814,18 @@ export default function StylesProvider({ children }: { children: any }) {
       justifyContent: "center",
     },
     emergencyContactsCardBody: {
-      flex: 1,
+      flexDirection: "column",
       backgroundColor: "#FFF",
       paddingHorizontal: 3,
     },
     emergencyContactNameText: {
       fontSize: 14,
-      lineHeight: 0,
       color: "#1A2C39",
       fontWeight: "400",
       fontFamily: "FjallaOne",
     },
     emergencyContactTitleText: {
       fontSize: 10,
-      lineHeight: 0,
       color: "#1A2C39",
       fontWeight: "400",
       fontFamily: "ZillaSlab-Medium",
@@ -837,7 +839,7 @@ export default function StylesProvider({ children }: { children: any }) {
       flexDirection: "column",
     },
     emergencyContactDivider: {
-      width: "100%",
+      width: "90%",
       height: 1,
       textAlign: "center",
       backgroundColor: "#000",
@@ -849,14 +851,17 @@ export default function StylesProvider({ children }: { children: any }) {
     homeWelcomeCard: {
       backgroundColor: "#EF364B",
       ...cardStyles,
+      padding: 5,
+      marginBottom: 0,
     },
     homeWelcomeInnerCard: {
-      // alignSelf: "center",
+      alignSelf: "center",
       backgroundColor: "#EF364B",
-      margin: 5,
+      padding: 10,
       borderStyle: "dashed",
       borderColor: "#FFF",
-      borderRadius: 1,
+      borderRadius: 10,
+      borderWidth: 1,
       flexDirection: "row",
       justifyContent: "space-around",
     },

@@ -1,7 +1,7 @@
 import React from "react"
 import { Card } from "./Card"
 import { useStyles } from "../context/styles.context"
-import { NativeSyntheticEvent, Text, TextInput, TextInputChangeEventData, TouchableOpacity, View } from "react-native"
+import { NativeSyntheticEvent, Platform, Text, TextInput, TextInputChangeEventData, TouchableOpacity, View } from "react-native"
 import { SearchFilters } from "../types"
 import { Ionicons } from "@expo/vector-icons"
 
@@ -39,7 +39,7 @@ const ChaperoneSearchCard = (props: ChaperoneSearchCardProps) => {
   }
   return (
     <Card>
-      <Text style={styles.chaperoneSearchCardTitle}>volunteer list</Text>
+      <Text style={[styles.chaperoneSearchCardTitle, { marginTop: Platform.OS === "ios" ? -30 : 0 }]}>volunteer list</Text>
       <Text style={styles.chaperoneSearchCardSubtext}>Use toggles for volunteer filtering.</Text>
       <View style={styles.searchFilterPills}>
         {volunteerPills.map(pill => (

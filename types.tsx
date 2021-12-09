@@ -30,6 +30,7 @@ export type RootTabParamList = {
   Rules: undefined
   ScanDriversLicense: undefined
   Schedule: undefined
+  Shopping: undefined
 }
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<

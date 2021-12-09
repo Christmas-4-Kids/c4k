@@ -21,6 +21,7 @@ import { ChaperoneList } from "../screens/ChaperoneList"
 import { Pressable } from "react-native"
 import { ScanDriversLicense } from "../screens/ScanDriversLicense"
 import { Schedule } from "../screens/Schedule"
+import { Shopping } from "../screens/Shopping"
 
 const MyTheme = {
   ...DefaultTheme,
@@ -147,7 +148,16 @@ function BottomTabNavigator() {
         options={{
           title: "Schedule",
           headerShown: false,
-          tabBarIcon: ({ color }) => <TabBarIcon name="calendar" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="calendar-check" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Shopping"
+        component={Shopping}
+        options={{
+          title: "Shopping",
+          headerShown: false,
+          tabBarIcon: ({ color }) => <TabBarIcon name="shopping-cart" color={color} />,
         }}
       />
       <BottomTab.Screen
@@ -167,5 +177,5 @@ function BottomTabNavigator() {
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
 function TabBarIcon(props: { name: React.ComponentProps<typeof FontAwesome5>["name"]; color: string }) {
-  return <FontAwesome5 size={30} style={{ marginBottom: -3 }} {...props} />
+  return <FontAwesome5 size={25} style={{ marginBottom: -3 }} {...props} />
 }
