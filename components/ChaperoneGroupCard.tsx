@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react"
 import { View, Text, TextInput, Modal, NativeSyntheticEvent, TextInputChangeEventData, Pressable, Linking } from "react-native"
 import { Card } from "./Card"
-import { Entypo } from "@expo/vector-icons"
+import { Entypo, Ionicons } from "@expo/vector-icons"
 import { useStyles } from "../context/styles.context"
 import { FontAwesome } from "@expo/vector-icons"
 import { FontAwesome5 } from "@expo/vector-icons"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
-const ChaperoneGroupCard = () => {
+export const ChaperoneGroupCard = () => {
   const [modalOpen, setModalOpen] = useState(false)
   const [chaperoneList, setChaperoneList] = useState([])
 
@@ -49,7 +49,7 @@ const ChaperoneGroupCard = () => {
               flexWrap: "wrap",
             }}
           >
-            Chaperone Group
+            chaperone group
           </Text>
           <Entypo name="squared-plus" size={24} color="#EF364B" onPress={() => setModalOpen(true)} />
         </View>
@@ -70,8 +70,6 @@ const ChaperoneGroupCard = () => {
     </View>
   )
 }
-
-export default ChaperoneGroupCard
 
 const ChaperoneListItem = ({ name, phone, chaperoneList, setChaperoneList }) => {
   const { styles } = useStyles()
@@ -111,13 +109,37 @@ const ChaperoneModal = ({ visible, setVisible, chaperoneList, setChaperoneList }
   const { styles } = useStyles()
 
   return (
-    <Modal visible={visible} animationType="slide">
-      <View>
-        <View>
-          <FontAwesome name="window-close" size={24} color="#EF364B" onPress={() => setVisible(false)} />
+    <Modal
+      visible={visible}
+      animationType="slide"
+      transparent={true}
+      onRequestClose={() => {
+        setVisible(!visible)
+      }}
+    >
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: 22,
+        }}
+      >
+        <View style={styles.card}>
+          <FontAwesome name="window-close" size={24} color="#EF364B" onPress={() => setVisible(false)} style={{ textAlign: "right" }} />
 
-          <Text>Add a fellow chaperone</Text>
+          <Text
+            style={{
+              color: "#1B2C39",
+              fontFamily: "FjallaOne",
+              fontSize: 20,
+              textAlign: "center",
+            }}
+          >
+            Add a fellow chaperone
+          </Text>
           <View style={styles.textInputView}>
+            <Ionicons name="md-person-sharp" style={styles.textInputIcon} />
             <TextInput
               style={styles.textInput}
               onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => setName(e.nativeEvent.text)}
@@ -129,15 +151,15 @@ const ChaperoneModal = ({ visible, setVisible, chaperoneList, setChaperoneList }
             />
           </View>
           <View style={styles.textInputView}>
+            <Ionicons name="call" style={styles.textInputIcon} />
             <TextInput
               style={styles.textInput}
               onChange={(e: NativeSyntheticEvent<TextInputChangeEventData>) => setNumber(e.nativeEvent.text)}
               placeholder="phone number"
               value={number}
               keyboardType="phone-pad"
-              returnKeyType="next"
-              returnKeyLabel="next"
-              autoFocus={true}
+              returnKeyType="done"
+              returnKeyLabel="done"
             />
           </View>
           <Pressable

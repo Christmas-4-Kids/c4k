@@ -1,11 +1,11 @@
 import React from "react"
-import { View, Text, Linking, Pressable } from "react-native"
+import { View, Linking } from "react-native"
 import { HomeWelcomeCard } from "../components/HomeWelcomeCard"
 import { BusDriverCard } from "../components/BusDriverCard"
-import { ChaperoneGroupCard } from "../components/ChaperoneGroupCard"
 import { useStyles } from "../context/styles.context"
 import ScreenWrapper from "./ScreenWrapper"
 import { EmergencyContactsCard } from "../components/EmergencyContactsCard"
+import { ChaperoneGroupCard } from "../components/ChaperoneGroupCard"
 
 export const Home = () => {
   const openDonateLink = () => {
@@ -14,14 +14,12 @@ export const Home = () => {
   const { styles } = useStyles()
   return (
     <ScreenWrapper>
-      
-      <HomeWelcomeCard/>
+      <HomeWelcomeCard />
 
       <BusDriverCard />
-      <View style={{flexDirection: "row"}}>
-
-      <ChaperoneGroupCard/>
-      <EmergencyContactsCard/>
+      <View style={{ flexDirection: "row", justifyContent: "flex-start" }}>
+        <ChaperoneGroupCard />
+        <EmergencyContactsCard />
       </View>
     </ScreenWrapper>
   )
