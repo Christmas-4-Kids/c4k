@@ -14,12 +14,16 @@ export const Home = () => {
   const { styles } = useStyles()
   return (
     <ScreenWrapper>
-
+      <View>
       <HomeWelcomeCard/>
 
       <BusDriverCard />
+      </View>
+      <View style={{flexDirection: "row"}}>
+
       <ChaperoneGroupCard/>
       <EmergencyContactsCard/>
+      </View>
     </ScreenWrapper>
   )
 }

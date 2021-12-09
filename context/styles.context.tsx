@@ -922,6 +922,64 @@ export default function StylesProvider({ children }: { children: any }) {
       height: 85,
       flexDirection: "column",
     },
+      // EMERGENCY CONTACTS CARD
+     emergencyContactsCard: {
+      backgroundColor: "#318AC7",
+      width: 136,
+      margin: 20,
+      borderRadius: 10,
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 0 },
+      shadowOpacity: 0.16,
+      shadowRadius: 9,
+      elevation: 5, // fixes boxshadow on android
+      padding: 0,
+      overflow: "hidden",
+      height: 150,
+    },
+    emergencyContactsHeader: {
+      height: 46,
+      backgroundColor: "#1B2C39",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    emergencyContactsCardBody: {
+      flex: 1,
+      backgroundColor: "#FFF",
+      color: "#FFF",
+      paddingHorizontal: 3,
+    },
+    emergencyContactNameText: {
+      fontSize: 9,
+      lineHeight: 0,
+      color: "#1A2C39",
+      fontWeight: "400",
+      fontFamily: "FjallaOne",
+    },
+    emergencyContactTitleText: {
+      fontSize: 5,
+      lineHeight: 0,
+      color: "#1A2C39",
+      fontWeight: "400",
+      fontFamily: "ZillaSlab-Medium",
+    },
+    emergencyContactRow: {
+      justifyContent: "space-between",
+      padding: 5,
+      flexDirection: "row",
+    },
+    emergencyContact: {
+      flexDirection: "column",
+    },
+    emergencyContactDivider: {
+        width: "100%",
+        height: 1,
+        textAlign: "center",
+        backgroundColor: "#000",
+        opacity: 0.25,
+        marginBottom: 2,
+        marginTop: 2,
+      },
   }
   const styles = StyleSheet.create(initialState)
   return <StylesContext.Provider value={{ styles }}>{children}</StylesContext.Provider>
