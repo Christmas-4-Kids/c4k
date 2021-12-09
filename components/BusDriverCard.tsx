@@ -48,7 +48,7 @@ export const BusDriverCard = () => {
         <Card overrideStyles={styles.busDriverCard}>
             <View>
             <View style={styles.budDriverCardHeader}>    
-                <View>
+            
                 <Text                    
                     style={{fontSize: 25,
                     color: "#FFF",
@@ -62,15 +62,14 @@ export const BusDriverCard = () => {
                 >
                     Bus Driver
                 </Text>
-                </View>
-                <View>
+            
                 <Entypo 
                     name="squared-plus" 
                     size={24} 
                     color="#EF364B" 
                     onPress={() => setBusDriverModalOpen(true)}
                 />
-                </View>
+            
             </View>
             <View style={styles.busDriverCardInfo}>
 

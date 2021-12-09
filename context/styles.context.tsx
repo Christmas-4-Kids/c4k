@@ -980,6 +980,64 @@ export default function StylesProvider({ children }: { children: any }) {
         marginBottom: 2,
         marginTop: 2,
       },
+      //Home Welcome Card
+      homeWelcomeCard: {
+        alignSelf: "center",
+        backgroundColor: "#EF364B",
+        width: 264,
+        height: 123,
+        margin: 20,
+        borderRadius: 10,
+        shadowColor: "#000",
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0.16,
+        shadowRadius: 9,
+        elevation: 5, // fixes boxshadow on android
+        paddingTop: 11, 
+        paddingBottom: 24, 
+        paddingLeft: 13,
+        
+        
+      },
+      homeWelcomeInnerCard :{ 
+        // alignSelf: "center",
+        backgroundColor: "#EF364B",
+        paddingTop: 10,
+        borderStyle: "dashed",
+        borderColor: "#FFF",
+        borderRadius: 1,
+        flexDirection: "row",
+        justifyContent: "space-around"
+      },
+      welcomeCardHeader: {
+        flexDirection: "column",
+        height: 94,
+        width: 75,
+      },
+      welcomeCardHeaderText: {
+        fontFamily: "Fregata-Sans",
+        color: "#FFF",
+        fontSize: 48,
+        lineHeight: 25,
+        flexWrap: "wrap",
+        flex: 1,
+        textAlign: "center",
+        alignItems: "center",
+        paddingTop: 5
+      },
+      welcomeCardBodyText: {
+        fontFamily: "ZillaSlab-Medium",
+        color: "#FFF",
+        fontSize: 8,
+        lineHeight: 8,
+        flexWrap: "wrap",
+        flex: 1,
+      },
+      welcomeCardBody: {
+        width: 124,
+        height: 85,
+        flexDirection: "column"
+      }
   }
   const styles = StyleSheet.create(initialState)
   return <StylesContext.Provider value={{ styles }}>{children}</StylesContext.Provider>
