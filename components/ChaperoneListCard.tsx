@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useStyles } from "../context/styles.context"
-import { Modal, Pressable, Text, TouchableOpacity, View } from "react-native"
+import { Modal, Platform, Pressable, Text, TouchableOpacity, View } from "react-native"
 import { AntDesign, Entypo, FontAwesome5 } from "@expo/vector-icons"
 import { Volunteer } from "../context/volunteer.context"
 import BigList from "react-native-big-list"
@@ -96,14 +96,16 @@ const ChaperoneListCard = (props: ChaperoneListCardProps) => {
           }}
         >
           <View style={styles.card}>
-            <View style={{ flexDirection: "column-reverse" }}>
-              <Text style={[styles.userCardName, { marginTop: -15 }]}>{modalVolunteer?.fullName}</Text>
+            <View style={{ flexDirection: "column" }}>
               <View style={{ flexDirection: "row", alignContent: "flex-start" }}>
                 <Text style={modalVolunteer?.checkedIn ? styles.volunteerCheckedIn : styles.volunteerNotCheckedIn}>
                   {modalVolunteer?.checkedIn ? <AntDesign name="checksquare" size={26} color="green" /> : <AntDesign name="checksquare" size={26} color="gray" />}
                 </Text>
                 {modalVolunteer?.spanish === "Yes" ? <Text style={styles.searchFilterPillTextOn}>Esp</Text> : null}
                 {modalVolunteer?.medical !== "None" ? <Text style={styles.searchFilterPillTextOn}>Med</Text> : null}
+              </View>
+              <View style={{ marginTop: Platform.OS === "ios" ? -15 : 0 }}>
+                <Text style={[styles.userCardName]}>{modalVolunteer?.fullName}</Text>
               </View>
             </View>
             <Text style={[styles.chaperoneListItemVolunteerType, { marginTop: -5 }]}>{getVolunteerType(modalVolunteer?.volunteerType)}</Text>

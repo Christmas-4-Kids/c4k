@@ -21,7 +21,6 @@ export const ChaperoneGroupCard = () => {
       if (cList === null) {
         console.log("chaperone list doesn't exist")
       } else {
-        console.log(cList)
         setChaperoneList(cList)
       }
     } catch (e) {
@@ -56,10 +55,10 @@ export const ChaperoneGroupCard = () => {
         <View style={styles.chaperoneGroupCardBody}>
           {chaperoneList.length > 0 ? (
             chaperoneList.map((chaperone, index) => (
-              <>
+              <React.Fragment key={index}>
                 <ChaperoneListItem key={index} name={chaperone.name} phone={chaperone.phone} chaperoneList={chaperoneList} setChaperoneList={setChaperoneList} />
                 {index === chaperoneList.length - 1 ? null : <View key={`d${index}`} style={styles.chaperoneGroupItemDivider}></View>}
-              </>
+              </React.Fragment>
             ))
           ) : (
             <Text style={styles.chaperoneGroupCardBodyText}>Add your fellow chaperones here!</Text>
@@ -80,7 +79,6 @@ const ChaperoneListItem = ({ name, phone, chaperoneList, setChaperoneList }) => 
   }
 
   const removeContact = phone => {
-    console.log(chaperoneList.filter(chaperone => chaperone.phone !== phone))
     setChaperoneList(chaperoneList.filter(chaperone => chaperone.phone !== phone))
     AsyncStorage.setItem("chaperoneList", JSON.stringify(chaperoneList.filter(chaperone => chaperone.phone !== phone)))
   }

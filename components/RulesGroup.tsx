@@ -1,16 +1,16 @@
 import React from "react"
 import { useState } from "react"
 import { useStyles } from "../context/styles.context"
-import { View, Text, Pressable } from "react-native"
+import { View, Text } from "react-native"
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons"
+import { TouchableOpacity } from "react-native-gesture-handler"
 
 const RulesGroup = ({ groupName, rules }) => {
   const [clicked, setClicked] = useState(false)
   const { styles } = useStyles()
-  console.log(`rules`, rules)
   return (
     <View style={styles.ruleCard}>
-      <View onTouchStart={() => setClicked(!clicked)} style={clicked ? styles.ruleCardTitle : styles.ruleCardTitleCollapsed}>
+      <TouchableOpacity onPress={() => setClicked(!clicked)} style={clicked ? styles.ruleCardTitle : styles.ruleCardTitleCollapsed}>
         <View
           style={{
             alignItems: "center",
@@ -30,24 +30,19 @@ const RulesGroup = ({ groupName, rules }) => {
             {groupName}
           </Text>
         </View>
-      </View>
+      </TouchableOpacity>
       {clicked ? (
-        <View style={styles.rulesCardDescription}>
-          <Text
-            style={{
-              minHeight: 61,
-              paddingVertical: 15,
-              paddingHorizontal: 25,
-              fontFamily: "ZillaSlab-Medium",
-              fontWeight: "600",
-              fontSize: 12,
-              color: "#1B2C39",
-            }}
-          >
-            {rules.map((rule, index) => (
-              <CheckListItem key={index} item={rule.description} />
-            ))}
-          </Text>
+        <View
+          style={{
+            minHeight: 61,
+            paddingVertical: 15,
+            paddingLeft: 15,
+            paddingRight: 30,
+          }}
+        >
+          {rules.map((rule, index) => (
+            <CheckListItem key={index} item={rule.description} />
+          ))}
         </View>
       ) : null}
     </View>
@@ -60,8 +55,8 @@ const CheckListItem = ({ item }) => {
   const [isSelected, setSelection] = useState(false)
 
   return (
-    <Pressable onPress={() => setSelection(!isSelected)}>
-      <View style={{ flexDirection: "row", paddingLeft: 10, paddingTop: 15 }}>
+    <TouchableOpacity onPress={() => setSelection(!isSelected)}>
+      <View style={{ flexDirection: "row", paddingTop: 5 }}>
         <Text>
           {isSelected ? <MaterialCommunityIcons name="checkbox-marked" size={24} color="green" /> : <MaterialCommunityIcons name="checkbox-blank-outline" size={24} color="gray" />}
         </Text>
@@ -76,6 +71,6 @@ const CheckListItem = ({ item }) => {
           {item}
         </Text>
       </View>
-    </Pressable>
+    </TouchableOpacity>
   )
 }

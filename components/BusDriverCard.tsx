@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { View, Text, Modal, TextInput, NativeSyntheticEvent, TextInputChangeEventData, Pressable, Image } from "react-native"
+import { View, Text, Modal, TextInput, NativeSyntheticEvent, TextInputChangeEventData, Pressable, Image, Platform } from "react-native"
 import { Entypo, Ionicons } from "@expo/vector-icons"
 import { FontAwesome } from "@expo/vector-icons"
 import { Card } from "./Card"
@@ -48,13 +48,12 @@ export const BusDriverCard = () => {
       <View>
         <View style={styles.busDriverCardHeader}>
           <Text style={{ fontSize: 35, color: "#FFF", fontFamily: "Fregata-Sans", textAlign: "left", lineHeight: 30, paddingRight: 5 }}>bus driver</Text>
-
           <Entypo name="squared-plus" size={24} color="#EF364B" onPress={() => setBusDriverModalOpen(true)} />
         </View>
         <View style={styles.busDriverCardInfo}>
           <View style={styles.busNumberBox}>
             <Text style={styles.busTitleText}>BUS</Text>
-            <Text style={styles.busNumberText}>{busNumber}</Text>
+            <Text style={[styles.busNumberText, { marginTop: Platform.OS === "ios" ? -10 : 0 }]}>{busNumber}</Text>
           </View>
           <View style={styles.busDriverInfo}>
             <Text style={styles.busDriverNameText}>{driverName !== "" ? driverName : "Driver Name"}</Text>

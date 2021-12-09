@@ -1,5 +1,5 @@
 import React from "react"
-import { Text, View } from "react-native"
+import { Platform, Text, View } from "react-native"
 import { useStyles } from "../context/styles.context"
 import { Card } from "./Card"
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons"
@@ -9,7 +9,7 @@ const UserCard = ({ user, role, phone, email }) => {
 
   return (
     <Card>
-      <Text style={styles.userCardRegisteredAs}>Registered As:&nbsp;{role}</Text>
+      <Text style={[styles.userCardRegisteredAs, { marginBottom: Platform.OS === "ios" ? -16 : 0 }]}>Registered As:&nbsp;{role}</Text>
       <Text style={styles.userCardName}>{user}</Text>
 
       <View style={styles.userCardDivider}></View>

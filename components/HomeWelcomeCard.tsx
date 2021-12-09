@@ -13,9 +13,9 @@ export const HomeWelcomeCard = () => {
         </View>
         <View style={styles.welcomeCardBody}>
           <Text style={styles.welcomeCardBodyText}>
-            Thank you for volunteering with Christmas 4 Kids! Without YOU none of this would be possible. Today will be stressful. Today will be full of highs and lows,
-            heart-warming children and heart-breaking stories. Soak it all in. Never forget that we're here for the kids - all the other stuff doesn't matter. And remember, Santa's
-            always watching!
+            We are so grateful you chose to spend your day helping our C4K children. Today your day will be filled with excitement, love and so many hugs! They need to know we are
+            all here just for them! It is their day. Spread your joy and give out all the love you can. Thank you for all you will do today for them....they will never forget this
+            day with YOU!
           </Text>
         </View>
       </View>

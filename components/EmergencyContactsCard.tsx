@@ -1,18 +1,11 @@
-import React, { useState } from "react"
+import React from "react"
 import { View, Text, Linking } from "react-native"
 import { Card } from "./Card"
 import { useStyles } from "../context/styles.context"
 import { FontAwesome5 } from "@expo/vector-icons"
 
 export const EmergencyContactsCard = () => {
-  const [emergencyContactList, setEmergencyContactList] = useState([])
-
   const { styles } = useStyles()
-
-  const pressCall = () => {
-    const url = `tel://`
-    Linking.openURL(url)
-  }
   return (
     <Card overrideStyles={styles.emergencyContactsCard}>
       <View style={styles.emergencyContactsHeader}>
@@ -28,7 +21,7 @@ export const EmergencyContactsCard = () => {
             flexWrap: "wrap",
           }}
         >
-          Emergency Contacts
+          emergency contacts
         </Text>
       </View>
       <View style={styles.emergencyContactsCardBody}>
@@ -74,7 +67,6 @@ export const EmergencyContactsCard = () => {
             onPress={() => Linking.openURL("tel://6155196199")}
           />
         </View>
-        <View style={styles.emergencyContactDivider}></View>
       </View>
     </Card>
   )

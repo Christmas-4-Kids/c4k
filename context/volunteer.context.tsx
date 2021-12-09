@@ -76,7 +76,6 @@ export default function VolunteerProvider({ children }: { children: any }) {
 
   useEffect(() => {
     const unsub = onSnapshot(query(collection(db, "volunteers"), orderBy("lastNameLower")), querySnapshot => {
-      console.log("querying")
       const tempVolunteers = []
       querySnapshot.forEach(doc => {
         tempVolunteers.push(createVolunteer(doc.data()))

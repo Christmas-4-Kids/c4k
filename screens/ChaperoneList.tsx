@@ -38,7 +38,6 @@ export const ChaperoneList = ({ navigation }) => {
     espanol: false,
     medical: false,
   })
-  console.log(`volunteers`, volunteers)
   const [filteredVolunteers, setFilteredVolunteers] = useState(volunteers)
   const onSyncPress = async () => {
     await syncMailchimpVolunteers()
