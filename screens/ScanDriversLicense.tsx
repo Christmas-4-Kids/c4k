@@ -209,7 +209,9 @@ export const ScanDriversLicense = ({ navigation }) => {
                   <View style={{ flexDirection: "row", alignItems: "flex-start", justifyContent: "space-between" }}>
                     <View style={{ flexDirection: "column", alignItems: "flex-start", width: "68%" }}>
                       <Text style={styles.chaperoneListItemName}>{`${volunteer?.firstName} ${volunteer?.lastName}`}</Text>
-                      <Text style={styles.chaperoneListItemVolunteerType}>{getVolunteerType(volunteer?.volunteerType)}</Text>
+                      <Text
+                        style={styles.chaperoneListItemVolunteerType}
+                      >{`${volunteer?.address?.addr1}, ${volunteer?.address?.addr2}, ${volunteer?.address?.city}, ${volunteer?.address?.state} ${volunteer?.address?.zip}`}</Text>
                     </View>
                     <View style={{ flexDirection: "row", alignContent: "flex-end" }}>
                       {volunteer?.spanish === "Yes" ? <Text style={styles.searchFilterPillTextOn}>Esp</Text> : null}
