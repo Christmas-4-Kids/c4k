@@ -83,9 +83,7 @@ export const BusDriverCard = () => {
           <View
             style={{
               flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: 22,
+              marginTop: 110,
             }}
           >
             <View style={styles.card}>
@@ -138,7 +136,12 @@ export const BusDriverCard = () => {
                 />
               </View>
               <Pressable
-                style={styles.button}
+                style={({ pressed }) => [
+                  styles.button,
+                  {
+                    opacity: pressed ? 0.5 : 1,
+                  },
+                ]}
                 onPress={() => {
                   storeDriverInfo({ driverName, phoneNumber, busNumber })
                   setBusDriverModalOpen(false)

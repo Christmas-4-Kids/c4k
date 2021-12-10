@@ -8,21 +8,6 @@ import { syncMailchimpVolunteers } from "../services/firestore.service"
 import ChaperoneListCard from "../components/ChaperoneListCard"
 import { useVolunteers, Volunteer } from "../context/volunteer.context"
 
-const getVolunteerType = (volunteerType: string) => {
-  switch (volunteerType) {
-    case "2021_ADMIN":
-      return "Organizer"
-    case "2021_ALL_DAY_CHAPERONE":
-    case "2021_EVENING_CHAPERONE":
-    case "2021_LEBANON_CHAPERONE":
-      return "Chaperone"
-    case "2021_DRIVER":
-      return "Driver"
-    default:
-      return "Unknown"
-  }
-}
-
 export const ChaperoneList = ({ navigation }) => {
   const { styles } = useStyles()
   const { volunteers } = useVolunteers()
@@ -135,7 +120,7 @@ export const ChaperoneList = ({ navigation }) => {
         </Text>
         <TouchableOpacity onPress={() => navigation.navigate("Modal")}>
           <View style={styles.upcomingEventButton}>
-            <Text style={styles.upcomingEventButtonText}>Check In</Text>
+            <Text style={styles.upcomingEventButtonText}>Scan</Text>
           </View>
         </TouchableOpacity>
       </View>
