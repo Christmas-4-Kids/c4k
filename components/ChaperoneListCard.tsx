@@ -78,7 +78,7 @@ const ChaperoneListCard = (props: ChaperoneListCardProps) => {
     volunteers.push({} as Volunteer)
   }
   return (
-    <View style={styles.chaperoneListCard}>
+    <View style={[styles.chaperoneListCard, { paddingTop: 15 }]}>
       <Modal
         animationType="slide"
         transparent={true}
@@ -137,10 +137,22 @@ const ChaperoneListCard = (props: ChaperoneListCardProps) => {
               </Text>
               <Text style={styles.volunteerCardInfoText}> {modalVolunteer?.comments === "" || !modalVolunteer?.comments ? "N/A" : modalVolunteer?.comments}</Text>
             </View>
-            <Pressable style={[styles.button, { backgroundColor: modalVolunteer?.checkedIn ? "#C4C4C4" : "#2BA57F" }]} onPress={onCheckInPress}>
+            <Pressable
+              style={({ pressed }) => [styles.button, { backgroundColor: modalVolunteer?.checkedIn ? "#C4C4C4" : "#2BA57F", opacity: pressed ? 0.5 : 1 }]}
+              onPress={onCheckInPress}
+            >
               <Text style={styles.buttonText}>Manually Check {modalVolunteer?.checkedIn ? "Out" : "In"}</Text>
             </Pressable>
-            <Pressable style={[styles.button, { marginTop: 20 }]} onPress={() => setModalVisible(!modalVisible)}>
+            <Pressable
+              style={({ pressed }) => [
+                styles.button,
+                { marginTop: 20 },
+                {
+                  opacity: pressed ? 0.5 : 1,
+                },
+              ]}
+              onPress={() => setModalVisible(!modalVisible)}
+            >
               <Text style={styles.buttonText}>Close</Text>
             </Pressable>
           </View>

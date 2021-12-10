@@ -127,7 +127,7 @@ function BottomTabNavigator() {
           name="Chaperones"
           component={ChaperoneList}
           options={{
-            title: "Chaperones",
+            title: "Volunteers",
             headerShown: false,
             tabBarIcon: ({ color }) => <TabBarIcon name="users" color={color} />,
           }}
