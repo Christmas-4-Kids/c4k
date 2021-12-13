@@ -9,6 +9,7 @@ import { OpenUrlLink } from "../components/OpenUrlLink"
 import { checkIfRegistered, createMailchimpUserInFirestore, verifyCode, verifyNumber } from "../services/firestore.service"
 import { useTheme } from "@react-navigation/native"
 import { useStyles } from "../context/styles.context"
+import { C4kText } from "../components/C4kText"
 
 export const SignIn = () => {
   const [phoneNumber, setPhoneNumber] = useState("")
@@ -77,7 +78,7 @@ export const SignIn = () => {
       })
     }
     if (!mailchimpUser) {
-      return registrationError("Oops! Looks like you forgot to register.", null, true)
+      return registrationError("Oops! Looks like you're not registered as a volunteer. Speak to a C4K Staff member.", null, true)
     }
 
     // save user's mailchimp info to firestore database
@@ -85,7 +86,7 @@ export const SignIn = () => {
       // backdoor
       const bypassUser = phoneNumber === "5555555555" && email.trim().toLowerCase() === "c4kchaperones@gmail.com"
       const { data } = await createMailchimpUserInFirestore(mailchimpUser)
-      const { mailchimpMemberInfo, ...userWithoutMemberInfo } = data.user
+      const { mailchimpMemberInfo, ...userWithoutMemberInfo } = (data as any).user
       saveUser({ ...userWithoutMemberInfo, verified: bypassUser })
       setUserIsUpdatedInFirestore(true)
     } catch (err) {
@@ -149,17 +150,12 @@ export const SignIn = () => {
           {isLoading ? <Loading /> : null}
 
           <View style={styles.checkInWrapper}>
-            <Text style={styles.checkInTitle}>Let's Get You Checked In</Text>
+            <C4kText style={styles.checkInTitle}>Let's Get You Checked In</C4kText>
 
-            {errorMessage.length > 0 ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
-            {showRegistration ? (
-              <OpenUrlLink styles={styles.register} url="https://christmas4kids.org/volunteer/">
-                Tap Here to Register
-              </OpenUrlLink>
-            ) : null}
+            {errorMessage.length > 0 ? <C4kText style={styles.errorMessage}>{errorMessage}</C4kText> : null}
             {!phoneNumberIsVerified || !userIsUpdatedInFirestore ? (
               <>
-                <Text style={styles.checkInSubtitle}>In the form below, enter the phone number & email that you registered with.</Text>
+                <C4kText style={styles.checkInSubtitle}>In the form below, enter the phone number & email that you registered with.</C4kText>
                 <View style={styles.textInputView}>
                   <Ionicons name="call" style={styles.textInputIcon} />
                   <TextInput
@@ -186,12 +182,12 @@ export const SignIn = () => {
                   />
                 </View>
                 <Pressable disabled={verifyButtonDisabled} style={verifyButtonDisabled ? styles.buttonDisabled : styles.button} onPress={verifyRegistration}>
-                  <Text style={styles.buttonText}>{"VERIFY REGISTRATION"}</Text>
+                  <C4kText style={styles.buttonText}>{"VERIFY REGISTRATION"}</C4kText>
                 </Pressable>
               </>
             ) : (
               <>
-                <Text style={styles.checkInSubtitle}>Enter the Verification Code you just received.</Text>
+                <C4kText style={styles.checkInSubtitle}>Enter the Verification Code you just received.</C4kText>
                 <View style={styles.textInputView}>
                   <Feather name="check" style={styles.textInputIcon} />
                   <TextInput
@@ -205,7 +201,7 @@ export const SignIn = () => {
                   />
                 </View>
                 <Pressable disabled={verifyButtonDisabled} style={submitButtonDisabled ? styles.buttonDisabled : styles.button} onPress={verifyUser}>
-                  <Text style={styles.buttonText}>{"SUBMIT"}</Text>
+                  <C4kText style={styles.buttonText}>{"SUBMIT"}</C4kText>
                 </Pressable>
               </>
             )}

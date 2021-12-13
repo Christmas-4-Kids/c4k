@@ -1,5 +1,6 @@
 import React from "react"
 import { SafeAreaView, ScrollView, View, Text, TouchableOpacity } from "react-native"
+import { C4kText } from "../components/C4kText"
 import { useStyles } from "../context/styles.context"
 import { useUser } from "../context/user.context"
 
@@ -14,7 +15,7 @@ const CheckIn = props => {
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
               <TouchableOpacity style={styles.closeButton} onPress={() => props.navigation.pop()}>
-                <Text style={styles.buttonText}> Close </Text>
+                <C4kText style={styles.buttonText}> Close </C4kText>
               </TouchableOpacity>
             </View>
           </View>

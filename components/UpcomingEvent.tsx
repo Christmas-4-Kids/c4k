@@ -1,6 +1,7 @@
 import React from "react"
 import { useStyles } from "../context/styles.context"
 import { View, Linking, Pressable, Text } from "react-native"
+import { C4kText } from "./C4kText"
 
 const UpcomingEvent = ({ month, day, title, description, buttonText, buttonUrl }) => {
   const { styles } = useStyles()
@@ -12,16 +13,16 @@ const UpcomingEvent = ({ month, day, title, description, buttonText, buttonUrl }
   return (
     <View style={styles.upcomingEventContainer}>
       <View style={styles.upcomingEventBox}>
-        <Text style={styles.upcomingEventMonth}>{month}</Text>
-        <Text style={styles.upcomingEventDay}>{day}</Text>
+        <C4kText style={styles.upcomingEventMonth}>{month}</C4kText>
+        <C4kText style={styles.upcomingEventDay}>{day}</C4kText>
       </View>
       <View style={styles.upcomingEventDetailsContainer}>
-        <Text style={styles.upcomingEventTitle}>{title}</Text>
-        <Text style={styles.upcomingEventDescription}>{description}</Text>
+        <C4kText style={styles.upcomingEventTitle}>{title}</C4kText>
+        <C4kText style={styles.upcomingEventDescription}>{description}</C4kText>
       </View>
       <Pressable onPress={openLink}>
         <View style={styles.upcomingEventButton}>
-          <Text style={styles.upcomingEventButtonText}>{buttonText}</Text>
+          <C4kText style={styles.upcomingEventButtonText}>{buttonText}</C4kText>
         </View>
       </Pressable>
     </View>

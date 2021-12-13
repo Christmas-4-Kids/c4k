@@ -3,6 +3,7 @@ import { Card } from "./Card"
 import { useStyles } from "../context/styles.context"
 import { View, Text } from "react-native"
 import UpcomingEvent from "./UpcomingEvent"
+import { C4kText } from "./C4kText"
 
 const hardCodedEvents = [
   {
@@ -36,7 +37,7 @@ const UpcomingEventsCard = () => {
 
   return (
     <Card>
-      <Text style={styles.upcomingEventsCardTitle}>Upcoming Events</Text>
+      <C4kText style={styles.upcomingEventsCardTitle}>Upcoming Events</C4kText>
       {hardCodedEvents.map((event, index) => (
         <React.Fragment key={index}>
           <UpcomingEvent month={event.month} day={event.day} title={event.title} description={event.description} buttonText={event.buttonText} buttonUrl={event.buttonUrl} />

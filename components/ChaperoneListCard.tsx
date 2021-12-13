@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react"
 import { useStyles } from "../context/styles.context"
-import { Modal, Platform, Pressable, Text, TouchableOpacity, View } from "react-native"
+import { Linking, Modal, Platform, Pressable, Text, TouchableOpacity, View } from "react-native"
 import { AntDesign, Entypo, FontAwesome5 } from "@expo/vector-icons"
 import { Volunteer } from "../context/volunteer.context"
 import BigList from "react-native-big-list"
 import { updateVolunteerCheckedIn } from "../services/firestore.service"
+import { C4kText } from "./C4kText"
 
 const getVolunteerType = (volunteerType: string) => {
   switch (volunteerType) {
@@ -45,17 +46,17 @@ const VolunteerItem = (props: {
     <TouchableOpacity onPress={onPress}>
       <View style={{ flexDirection: "row", alignItems: "flex-start" }}>
         <View style={{ width: 30 }}>
-          <Text style={isCheckedIn ? styles.volunteerCheckedIn : styles.volunteerNotCheckedIn}>
+          <C4kText style={isCheckedIn ? styles.volunteerCheckedIn : styles.volunteerNotCheckedIn}>
             {isCheckedIn ? <AntDesign name="checksquare" size={24} color="green" /> : <AntDesign name="checksquare" size={24} color="gray" />}
-          </Text>
+          </C4kText>
         </View>
         <View style={{ flexDirection: "column", alignItems: "flex-start", width: "68%" }}>
-          <Text style={styles.chaperoneListItemName}>{`${volunteer?.firstName} ${volunteer?.lastName}`}</Text>
-          <Text style={styles.chaperoneListItemVolunteerType}>{getVolunteerType(volunteer?.volunteerType)}</Text>
+          <C4kText style={styles.chaperoneListItemName}>{`${volunteer?.firstName} ${volunteer?.lastName}`}</C4kText>
+          <C4kText style={styles.chaperoneListItemVolunteerType}>{getVolunteerType(volunteer?.volunteerType)}</C4kText>
         </View>
         <View style={{ flexDirection: "row", alignContent: "flex-end" }}>
-          {volunteer?.spanish === "Yes" ? <Text style={styles.searchFilterPillTextOn}>Esp</Text> : null}
-          {volunteer?.medical !== "None" ? <Text style={styles.searchFilterPillTextOn}>Med</Text> : null}
+          {volunteer?.spanish === "Yes" ? <C4kText style={styles.searchFilterPillTextOn}>Esp</C4kText> : null}
+          {volunteer?.medical !== "None" ? <C4kText style={styles.searchFilterPillTextOn}>Med</C4kText> : null}
         </View>
       </View>
       <View style={styles.upcomingEventsCardDivider}></View>
@@ -76,6 +77,10 @@ const ChaperoneListCard = (props: ChaperoneListCardProps) => {
     const data = { checkedIn: !modalVolunteer?.checkedIn, refId: modalVolunteer?.mailchimpMemberId }
     await updateVolunteerCheckedIn(data)
     volunteers.push({} as Volunteer)
+  }
+  const pressCall = (phone: string) => {
+    const url = `tel://${phone}`
+    Linking.openURL(url)
   }
   return (
     <View style={[styles.chaperoneListCard, { paddingTop: 15 }]}>
@@ -98,50 +103,56 @@ const ChaperoneListCard = (props: ChaperoneListCardProps) => {
           <View style={styles.card}>
             <View style={{ flexDirection: "column" }}>
               <View style={{ flexDirection: "row", alignContent: "flex-start" }}>
-                <Text style={modalVolunteer?.checkedIn ? styles.volunteerCheckedIn : styles.volunteerNotCheckedIn}>
+                <C4kText style={modalVolunteer?.checkedIn ? styles.volunteerCheckedIn : styles.volunteerNotCheckedIn}>
                   {modalVolunteer?.checkedIn ? <AntDesign name="checksquare" size={26} color="green" /> : <AntDesign name="checksquare" size={26} color="gray" />}
-                </Text>
-                {modalVolunteer?.spanish === "Yes" ? <Text style={styles.searchFilterPillTextOn}>Esp</Text> : null}
-                {modalVolunteer?.medical !== "None" ? <Text style={styles.searchFilterPillTextOn}>Med</Text> : null}
+                </C4kText>
+                {modalVolunteer?.spanish === "Yes" ? <C4kText style={styles.searchFilterPillTextOn}>Esp</C4kText> : null}
+                {modalVolunteer?.medical !== "None" ? <C4kText style={styles.searchFilterPillTextOn}>Med</C4kText> : null}
               </View>
               <View style={{ marginTop: Platform.OS === "ios" ? -15 : 0 }}>
-                <Text style={[styles.userCardName]}>{modalVolunteer?.fullName}</Text>
+                <C4kText style={[styles.userCardName]}>{modalVolunteer?.fullName}</C4kText>
               </View>
             </View>
-            <Text style={[styles.chaperoneListItemVolunteerType, { marginTop: -5 }]}>{getVolunteerType(modalVolunteer?.volunteerType)}</Text>
+            <C4kText style={[styles.chaperoneListItemVolunteerType, { marginTop: -5 }]}>{getVolunteerType(modalVolunteer?.volunteerType)}</C4kText>
             <View style={styles.userCardDivider}></View>
             <View style={styles.volunteerCardInfoRow}>
-              <Text style={styles.volunteerCardInfoText}>
+              <C4kText style={styles.volunteerCardInfoText}>
                 <Entypo style={{ paddingRight: 10 }} name="location-pin" size={24} color="#1B2C39" />
-              </Text>
+              </C4kText>
               <View style={{ flexDirection: "column" }}>
-                <Text style={styles.volunteerCardInfoText}>{`${modalVolunteer?.address?.addr1} ${modalVolunteer?.address?.addr2}`}</Text>
-                <Text style={styles.volunteerCardInfoText}>{`${modalVolunteer?.address?.city}, ${modalVolunteer?.address?.state}`}</Text>
+                <C4kText style={styles.volunteerCardInfoText}>{`${modalVolunteer?.address?.addr1} ${modalVolunteer?.address?.addr2}`}</C4kText>
+                <C4kText style={styles.volunteerCardInfoText}>{`${modalVolunteer?.address?.city}, ${modalVolunteer?.address?.state}`}</C4kText>
               </View>
             </View>
+            <TouchableOpacity style={styles.volunteerCardInfoRow} onPress={() => pressCall(modalVolunteer?.phoneNumber)}>
+              <C4kText style={styles.volunteerCardInfoText}>
+                <Entypo style={{ paddingRight: 10 }} name="phone" size={24} color="#1B2C39" />
+              </C4kText>
+              <C4kText style={styles.volunteerCardInfoText}> {modalVolunteer?.phoneNumber}</C4kText>
+            </TouchableOpacity>
             <View style={styles.volunteerCardInfoRow}>
-              <Text style={styles.volunteerCardInfoText}>
+              <C4kText style={styles.volunteerCardInfoText}>
                 <Entypo style={{ paddingRight: 10 }} name="mail" size={24} color="#1B2C39" />
-              </Text>
-              <Text style={styles.volunteerCardInfoText}> {modalVolunteer?.email}</Text>
+              </C4kText>
+              <C4kText style={styles.volunteerCardInfoText}> {modalVolunteer?.email}</C4kText>
             </View>
             <View style={styles.volunteerCardInfoRow}>
-              <Text style={styles.volunteerCardInfoText}>
+              <C4kText style={styles.volunteerCardInfoText}>
                 <FontAwesome5 style={{ paddingRight: 10 }} name="bus" size={24} color="black" />
-              </Text>
-              <Text style={styles.volunteerCardInfoText}> {modalVolunteer?.driver === "" || !modalVolunteer?.driver ? "N/A" : modalVolunteer?.driver}</Text>
+              </C4kText>
+              <C4kText style={styles.volunteerCardInfoText}> {modalVolunteer?.driver === "" || !modalVolunteer?.driver ? "N/A" : modalVolunteer?.driver}</C4kText>
             </View>
             <View style={styles.volunteerCardInfoRow}>
-              <Text style={styles.volunteerCardInfoText}>
+              <C4kText style={styles.volunteerCardInfoText}>
                 <FontAwesome5 style={{ paddingRight: 10 }} name="comment" size={24} color="black" />
-              </Text>
-              <Text style={styles.volunteerCardInfoText}> {modalVolunteer?.comments === "" || !modalVolunteer?.comments ? "N/A" : modalVolunteer?.comments}</Text>
+              </C4kText>
+              <C4kText style={styles.volunteerCardInfoText}> {modalVolunteer?.comments === "" || !modalVolunteer?.comments ? "N/A" : modalVolunteer?.comments}</C4kText>
             </View>
             <Pressable
               style={({ pressed }) => [styles.button, { backgroundColor: modalVolunteer?.checkedIn ? "#C4C4C4" : "#2BA57F", opacity: pressed ? 0.5 : 1 }]}
               onPress={onCheckInPress}
             >
-              <Text style={styles.buttonText}>Manually Check {modalVolunteer?.checkedIn ? "Out" : "In"}</Text>
+              <C4kText style={styles.buttonText}>Manually Check {modalVolunteer?.checkedIn ? "Out" : "In"}</C4kText>
             </Pressable>
             <Pressable
               style={({ pressed }) => [
@@ -153,7 +164,7 @@ const ChaperoneListCard = (props: ChaperoneListCardProps) => {
               ]}
               onPress={() => setModalVisible(!modalVisible)}
             >
-              <Text style={styles.buttonText}>Close</Text>
+              <C4kText style={styles.buttonText}>Close</C4kText>
             </Pressable>
           </View>
         </View>
@@ -164,7 +175,7 @@ const ChaperoneListCard = (props: ChaperoneListCardProps) => {
           <VolunteerItem volunteer={item} modalVolunteer={modalVolunteer} setModalVisible={setModalVisible} setModalVolunteer={setModalVolunteer} styles={styles} />
         )}
         itemHeight={50}
-        keyExtractor={item => item?.mailchimpMemberId}
+        // keyExtractor={item => item?.mailchimpMemberId}
       />
     </View>
   )

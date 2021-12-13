@@ -4,6 +4,7 @@ import { useStyles } from "../context/styles.context"
 import { View, Text } from "react-native"
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons"
 import { TouchableOpacity } from "react-native-gesture-handler"
+import { C4kText } from "./C4kText"
 
 const RulesGroup = ({ groupName, rules }) => {
   const [clicked, setClicked] = useState(false)
@@ -18,8 +19,8 @@ const RulesGroup = ({ groupName, rules }) => {
             flexDirection: "row",
           }}
         >
-          <Text>{clicked ? <AntDesign name="minuscircleo" size={24} color="#fff" /> : <AntDesign name="pluscircleo" size={24} color="#FFF" />}</Text>
-          <Text
+          <C4kText>{clicked ? <AntDesign name="minuscircleo" size={24} color="#fff" /> : <AntDesign name="pluscircleo" size={24} color="#FFF" />}</C4kText>
+          <C4kText
             style={{
               color: "#FFF",
               fontFamily: "FjallaOne",
@@ -28,7 +29,7 @@ const RulesGroup = ({ groupName, rules }) => {
             }}
           >
             {groupName}
-          </Text>
+          </C4kText>
         </View>
       </TouchableOpacity>
       {clicked ? (
@@ -57,10 +58,10 @@ const CheckListItem = ({ item }) => {
   return (
     <TouchableOpacity onPress={() => setSelection(!isSelected)}>
       <View style={{ flexDirection: "row", paddingTop: 5 }}>
-        <Text>
+        <C4kText>
           {isSelected ? <MaterialCommunityIcons name="checkbox-marked" size={24} color="green" /> : <MaterialCommunityIcons name="checkbox-blank-outline" size={24} color="gray" />}
-        </Text>
-        <Text
+        </C4kText>
+        <C4kText
           style={{
             paddingLeft: 5,
             color: isSelected ? "#CFCFCF" : "#1B2C39",
@@ -69,7 +70,7 @@ const CheckListItem = ({ item }) => {
           }}
         >
           {item}
-        </Text>
+        </C4kText>
       </View>
     </TouchableOpacity>
   )

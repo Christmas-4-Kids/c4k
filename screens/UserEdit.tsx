@@ -4,6 +4,7 @@ import { Formik } from "formik"
 import { useStyles } from "../context/styles.context"
 import { useUser } from "../context/user.context"
 import firestore from "firebase/firestore"
+import { C4kText } from "../components/C4kText"
 
 const UserEdit = props => {
   const { user, setUser } = useUser()
@@ -56,26 +57,26 @@ const UserEdit = props => {
   }
   return (
     <View style={styles.page}>
-      <Text style={styles.sectionTitle}>Update User Information</Text>
+      <C4kText style={styles.sectionTitle}>Update User Information</C4kText>
       <Formik initialValues={user} onSubmit={values => updateUser(values)}>
         {({ handleChange, handleBlur, handleSubmit, values }) => (
           <View style={styles.sectionContainer}>
-            <Text style={styles.sectionText}>First Name</Text>
+            <C4kText style={styles.sectionText}>First Name</C4kText>
             <TextInput style={styles.textInput} onChangeText={handleChange("firstName")} onBlur={handleBlur("firstName")} value={values.firstName} />
-            <Text style={styles.sectionText}>Last Name</Text>
+            <C4kText style={styles.sectionText}>Last Name</C4kText>
             <TextInput style={styles.textInput} onChangeText={handleChange("lastName")} onBlur={handleBlur("lastName")} value={values.lastName} />
-            <Text style={styles.sectionText}>Email</Text>
+            <C4kText style={styles.sectionText}>Email</C4kText>
             <TextInput style={styles.textInput} onChangeText={handleChange("email")} onBlur={handleBlur("email")} value={values.email} />
-            <Text style={styles.sectionText}>Phone</Text>
+            <C4kText style={styles.sectionText}>Phone</C4kText>
             <TextInput style={styles.textInput} onChangeText={handleChange("phone")} onBlur={handleBlur("phone")} value={values.phone} />
             <View style={styles.sectionContainer}>
               <TouchableOpacity style={styles.button} onPress={() => handleSubmit}>
-                <Text style={styles.buttonText}> Save </Text>
+                <C4kText style={styles.buttonText}> Save </C4kText>
               </TouchableOpacity>
             </View>
             <View style={styles.sectionContainer}>
               <TouchableOpacity style={styles.closeButton} onPress={() => props.navigation.pop()}>
-                <Text style={styles.buttonText}> Cancel </Text>
+                <C4kText style={styles.buttonText}> Cancel </C4kText>
               </TouchableOpacity>
             </View>
           </View>

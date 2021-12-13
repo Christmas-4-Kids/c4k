@@ -6,6 +6,7 @@ import { Card } from "./Card"
 import { useStyles } from "../context/styles.context"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import c4kBus from "../assets/images/C4K-Bus.png"
+import { C4kText } from "./C4kText"
 
 export const BusDriverCard = () => {
   const [busDriverModalOpen, setBusDriverModalOpen] = useState(false)
@@ -47,17 +48,17 @@ export const BusDriverCard = () => {
     <Card overrideStyles={styles.busDriverCard}>
       <View>
         <View style={styles.busDriverCardHeader}>
-          <Text style={{ fontSize: 35, color: "#FFF", fontFamily: "Fregata-Sans", textAlign: "left", lineHeight: 30, paddingRight: 5 }}>bus driver</Text>
+          <C4kText style={{ fontSize: 35, color: "#FFF", fontFamily: "Fregata-Sans", textAlign: "left", lineHeight: 30, paddingRight: 5 }}>bus driver</C4kText>
           <Entypo name="squared-plus" size={24} color="#EF364B" onPress={() => setBusDriverModalOpen(true)} />
         </View>
         <View style={styles.busDriverCardInfo}>
           <View style={styles.busNumberBox}>
-            <Text style={styles.busTitleText}>BUS</Text>
-            <Text style={[styles.busNumberText, { marginTop: Platform.OS === "ios" ? -10 : 0 }]}>{busNumber}</Text>
+            <C4kText style={styles.busTitleText}>BUS</C4kText>
+            <C4kText style={[styles.busNumberText, { marginTop: Platform.OS === "ios" ? -10 : 0 }]}>{busNumber}</C4kText>
           </View>
           <View style={styles.busDriverInfo}>
-            <Text style={styles.busDriverNameText}>{driverName !== "" ? driverName : "Driver Name"}</Text>
-            <Text style={styles.busDriverPhoneText}>{phoneNumber !== "" ? phoneNumber : "Phone"}</Text>
+            <C4kText style={styles.busDriverNameText}>{driverName !== "" ? driverName : "Driver Name"}</C4kText>
+            <C4kText style={styles.busDriverPhoneText}>{phoneNumber !== "" ? phoneNumber : "Phone"}</C4kText>
           </View>
         </View>
       </View>
@@ -89,7 +90,7 @@ export const BusDriverCard = () => {
             <View style={styles.card}>
               <FontAwesome name="window-close" size={24} color="#EF364B" onPress={() => setBusDriverModalOpen(false)} style={{ textAlign: "right" }} />
 
-              <Text
+              <C4kText
                 style={{
                   color: "#1B2C39",
                   fontFamily: "FjallaOne",
@@ -98,7 +99,7 @@ export const BusDriverCard = () => {
                 }}
               >
                 Add Bus Driver Information
-              </Text>
+              </C4kText>
               <View style={styles.textInputView}>
                 <Ionicons name="md-person-sharp" style={styles.textInputIcon} />
                 <TextInput
@@ -147,7 +148,7 @@ export const BusDriverCard = () => {
                   setBusDriverModalOpen(false)
                 }}
               >
-                <Text style={styles.buttonText}>{"Save Driver Info"}</Text>
+                <C4kText style={styles.buttonText}>{"Save Driver Info"}</C4kText>
               </Pressable>
             </View>
           </View>

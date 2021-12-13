@@ -6,6 +6,7 @@ import { useStyles } from "../context/styles.context"
 import { FontAwesome } from "@expo/vector-icons"
 import { FontAwesome5 } from "@expo/vector-icons"
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import { C4kText } from "./C4kText"
 
 export const ChaperoneGroupCard = () => {
   const [modalOpen, setModalOpen] = useState(false)
@@ -36,7 +37,7 @@ export const ChaperoneGroupCard = () => {
     <View>
       <Card overrideStyles={styles.chaperoneGroupCard}>
         <View style={styles.chaperoneGroupCardHeader}>
-          <Text
+          <C4kText
             style={{
               fontSize: 25,
               color: "#FFF",
@@ -49,7 +50,7 @@ export const ChaperoneGroupCard = () => {
             }}
           >
             chaperone group
-          </Text>
+          </C4kText>
           <Entypo name="squared-plus" size={24} color="#EF364B" onPress={() => setModalOpen(true)} />
         </View>
         <View style={styles.chaperoneGroupCardBody}>
@@ -61,7 +62,7 @@ export const ChaperoneGroupCard = () => {
               </React.Fragment>
             ))
           ) : (
-            <Text style={styles.chaperoneGroupCardBodyText}>Add your fellow chaperones here!</Text>
+            <C4kText style={styles.chaperoneGroupCardBodyText}>Add your fellow chaperones here!</C4kText>
           )}
         </View>
         <ChaperoneModal visible={modalOpen} setVisible={setModalOpen} chaperoneList={chaperoneList} setChaperoneList={setChaperoneList} />
@@ -93,7 +94,7 @@ const ChaperoneListItem = ({ name, phone, chaperoneList, setChaperoneList }) => 
     >
       <FontAwesome5 onPress={() => removeContact(phone)} name="trash-alt" size={11} color="red" />
 
-      <Text style={styles.chaperoneGroupCardBodyText}>{name}</Text>
+      <C4kText style={styles.chaperoneGroupCardBodyText}>{name}</C4kText>
 
       <FontAwesome5 name="phone-alt" size={8} color="#FFF" style={{ backgroundColor: "#23A57F", borderRadius: 3, padding: 5 }} onPress={() => pressCall()} />
     </View>
@@ -124,7 +125,7 @@ const ChaperoneModal = ({ visible, setVisible, chaperoneList, setChaperoneList }
         <View style={styles.card}>
           <FontAwesome name="window-close" size={24} color="#EF364B" onPress={() => setVisible(false)} style={{ textAlign: "right" }} />
 
-          <Text
+          <C4kText
             style={{
               color: "#1B2C39",
               fontFamily: "FjallaOne",
@@ -133,7 +134,7 @@ const ChaperoneModal = ({ visible, setVisible, chaperoneList, setChaperoneList }
             }}
           >
             Add a fellow chaperone
-          </Text>
+          </C4kText>
           <View style={styles.textInputView}>
             <Ionicons name="md-person-sharp" style={styles.textInputIcon} />
             <TextInput
@@ -173,7 +174,7 @@ const ChaperoneModal = ({ visible, setVisible, chaperoneList, setChaperoneList }
               setVisible(false)
             }}
           >
-            <Text style={styles.buttonText}>Save</Text>
+            <C4kText style={styles.buttonText}>Save</C4kText>
           </Pressable>
         </View>
       </View>
