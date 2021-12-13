@@ -7,6 +7,7 @@ import ScreenWrapper from "./ScreenWrapper"
 import { ScheduleCard } from "../components/ScheduleCard"
 import { useUser } from "../context/user.context"
 import { Loading } from "./Loading"
+import { C4kText } from "../components/C4kText"
 
 export const Schedule = props => {
   const { styles } = useStyles()
@@ -22,8 +23,8 @@ export const Schedule = props => {
   return (
     <ScreenWrapper>
       <Card overrideStyles={styles.rulesHeaderCard}>
-        <Text style={styles.rulesTabHeader}>Shopping Day Schedule</Text>
-        <Text style={styles.rulesTabSubtext}>Everything you need to know about being a chaperone on the big shopping day.</Text>
+        <C4kText style={styles.rulesTabHeader}>Shopping Day Schedule</C4kText>
+        <C4kText style={styles.rulesTabSubtext}>Everything you need to know about being a chaperone on the big shopping day.</C4kText>
       </Card>
 
       <View>{schedule.length > 0 ? schedule.map(event => <ScheduleCard key={event.order} data={event} volunteerType={volunteerType} />) : <Loading />}</View>

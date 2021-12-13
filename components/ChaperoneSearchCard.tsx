@@ -4,6 +4,7 @@ import { useStyles } from "../context/styles.context"
 import { NativeSyntheticEvent, Platform, Text, TextInput, TextInputChangeEventData, TouchableOpacity, View } from "react-native"
 import { SearchFilters } from "../types"
 import { Ionicons } from "@expo/vector-icons"
+import { C4kText } from "./C4kText"
 
 interface ChaperoneSearchCardProps {
   searchName: string
@@ -39,19 +40,19 @@ const ChaperoneSearchCard = (props: ChaperoneSearchCardProps) => {
   }
   return (
     <Card>
-      <Text style={[styles.chaperoneSearchCardTitle, { marginTop: Platform.OS === "ios" ? -30 : 0 }]}>volunteer list</Text>
-      <Text style={styles.chaperoneSearchCardSubtext}>Use toggles for volunteer filtering.</Text>
+      <C4kText style={[styles.chaperoneSearchCardTitle, { marginTop: Platform.OS === "ios" ? -30 : 0 }]}>volunteer list</C4kText>
+      <C4kText style={styles.chaperoneSearchCardSubtext}>Use toggles for volunteer filtering.</C4kText>
       <View style={styles.searchFilterPills}>
         {volunteerPills.map(pill => (
           <TouchableOpacity key={pill.name} onPress={() => onFilterPillPress(pill.name)}>
-            <Text style={searchFilters[pill.name] ? styles.searchFilterPillTextOn : styles.searchFilterPillTextOff}>{pill.displayName}</Text>
+            <C4kText style={searchFilters[pill.name] ? styles.searchFilterPillTextOn : styles.searchFilterPillTextOff}>{pill.displayName}</C4kText>
           </TouchableOpacity>
         ))}
       </View>
       <View style={styles.searchFilterPills}>
         {otherPills.map(pill => (
           <TouchableOpacity key={pill.name} onPress={() => onFilterPillPress(pill.name)}>
-            <Text style={searchFilters[pill.name] ? styles.searchFilterPillTextOn : styles.searchFilterPillTextOff}>{pill.displayName}</Text>
+            <C4kText style={searchFilters[pill.name] ? styles.searchFilterPillTextOn : styles.searchFilterPillTextOff}>{pill.displayName}</C4kText>
           </TouchableOpacity>
         ))}
       </View>

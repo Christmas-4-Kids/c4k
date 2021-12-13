@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { TouchableOpacity, Text, View } from "react-native"
+import { TouchableOpacity, Image, View } from "react-native"
 import { useStyles } from "../context/styles.context"
 import ScreenWrapper from "./ScreenWrapper"
 import { SearchFilters } from "../types"
@@ -7,6 +7,7 @@ import ChaperoneSearchCard from "../components/ChaperoneSearchCard"
 import { syncMailchimpVolunteers } from "../services/firestore.service"
 import ChaperoneListCard from "../components/ChaperoneListCard"
 import { useVolunteers, Volunteer } from "../context/volunteer.context"
+import { C4kText } from "../components/C4kText"
 
 export const ChaperoneList = ({ navigation }) => {
   const { styles } = useStyles()
@@ -107,24 +108,25 @@ export const ChaperoneList = ({ navigation }) => {
   ])
 
   return (
-    <ScreenWrapper>
+    <View style={styles.page}>
+      <View style={styles.stickyHeader}></View>
       <ChaperoneSearchCard searchName={searchName} setSearchName={setSearchName} searchFilters={searchFilters} setSearchFilters={setSearchFilters} />
       <View style={{ paddingHorizontal: 35, flexDirection: "row", justifyContent: "space-between" }}>
         <TouchableOpacity onPress={onSyncPress}>
           <View style={styles.upcomingEventButton}>
-            <Text style={styles.upcomingEventButtonText}>Sync</Text>
+            <C4kText style={styles.upcomingEventButtonText}>Sync</C4kText>
           </View>
         </TouchableOpacity>
-        <Text style={styles.searchResultCountText}>
+        <C4kText style={styles.searchResultCountText}>
           {filteredVolunteers.length} OF {volunteers.length}
-        </Text>
+        </C4kText>
         <TouchableOpacity onPress={() => navigation.navigate("Modal")}>
           <View style={styles.upcomingEventButton}>
-            <Text style={styles.upcomingEventButtonText}>Scan</Text>
+            <C4kText style={styles.upcomingEventButtonText}>Scan</C4kText>
           </View>
         </TouchableOpacity>
       </View>
       <ChaperoneListCard volunteers={filteredVolunteers} />
-    </ScreenWrapper>
+    </View>
   )
 }

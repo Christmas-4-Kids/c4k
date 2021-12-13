@@ -8,6 +8,7 @@ import RulesGroup from "../components/RulesGroup"
 import ScreenWrapper from "./ScreenWrapper"
 import { Card } from "../components/Card"
 import { useStyles } from "../context/styles.context"
+import { C4kText } from "../components/C4kText"
 
 export const Rules = () => {
   const [rules, setRules] = useState([])
@@ -37,8 +38,8 @@ export const Rules = () => {
   return (
     <ScreenWrapper>
       <Card overrideStyles={styles.rulesHeaderCard}>
-        <Text style={styles.rulesTabHeader}>how to avoid santa's naughty list</Text>
-        <Text style={styles.rulesTabSubtext}>Everything you need to know about being a chaperone on the big shopping day.</Text>
+        <C4kText style={styles.rulesTabHeader}>how to avoid santa's naughty list</C4kText>
+        <C4kText style={styles.rulesTabSubtext}>Everything you need to know about being a chaperone on the big shopping day.</C4kText>
       </Card>
       <View>
         {rules.length > 0 ? groupedRules.map((item, index) => <RulesGroup key={index} rules={item.rules} groupName={item.group} />) : <Loading />}

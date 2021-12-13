@@ -3,6 +3,7 @@ import { View, Text, ImageBackground, Share } from "react-native"
 import { useStyles } from "../context/styles.context"
 import { FontAwesome5 } from "@expo/vector-icons"
 import { TouchableOpacity } from "react-native-gesture-handler"
+import { C4kText } from "./C4kText"
 
 const SocialMediaShareCard = () => {
   const { styles } = useStyles()
@@ -33,11 +34,11 @@ const SocialMediaShareCard = () => {
           }}
         >
           <View style={styles.socialMediaShareCardLeft}>
-            <Text style={styles.socialMediaShareCardLeftText}>help us reach more people</Text>
+            <C4kText style={styles.socialMediaShareCardLeftText}>help us reach more people</C4kText>
           </View>
           <View style={styles.socialMediaShareCardRight}>
             <View style={styles.socialMediaShareCardRightText}>
-              <Text style={styles.socialMediaShareCardRightText}>Share C4K On Your Socials:</Text>
+              <C4kText style={styles.socialMediaShareCardRightText}>Share C4K On Your Socials:</C4kText>
               <View style={styles.socialMediaShareCardIcons}>
                 <FontAwesome5 name="facebook-square" size={socialImageSize} color="#FFF" />
                 <FontAwesome5 name="instagram" size={socialImageSize} color="#FFF" />

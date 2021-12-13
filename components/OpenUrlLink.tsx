@@ -1,5 +1,6 @@
 import React, { useCallback } from "react"
 import { Alert, Text, Linking } from "react-native"
+import { C4kText } from "./C4kText"
 
 const Component = ({ url, children }) => {
   const handlePress = useCallback(async () => {
@@ -15,7 +16,7 @@ const Component = ({ url, children }) => {
     }
   }, [url])
 
-  return <Text onPress={handlePress}>{children}</Text>
+  return <C4kText onPress={handlePress}>{children}</C4kText>
 }
 
 export const OpenUrlLink = ({ url, styles, children }) => {
@@ -33,8 +34,8 @@ export const OpenUrlLink = ({ url, styles, children }) => {
   }, [url])
 
   return (
-    <Text style={styles} onPress={handlePress}>
+    <C4kText style={styles} onPress={handlePress}>
       {children}
-    </Text>
+    </C4kText>
   )
 }

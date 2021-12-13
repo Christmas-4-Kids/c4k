@@ -1,6 +1,7 @@
 import React from "react"
 import { useStyles } from "../context/styles.context"
 import { Text, View, Image } from "react-native"
+import { C4kText } from "./C4kText"
 
 interface Rule {
   order: number
@@ -19,14 +20,14 @@ const RuleCard = ({ order, title, description }) => {
     <View style={styles.ruleCard}>
       <Image style={styles.ruleCardOrnament} source={require("../assets/images/ornament.png")} />
 
-      <Text style={styles.ruleCardOrder}>{order}</Text>
+      <C4kText style={styles.ruleCardOrder}>{order}</C4kText>
 
       <View style={styles.ruleCardTitle}>
-        <Text style={{ color: "#FFF", fontFamily: "FjallaOne", fontSize: 14, paddingHorizontal: 20 }}>{title === "" ? "Remember..." : title}</Text>
+        <C4kText style={{ color: "#FFF", fontFamily: "FjallaOne", fontSize: 14, paddingHorizontal: 20 }}>{title === "" ? "Remember..." : title}</C4kText>
       </View>
 
       <View style={styles.rulesCardDescription}>
-        <Text
+        <C4kText
           style={{
             minHeight: 61,
             paddingVertical: 15,
@@ -37,7 +38,7 @@ const RuleCard = ({ order, title, description }) => {
           }}
         >
           {description}
-        </Text>
+        </C4kText>
       </View>
     </View>
   )

@@ -2,6 +2,7 @@ import React from "react"
 import { useStyles } from "../context/styles.context"
 import { Text, View } from "react-native"
 import { Entypo } from "@expo/vector-icons"
+import { C4kText } from "./C4kText"
 
 export const ScheduleCard = event => {
   const { styles } = useStyles()
@@ -12,7 +13,7 @@ export const ScheduleCard = event => {
     return (
       <View style={styles.scheduleCardWrapper}>
         <View style={styles.scheduleTime}>
-          <Text style={[styles.scheduleTimeText, { fontSize: 16 }]}>{event.data.time}</Text>
+          <C4kText style={[styles.scheduleTimeText, { fontSize: 16 }]}>{event.data.time}</C4kText>
         </View>
         <View style={styles.scheduleName}>
           <View
@@ -22,14 +23,14 @@ export const ScheduleCard = event => {
               marginBottom: 6,
             }}
           >
-            <Text style={[styles.scheduleTimeText, { width: 35, textAlign: "left", paddingLeft: 8 }]}>{event.data.icon}</Text>
-            <Text style={styles.scheduleTimeText}>{event.data.name}</Text>
+            <C4kText style={[styles.scheduleTimeText, { width: 35, textAlign: "left", paddingLeft: 8 }]}>{event.data.icon}</C4kText>
+            <C4kText style={styles.scheduleTimeText}>{event.data.name}</C4kText>
           </View>
           <View style={{ flexDirection: "row", justifyContent: "flex-start", marginBottom: 6 }}>
-            <Text style={{ width: 35, textAlign: "left", paddingLeft: 8 }}>
+            <C4kText style={{ width: 35, textAlign: "left", paddingLeft: 8 }}>
               <Entypo name="location" size={16} color="#15232E" />
-            </Text>
-            <Text style={styles.scheduleTimeText}>{event.data.location}</Text>
+            </C4kText>
+            <C4kText style={styles.scheduleTimeText}>{event.data.location}</C4kText>
           </View>
         </View>
       </View>

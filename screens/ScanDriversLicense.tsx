@@ -6,6 +6,7 @@ import { useVolunteers, Volunteer } from "../context/volunteer.context"
 import { Card } from "../components/Card"
 import { AntDesign } from "@expo/vector-icons"
 import { updateVolunteerCheckedIn } from "../services/firestore.service"
+import { C4kText } from "../components/C4kText"
 
 const licenseCodeToVolunteerMap: Map<string, string> = new Map([
   ["Given Name", "firstName"],
@@ -170,10 +171,10 @@ export const ScanDriversLicense = ({ navigation }) => {
   }
 
   if (hasPermission === null) {
-    return <Text>Requesting for camera permission</Text>
+    return <C4kText>Requesting for camera permission</C4kText>
   }
   if (hasPermission === false) {
-    return <Text>No access to camera</Text>
+    return <C4kText>No access to camera</C4kText>
   }
 
   const onPress = async (volunteer: Volunteer) => {
@@ -201,21 +202,21 @@ export const ScanDriversLicense = ({ navigation }) => {
           <Card>
             {volunteerMatches.length === 0 ? (
               <View>
-                <Text style={{ fontFamily: "FjallaOne", fontSize: 18, textAlign: "center" }}>No Matches Found</Text>
+                <C4kText style={{ fontFamily: "FjallaOne", fontSize: 18, textAlign: "center" }}>No Matches Found</C4kText>
               </View>
             ) : (
               volunteerMatches.map(volunteer => (
                 <View key={volunteer.mailchimpMemberId}>
                   <View style={{ flexDirection: "row", alignItems: "flex-start", justifyContent: "space-between" }}>
                     <View style={{ flexDirection: "column", alignItems: "flex-start", width: "68%" }}>
-                      <Text style={styles.chaperoneListItemName}>{`${volunteer?.firstName} ${volunteer?.lastName}`}</Text>
-                      <Text
+                      <C4kText style={styles.chaperoneListItemName}>{`${volunteer?.firstName} ${volunteer?.lastName}`}</C4kText>
+                      <C4kText
                         style={styles.chaperoneListItemVolunteerType}
-                      >{`${volunteer?.address?.addr1}, ${volunteer?.address?.addr2}, ${volunteer?.address?.city}, ${volunteer?.address?.state} ${volunteer?.address?.zip}`}</Text>
+                      >{`${volunteer?.address?.addr1}, ${volunteer?.address?.addr2}, ${volunteer?.address?.city}, ${volunteer?.address?.state} ${volunteer?.address?.zip}`}</C4kText>
                     </View>
                     <View style={{ flexDirection: "row", alignContent: "flex-end" }}>
-                      {volunteer?.spanish === "Yes" ? <Text style={styles.searchFilterPillTextOn}>Esp</Text> : null}
-                      {volunteer?.medical !== "None" ? <Text style={styles.searchFilterPillTextOn}>Med</Text> : null}
+                      {volunteer?.spanish === "Yes" ? <C4kText style={styles.searchFilterPillTextOn}>Esp</C4kText> : null}
+                      {volunteer?.medical !== "None" ? <C4kText style={styles.searchFilterPillTextOn}>Med</C4kText> : null}
                     </View>
                     <Pressable
                       style={({ pressed }) => ({
@@ -224,9 +225,9 @@ export const ScanDriversLicense = ({ navigation }) => {
                       })}
                       onPress={() => onPress(volunteer)}
                     >
-                      <Text style={volunteer?.checkedIn ? styles.volunteerCheckedIn : styles.volunteerNotCheckedIn}>
+                      <C4kText style={volunteer?.checkedIn ? styles.volunteerCheckedIn : styles.volunteerNotCheckedIn}>
                         {volunteer?.checkedIn ? <AntDesign name="checksquare" size={28} color="green" /> : <AntDesign name="checksquare" size={28} color="gray" />}
-                      </Text>
+                      </C4kText>
                     </Pressable>
                   </View>
                   <View style={styles.upcomingEventsCardDivider}></View>
@@ -243,7 +244,7 @@ export const ScanDriversLicense = ({ navigation }) => {
               ]}
               onPress={() => setScanned(!scanned)}
             >
-              <Text style={styles.buttonText}>Close</Text>
+              <C4kText style={styles.buttonText}>Close</C4kText>
             </Pressable>
           </Card>
         </View>

@@ -17,7 +17,7 @@ export const TempHome = () => {
       <Countdown />
       {/* <View style={styles.sectionContainer}>
         <Pressable style={styles.button} onPress={openDonateLink}>
-          <Text style={styles.buttonText}>{"Donate"}</Text>
+          <C4kText style={styles.buttonText}>{"Donate"}</C4kText>
         </Pressable>
       </View>
       <View style={styles.sectionContainer}>
