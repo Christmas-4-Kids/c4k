@@ -24,14 +24,8 @@ const RulesGroup = ({ groupName, rules }) => {
             flexDirection: "row",
           }}
         >
-          <Text>
-            {clicked ? (
-              <AntDesign name="minuscircleo" size={24} color="#fff" />
-            ) : (
-              <AntDesign name="pluscircleo" size={24} color="#FFF" />
-            )}
-          </Text>
-          <Text
+          <C4kText>{clicked ? <AntDesign name="minuscircleo" size={24} color="#fff" /> : <AntDesign name="pluscircleo" size={24} color="#FFF" />}</C4kText>
+          <C4kText
             style={{
               color: "#FFF",
               fontFamily: "FjallaOne",
@@ -40,7 +34,7 @@ const RulesGroup = ({ groupName, rules }) => {
             }}
           >
             {groupName}
-          </Text>
+          </C4kText>
         </View>
       </TouchableOpacity>
       {clicked ? (
@@ -97,19 +91,7 @@ const CheckListItem = ({ item, order }) => {
     <TouchableOpacity onPress={() => changeSelection()}>
       <View style={{ flexDirection: "row", paddingTop: 5 }}>
         <C4kText>
-          {isSelected ? (
-            <MaterialCommunityIcons
-              name="checkbox-marked"
-              size={24}
-              color="green"
-            />
-          ) : (
-            <MaterialCommunityIcons
-              name="checkbox-blank-outline"
-              size={24}
-              color="gray"
-            />
-          )}
+          {isSelected ? <MaterialCommunityIcons name="checkbox-marked" size={24} color="green" /> : <MaterialCommunityIcons name="checkbox-blank-outline" size={24} color="gray" />}
         </C4kText>
         <C4kText
           style={{
