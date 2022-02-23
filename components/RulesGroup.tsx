@@ -6,6 +6,7 @@ import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons"
 import { TouchableOpacity } from "react-native-gesture-handler"
 import { ListItem } from "react-native-elements/dist/list/ListItem"
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import { C4kText } from "./C4kText"
 
 const RulesGroup = ({ groupName, rules }) => {
   const [clicked, setClicked] = useState(false)
@@ -95,7 +96,7 @@ const CheckListItem = ({ item, order }) => {
   return (
     <TouchableOpacity onPress={() => changeSelection()}>
       <View style={{ flexDirection: "row", paddingTop: 5 }}>
-        <Text>
+        <C4kText>
           {isSelected ? (
             <MaterialCommunityIcons
               name="checkbox-marked"
@@ -109,17 +110,17 @@ const CheckListItem = ({ item, order }) => {
               color="gray"
             />
           )}
-        </Text>
-        <Text
+        </C4kText>
+        <C4kText
           style={{
             paddingLeft: 5,
             color: isSelected ? "#CFCFCF" : "#1B2C39",
             fontFamily: "ZillaSlab-Medium",
             fontSize: 14,
-          }}
+          }}S
         >
           {item}
-        </Text>
+        </C4kText>
       </View>
     </TouchableOpacity>
   )

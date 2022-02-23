@@ -2,6 +2,7 @@ import React, { useEffect } from "react"
 import { ScrollView, View, Text, Button, TouchableOpacity } from "react-native"
 import { useStyles } from "../context/styles.context"
 import call from "react-native-phone-call"
+import { C4kText } from "../components/C4kText"
 // import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 // import { faTimes, faCheck, faMobile } from "@fortawesome/free-solid-svg-icons";
 
@@ -25,10 +26,10 @@ function MemberList(props: any) {
                 <View style={styles.member} key={member.firestoreId}>
                   <View style={styles.memberRow}>
                     <View style={styles.memberColumn}>
-                      <Text style={styles.memberName}>
+                      <C4kText style={styles.memberName}>
                         {member.firstName} {member.lastName}
-                      </Text>
-                      <Text style={styles.memberAddress}>{!!member.driversLicense && member.driversLicense.address}</Text>
+                      </C4kText>
+                      <C4kText style={styles.memberAddress}>{!!member.driversLicense && member.driversLicense.address}</C4kText>
                     </View>
                     <View>
                       {/* {member.type && (
@@ -70,14 +71,14 @@ function MemberList(props: any) {
               ))}
             {!props.memberList && (
               <View style={styles.sectionContainer}>
-                <Text style={styles.sectionText}>Loading...</Text>
+                <C4kText style={styles.sectionText}>Loading...</C4kText>
               </View>
             )}
           </View>
         </ScrollView>
         <View style={styles.sectionContainer}>
           <TouchableOpacity style={styles.closeButton} onPress={() => props.navigation.pop()}>
-            <Text style={styles.buttonText}> Close </Text>
+            <C4kText style={styles.buttonText}> Close </C4kText>
           </TouchableOpacity>
         </View>
       </View>

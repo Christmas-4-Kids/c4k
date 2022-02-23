@@ -5,6 +5,7 @@ import { View, Text } from "react-native"
 import { useStyles } from "../context/styles.context"
 import { Card } from "./Card"
 import { useUser } from "../context/user.context"
+import { C4kText } from "./C4kText"
 
 export const Countdown = () => {
   const { styles } = useStyles()
@@ -41,35 +42,35 @@ export const Countdown = () => {
 
   return (
     <Card>
-      <Text style={styles.countdownCardTitle}>{user?.firstName}, Get Ready to Shop In:</Text>
+      <C4kText style={styles.countdownCardTitle}>{user?.firstName}, Get Ready to Shop In:</C4kText>
 
       <View style={styles.countdownItemsWrapper}>
         {!!daysLeft ? (
           <View style={styles.countdownItem}>
-            <Text style={styles.countdownTime}>{daysLeft} </Text>
+            <C4kText style={styles.countdownTime}>{daysLeft} </C4kText>
             <View style={styles.countdownItemDivider}></View>
-            <Text style={styles.countdownLabel}>days</Text>
+            <C4kText style={styles.countdownLabel}>days</C4kText>
           </View>
         ) : null}
         {!!hoursLeft ? (
           <View style={styles.countdownItem}>
-            <Text style={styles.countdownTime}>{hoursLeft} </Text>
+            <C4kText style={styles.countdownTime}>{hoursLeft} </C4kText>
             <View style={styles.countdownItemDivider}></View>
-            <Text style={styles.countdownLabel}>hours</Text>
+            <C4kText style={styles.countdownLabel}>hours</C4kText>
           </View>
         ) : null}
         {!!minutesLeft ? (
           <View style={styles.countdownItem}>
-            <Text style={styles.countdownTime}>{minutesLeft} </Text>
+            <C4kText style={styles.countdownTime}>{minutesLeft} </C4kText>
             <View style={styles.countdownItemDivider}></View>
-            <Text style={styles.countdownLabel}>minutes</Text>
+            <C4kText style={styles.countdownLabel}>minutes</C4kText>
           </View>
         ) : null}
 
         <View style={styles.countdownItem}>
-          <Text style={styles.countdownTime}>{secondsLeft} </Text>
+          <C4kText style={styles.countdownTime}>{secondsLeft} </C4kText>
           <View style={styles.countdownItemDivider}></View>
-          <Text style={styles.countdownLabel}>seconds</Text>
+          <C4kText style={styles.countdownLabel}>seconds</C4kText>
         </View>
       </View>
     </Card>

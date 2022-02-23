@@ -3,26 +3,27 @@ import { Platform, Text, View } from "react-native"
 import { useStyles } from "../context/styles.context"
 import { Card } from "./Card"
 import { FontAwesome, FontAwesome5 } from "@expo/vector-icons"
+import { C4kText } from "./C4kText"
 
 const UserCard = ({ user, role, phone, email }) => {
   const { styles } = useStyles()
 
   return (
     <Card>
-      <Text style={[styles.userCardRegisteredAs, { marginBottom: Platform.OS === "ios" ? -16 : 0 }]}>Registered As:&nbsp;{role}</Text>
-      <Text style={styles.userCardName}>{user}</Text>
+      <C4kText style={[styles.userCardRegisteredAs, { marginBottom: Platform.OS === "ios" ? -16 : 0 }]}>Registered As:&nbsp;{role}</C4kText>
+      <C4kText style={styles.userCardName}>{user}</C4kText>
 
       <View style={styles.userCardDivider}></View>
 
-      <Text style={styles.userCardPhoneEmail}>
+      <C4kText style={styles.userCardPhoneEmail}>
         <FontAwesome5 name="phone-alt" size={12} color="#318AC7" />
         &nbsp;&nbsp;{phone}
-      </Text>
+      </C4kText>
 
-      <Text style={styles.userCardPhoneEmail}>
+      <C4kText style={styles.userCardPhoneEmail}>
         <FontAwesome name="envelope" size={12} color="#318AC7" />
         &nbsp;&nbsp;{email}
-      </Text>
+      </C4kText>
     </Card>
   )
 }

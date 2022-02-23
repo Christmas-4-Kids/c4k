@@ -3,13 +3,14 @@ import { View, Text, Linking } from "react-native"
 import { Card } from "./Card"
 import { useStyles } from "../context/styles.context"
 import { FontAwesome5 } from "@expo/vector-icons"
+import { C4kText } from "./C4kText"
 
 export const EmergencyContactsCard = () => {
   const { styles } = useStyles()
   return (
     <Card overrideStyles={styles.emergencyContactsCard}>
       <View style={styles.emergencyContactsHeader}>
-        <Text
+        <C4kText
           style={{
             fontSize: 25,
             color: "#FFF",
@@ -22,13 +23,13 @@ export const EmergencyContactsCard = () => {
           }}
         >
           emergency contacts
-        </Text>
+        </C4kText>
       </View>
       <View style={styles.emergencyContactsCardBody}>
         <View style={styles.emergencyContactRow}>
           <View style={styles.emergencyContact}>
-            <Text style={styles.emergencyContactNameText}>Linda O’Connell</Text>
-            <Text style={styles.emergencyContactTitleText}>C4K President</Text>
+            <C4kText style={styles.emergencyContactNameText}>Linda O’Connell</C4kText>
+            <C4kText style={styles.emergencyContactTitleText}>C4K President</C4kText>
           </View>
           <FontAwesome5
             name="phone-alt"
@@ -42,8 +43,8 @@ export const EmergencyContactsCard = () => {
         <View style={styles.emergencyContactDivider}></View>
         <View style={styles.emergencyContactRow}>
           <View style={styles.emergencyContact}>
-            <Text style={styles.emergencyContactNameText}>Elisha Payne</Text>
-            <Text style={styles.emergencyContactTitleText}>All Day Coordinator</Text>
+            <C4kText style={styles.emergencyContactNameText}>Elisha Payne</C4kText>
+            <C4kText style={styles.emergencyContactTitleText}>All Day Coordinator</C4kText>
           </View>
           <FontAwesome5
             name="phone-alt"
@@ -56,8 +57,8 @@ export const EmergencyContactsCard = () => {
         <View style={styles.emergencyContactDivider}></View>
         <View style={styles.emergencyContactRow}>
           <View style={styles.emergencyContact}>
-            <Text style={styles.emergencyContactNameText}>DeAnne Redman</Text>
-            <Text style={styles.emergencyContactTitleText}>Evening Coordinator</Text>
+            <C4kText style={styles.emergencyContactNameText}>DeAnne Redman</C4kText>
+            <C4kText style={styles.emergencyContactTitleText}>Evening Coordinator</C4kText>
           </View>
           <FontAwesome5
             name="phone-alt"
