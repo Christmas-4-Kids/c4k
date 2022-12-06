@@ -8,6 +8,7 @@ import Navigation from "./navigation"
 import { useFonts } from "expo-font"
 import StylesProvider from "./context/styles.context"
 import VolunteerProvider from "./context/volunteer.context"
+import { GestureHandlerRootView } from "react-native-gesture-handler"
 
 export default function App() {
   const isLoadingComplete = useCachedResources()
@@ -21,6 +22,7 @@ export default function App() {
 
   if (isLoadingComplete && fontsLoaded) {
     return (
+        <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
         <UserProvider>
           <VolunteerProvider>
@@ -31,6 +33,7 @@ export default function App() {
           </VolunteerProvider>
         </UserProvider>
       </SafeAreaProvider>
+        </GestureHandlerRootView>
     )
   } else {
     return null
