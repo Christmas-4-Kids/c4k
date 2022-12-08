@@ -1,6 +1,6 @@
 {
   "typescript.format.semicolons": "remove",
-  "prettier.semi": false,
+  "prettier.semi": true,
   "editor.wordWrap": "wordWrapColumn",
   "prettier.singleQuote": false,
   "typescript.preferences.quoteStyle": "auto",
@@ -8,8 +8,6 @@
   "editor.wordWrapColumn": 80,
   "typescript.format.insertSpaceAfterCommaDelimiter": true,
   "prettier.trailingComma": "es5",
-  "cSpell.words": [
-    "Ionicons",
-    "mailchimp"
-  ]
+  "cSpell.words": ["Ionicons", "mailchimp"],
+  "javascript.format.semicolons": "insert"
 }

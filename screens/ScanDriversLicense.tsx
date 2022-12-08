@@ -114,15 +114,15 @@ const pdf417Map: Map<string, string> = new Map([
 
 const getVolunteerType = (volunteerType: string) => {
   switch (volunteerType) {
-    case "2021_ADMIN":
+    case "2022_ADMIN":
       return "Organizer"
-    case "2021_ALL_DAY_CHAPERONE":
+    case "2022_ALL_DAY_CHAPERONE":
       return "All Day Chaperone"
-    case "2021_EVENING_CHAPERONE":
+    case "2022_EVENING_CHAPERONE":
       return "Evening Chaperone"
-    case "2021_LEBANON_CHAPERONE":
+    case "2022_LEBANON_CHAPERONE":
       return "Lebanon Chaperone"
-    case "2021_DRIVER":
+    case "2022_DRIVER":
       return "Driver"
     default:
       return "Unknown"
@@ -144,8 +144,8 @@ export const ScanDriversLicense = ({ navigation }) => {
   }, [])
 
   useEffect(() => {
-    const volunteerMatchesIds = volunteerMatches.map(v => v.mailchimpMemberId)
-    setVolunteerMatches(volunteers.filter(v => volunteerMatchesIds.includes(v.mailchimpMemberId)))
+    const volunteerMatchesIds = volunteerMatches.map((v) => v.mailchimpMemberId)
+    setVolunteerMatches(volunteers.filter((v) => volunteerMatchesIds.includes(v.mailchimpMemberId)))
   }, [volunteers])
 
   const handleBarCodeScanned = ({ type, data }) => {
@@ -205,7 +205,7 @@ export const ScanDriversLicense = ({ navigation }) => {
                 <C4kText style={{ fontFamily: "FjallaOne", fontSize: 18, textAlign: "center" }}>No Matches Found</C4kText>
               </View>
             ) : (
-              volunteerMatches.map(volunteer => (
+              volunteerMatches.map((volunteer) => (
                 <View key={volunteer.mailchimpMemberId}>
                   <View style={{ flexDirection: "row", alignItems: "flex-start", justifyContent: "space-between" }}>
                     <View style={{ flexDirection: "column", alignItems: "flex-start", width: "68%" }}>

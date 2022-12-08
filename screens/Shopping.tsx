@@ -1,14 +1,13 @@
 import React from "react"
 import ImageViewer from "react-native-image-zoom-viewer"
 import ScreenWrapper from "./ScreenWrapper"
+import { useAssets } from "../context/assets.context"
 
 export const Shopping = () => {
+  const { assets } = useAssets()
   const images = [
     {
-      url: "",
-      props: {
-        source: require("../assets/images/map.png"),
-      },
+      url: assets.get("map"),
     },
   ]
   return (

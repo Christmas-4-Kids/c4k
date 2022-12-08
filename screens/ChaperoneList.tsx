@@ -35,19 +35,19 @@ export const ChaperoneList = ({ navigation }) => {
     if (!useChaperoneFilters) return true
 
     if (searchFilters.allDay) {
-      volunteerTypesToFilter.push("2021_ALL_DAY_CHAPERONE")
+      volunteerTypesToFilter.push("2022_ALL_DAY_CHAPERONE")
     }
     if (searchFilters.evening) {
-      volunteerTypesToFilter.push("2021_EVENING_CHAPERONE")
+      volunteerTypesToFilter.push("2022_EVENING_CHAPERONE")
     }
     if (searchFilters.lebanon) {
-      volunteerTypesToFilter.push("2021_LEBANON_CHAPERONE")
+      volunteerTypesToFilter.push("2022_LEBANON_CHAPERONE")
     }
     if (searchFilters.admin) {
-      volunteerTypesToFilter.push("2021_ADMIN")
+      volunteerTypesToFilter.push("2022_ADMIN")
     }
     if (searchFilters.driver) {
-      volunteerTypesToFilter.push("2021_DRIVER")
+      volunteerTypesToFilter.push("2022_DRIVER")
     }
     return volunteerTypesToFilter.includes(volunteerType)
   }
@@ -82,7 +82,7 @@ export const ChaperoneList = ({ navigation }) => {
   }
 
   useEffect(() => {
-    const newFilteredVolunteers = volunteers.filter(v => {
+    const newFilteredVolunteers = volunteers.filter((v) => {
       const useSearch = searchName.length >= 2
       if (useSearch) {
         return (

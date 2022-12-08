@@ -20,7 +20,7 @@ const app = initializeApp({
 const functions = getFunctions(app)
 
 // Uncomment to run firebase functions locally
-// connectFunctionsEmulator(functions, "localhost", 5001)
+//connectFunctionsEmulator(functions, "localhost", 5001)
 
 // firebase functions
 export const checkIfRegistered = httpsCallable(functions, "checkIfRegistered")

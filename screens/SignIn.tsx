@@ -70,6 +70,7 @@ export const SignIn = () => {
     let mailchimpUser
     try {
       const { data } = await checkIfRegistered(email.trim())
+      console.log(data)
       mailchimpUser = data
     } catch (err) {
       return registrationError("Oops! Looks like something went wrong! We'll work on fixing it real soon.", {
@@ -109,14 +110,14 @@ export const SignIn = () => {
       phoneNumber: `+1${phoneNumber}`,
       code: verificationCode,
     })
-      .then(result => {
+      .then((result) => {
         if (result.data === "approved") {
           saveUser({ ...user, verified: true })
         } else {
           setErrorMessage("Invalid verification code")
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(`err`, err)
       })
       .finally(() => {

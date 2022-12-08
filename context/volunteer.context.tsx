@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore"
+import { collection, onSnapshot, orderBy, query, where } from "firebase/firestore"
 import { db } from "../services/firestore.service"
 
 export interface Address {
@@ -75,9 +75,9 @@ export default function VolunteerProvider({ children }: { children: any }) {
   const [volunteers, setVolunteers] = useState<Volunteer[]>([])
 
   useEffect(() => {
-    const unsub = onSnapshot(query(collection(db, "volunteers"), orderBy("lastNameLower")), querySnapshot => {
+    const unsub = onSnapshot(query(collection(db, "volunteers"), where("volunteerYear", "==", "2022"), orderBy("lastNameLower")), (querySnapshot) => {
       const tempVolunteers = []
-      querySnapshot.forEach(doc => {
+      querySnapshot.forEach((doc) => {
         tempVolunteers.push(createVolunteer(doc.data()))
       })
       setVolunteers(tempVolunteers)

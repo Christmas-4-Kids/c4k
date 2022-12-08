@@ -74,14 +74,14 @@ export const ChaperoneGroupCard = () => {
 const ChaperoneListItem = ({ name, phone, chaperoneList, setChaperoneList }) => {
   const { styles } = useStyles()
 
-  const pressCall = () => {
+  const pressCall = async () => {
     const url = `tel://${phone}`
-    Linking.openURL(url)
+    await Linking.openURL(url)
   }
 
-  const removeContact = phone => {
-    setChaperoneList(chaperoneList.filter(chaperone => chaperone.phone !== phone))
-    AsyncStorage.setItem("chaperoneList", JSON.stringify(chaperoneList.filter(chaperone => chaperone.phone !== phone)))
+  const removeContact = (phone) => {
+    setChaperoneList(chaperoneList.filter((chaperone) => chaperone.phone !== phone))
+    AsyncStorage.setItem("chaperoneList", JSON.stringify(chaperoneList.filter((chaperone) => chaperone.phone !== phone)))
   }
 
   return (
@@ -96,7 +96,7 @@ const ChaperoneListItem = ({ name, phone, chaperoneList, setChaperoneList }) => 
 
       <C4kText style={styles.chaperoneGroupCardBodyText}>{name}</C4kText>
 
-      <FontAwesome5 name="phone-alt" size={8} color="#FFF" style={{ backgroundColor: "#23A57F", borderRadius: 3, padding: 5 }} onPress={() => pressCall()} />
+      <FontAwesome5 name="phone-alt" size={8} color="#FFF" style={{ backgroundColor: "#23A57F", borderRadius: 3, padding: 5 }} onPress={async () => await pressCall()} />
     </View>
   )
 }

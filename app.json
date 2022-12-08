@@ -2,7 +2,8 @@
   "expo": {
     "name": "c4k",
     "slug": "c4k",
-    "version": "2.4.3",
+    "version": "2.5.0",
+    "sdkVersion": "45.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -26,7 +27,25 @@
         "backgroundColor": "#112430"
       },
       "package": "com.c4k.shoppingeventmanager",
-      "versionCode": 10
+      "versionCode": 13,
+      "permissions": [
+        "CAMERA",
+        "VIBRATE",
+        "READ_PHONE_STATE",
+        "FOREGROUND_SERVICE",
+        "WAKE_LOCK",
+        "com.anddoes.launcher.permission.UPDATE_COUNT",
+        "com.android.launcher.permission.INSTALL_SHORTCUT",
+        "com.google.android.c2dm.permission.RECEIVE",
+        "com.google.android.gms.permission.ACTIVITY_RECOGNITION",
+        "com.google.android.providers.gsf.permission.READ_GSERVICES",
+        "com.htc.launcher.permission.READ_SETTINGS",
+        "com.htc.launcher.permission.UPDATE_SHORTCUT",
+        "com.majeur.launcher.permission.UPDATE_BADGE",
+        "com.sec.android.provider.badge.permission.READ",
+        "com.sec.android.provider.badge.permission.WRITE",
+        "com.sonyericsson.home.permission.BROADCAST_BADGE"
+      ]
     },
     "web": {
       "favicon": "./assets/images/favicon.png"

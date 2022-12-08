@@ -3,7 +3,6 @@ import { View, Text } from "react-native"
 import { fetchRules } from "../services/firestore.service"
 import { Loading } from "./Loading"
 import { useUser } from "../context/user.context"
-import StickyScreenWrapper from "./StickyScreenWrapper"
 import RulesGroup from "../components/RulesGroup"
 import ScreenWrapper from "./ScreenWrapper"
 import { Card } from "../components/Card"
@@ -18,16 +17,16 @@ export const Rules = () => {
   const volunteerType = user.volunteerType.slice(5) //removes 2021_ prefix
 
   useEffect(() => {
-    fetchRules().then(data => {
+    fetchRules().then((data) => {
       setRules((data as any).data)
     })
   }, [])
 
   useEffect(() => {
-    const uniqueGroups = [...new Set(rules.filter(rule => rule.volunteerTypes?.includes(volunteerType)).map(rule => rule.group))]
+    const uniqueGroups = [...new Set(rules.filter((rule) => rule.volunteerTypes?.includes(volunteerType)).map((rule) => rule.group))]
     const gRules = []
     for (const group of uniqueGroups) {
-      const orderedGroupRulesByGroup = rules.filter(rule => rule.group === group).sort((first, last) => first.order - last.order)
+      const orderedGroupRulesByGroup = rules.filter((rule) => rule.group === group).sort((first, last) => first.order - last.order)
       gRules.push({ group, rules: orderedGroupRulesByGroup })
     }
     // sorts the groups themselves
