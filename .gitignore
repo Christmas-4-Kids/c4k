@@ -10,6 +10,7 @@ npm-debug.*
 *.orig.*
 web-build/
 .env
+.env.*
 c4k-local.json
 ui-debug.log
 yarn.lock

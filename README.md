@@ -100,7 +100,7 @@ Below are the important steps. For full documentation please see the [official F
 - [ ] Collect data on user activity
 - [ ] Create bus assignment app
 - [ ] Add custom calculator to shopping tab
-- [ ] Merge persistent rules
+- [x] Merge persistent rules
 - [x] Update README
 - [ ] Set up proper database access rules
 - [ ] Allow Organizers to register volunteers by scanning DL and asking questions
@@ -108,7 +108,10 @@ Below are the important steps. For full documentation please see the [official F
 - [ ] Allow user to edit personal information (phone, name, address)
 - [ ] Feature to share your experience the day after
 - [ ] Tooltips on how to use the app
-- [ ] Storage DL data and image tied to Volunteer
+- [ ] Store DL data from mailchimp
+- [ ] Update DL scan to check DL # first
+- [ ] Check Address second then first + last name thirdly
+- [ ] Display which info was matched and which was incorrect
 
 ## Contributing
 
