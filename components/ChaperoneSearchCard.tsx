@@ -20,6 +20,7 @@ const ChaperoneSearchCard = (props: ChaperoneSearchCardProps) => {
     { name: "lebanon", displayName: "Lebanon" },
     { name: "evening", displayName: "Evening" },
     { name: "allDay", displayName: "All Day" },
+    { name: "sunday", displayName: "Sunday" },
     { name: "admin", displayName: "Admin" },
     { name: "driver", displayName: "Driver" },
     { name: "checkedIn", displayName: "Checked In" },
@@ -28,10 +29,10 @@ const ChaperoneSearchCard = (props: ChaperoneSearchCardProps) => {
     { name: "medical", displayName: "Medical" },
   ]
   const volunteerPills = searchFilterPills.filter(
-    pill => pill.name === "allDay" || pill.name === "evening" || pill.name === "lebanon" || pill.name === "admin" || pill.name === "driver"
+    pill => pill.name === "allDay" || pill.name === "evening" || pill.name === "lebanon" || pill.name === "sunday" || pill.name === "admin" || pill.name === "driver"
   )
   const otherPills = searchFilterPills.filter(
-    pill => pill.name !== "allDay" && pill.name !== "evening" && pill.name !== "lebanon" && pill.name !== "admin" && pill.name !== "driver"
+    pill => pill.name !== "allDay" && pill.name !== "evening" && pill.name !== "lebanon" && pill.name !== "sunday" && pill.name !== "admin" && pill.name !== "driver"
   )
   const onFilterPillPress = (name: string) => {
     setSearchFilters(curr => {

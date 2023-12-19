@@ -20,7 +20,7 @@ const app = initializeApp({
 const functions = getFunctions(app)
 
 // Uncomment to run firebase functions locally
-//connectFunctionsEmulator(functions, "localhost", 5001)
+// connectFunctionsEmulator(functions, "localhost", 9005)
 
 // firebase functions
 export const checkIfRegistered = httpsCallable(functions, "checkIfRegistered")
@@ -31,5 +31,6 @@ export const fetchRules = httpsCallable(functions, "fetchRules")
 export const syncMailchimpVolunteers = httpsCallable(functions, "syncMailchimpVolunteers")
 export const updateVolunteerCheckedIn = httpsCallable(functions, "updateVolunteerCheckedIn")
 export const fetchSchedule = httpsCallable(functions, "fetchSchedule")
+export const textVolunteers = httpsCallable(functions, "textVolunteers")
 
 export const db = getFirestore()

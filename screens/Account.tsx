@@ -9,13 +9,14 @@ import { C4kText } from "../components/C4kText"
 
 const getVolunteerType = (volunteerType: string) => {
   switch (volunteerType) {
-    case "2022_ADMIN":
+    case "2023_ADMIN":
       return "Organizer"
-    case "2022_ALL_DAY_CHAPERONE":
-    case "2022_EVENING_CHAPERONE":
-    case "2022_LEBANON_CHAPERONE":
+    case "2023_ALL_DAY_CHAPERONE":
+    case "2023_EVENING_CHAPERONE":
+    case "2023_LEBANON_CHAPERONE":
+    case "2023_SUNDAY_CHAPERONE":
       return "Chaperone"
-    case "2022_DRIVER":
+    case "2023_DRIVER":
       return "Driver"
     default:
       return "Unknown"

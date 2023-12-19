@@ -9,15 +9,17 @@ import { C4kText } from "./C4kText"
 
 const getVolunteerType = (volunteerType: string) => {
   switch (volunteerType) {
-    case "2022_ADMIN":
+    case "2023_ADMIN":
       return "Organizer"
-    case "2022_ALL_DAY_CHAPERONE":
+    case "2023_ALL_DAY_CHAPERONE":
       return "All Day Chaperone"
-    case "2022_EVENING_CHAPERONE":
+    case "2023_EVENING_CHAPERONE":
       return "Evening Chaperone"
-    case "2022_LEBANON_CHAPERONE":
+    case "2023_LEBANON_CHAPERONE":
       return "Lebanon Chaperone"
-    case "2022_DRIVER":
+    case "2023_SUNDAY_CHAPERONE":
+      return "Sunday Chaperone"
+    case "2023_DRIVER":
       return "Driver"
     default:
       return "Unknown"
@@ -138,6 +140,12 @@ const ChaperoneListCard = (props: ChaperoneListCardProps) => {
             </View>
             <View style={styles.volunteerCardInfoRow}>
               <C4kText style={styles.volunteerCardInfoText}>
+                <FontAwesome5 style={{ paddingRight: 10 }} name="id-card" size={24} color="black" />
+              </C4kText>
+              <C4kText style={styles.volunteerCardInfoText}> {modalVolunteer?.driversLicense === "" || !modalVolunteer?.driversLicense ? "N/A" : modalVolunteer?.driversLicense}</C4kText>
+            </View>
+            <View style={styles.volunteerCardInfoRow}>
+              <C4kText style={styles.volunteerCardInfoText}>
                 <FontAwesome5 style={{ paddingRight: 10 }} name="bus" size={24} color="black" />
               </C4kText>
               <C4kText style={styles.volunteerCardInfoText}> {modalVolunteer?.driver === "" || !modalVolunteer?.driver ? "N/A" : modalVolunteer?.driver}</C4kText>
@@ -175,7 +183,7 @@ const ChaperoneListCard = (props: ChaperoneListCardProps) => {
           <VolunteerItem volunteer={item} modalVolunteer={modalVolunteer} setModalVisible={setModalVisible} setModalVolunteer={setModalVolunteer} styles={styles} />
         )}
         itemHeight={50}
-        // keyExtractor={item => item?.mailchimpMemberId}
+      // keyExtractor={item => item?.mailchimpMemberId}
       />
     </View>
   )

@@ -2,8 +2,7 @@
   "expo": {
     "name": "c4k",
     "slug": "c4k",
-    "version": "2.5.0",
-    "sdkVersion": "45.0.0",
+    "version": "2.6.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -16,7 +15,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "c4k.shoppingEventManager"
@@ -27,7 +28,7 @@
         "backgroundColor": "#112430"
       },
       "package": "com.c4k.shoppingeventmanager",
-      "versionCode": 13,
+      "versionCode": 14,
       "permissions": [
         "CAMERA",
         "VIBRATE",
@@ -49,6 +50,11 @@
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "30140eac-6abd-4189-bc5e-35d7df17cb2b"
+      }
     }
   }
 }

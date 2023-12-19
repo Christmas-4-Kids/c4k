@@ -1,11 +1,16 @@
 import React from "react"
 import { useStyles } from "../context/styles.context"
-import { Text, View } from "react-native"
+import { Pressable, Text, View } from "react-native"
 import { Entypo } from "@expo/vector-icons"
 import { C4kText } from "./C4kText"
+import { textVolunteers } from "../services/firestore.service"
 
 export const ScheduleCard = event => {
   const { styles } = useStyles()
+
+  const onClick = () => {
+    textVolunteers()
+  }
 
   if (!event.data.volunteerTypes.includes(event.volunteerType)) {
     return null
@@ -31,6 +36,7 @@ export const ScheduleCard = event => {
               <Entypo name="location" size={16} color="#15232E" />
             </C4kText>
             <C4kText style={styles.scheduleTimeText}>{event.data.location}</C4kText>
+            <Pressable onPress={onClick}><Text>Text Them</Text></Pressable>
           </View>
         </View>
       </View>

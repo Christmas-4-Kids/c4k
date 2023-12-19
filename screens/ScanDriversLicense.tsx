@@ -23,6 +23,7 @@ const licenseCodeToVolunteerMap: Map<string, string> = new Map([
   ["Residence City", "city"],
   ["Residence Jurisdiction Code", "state"],
   ["Residence Postal Code", "zip"],
+  ["License or ID Number", "driversLicense"]
 ])
 
 const pdf417Map: Map<string, string> = new Map([
@@ -114,15 +115,17 @@ const pdf417Map: Map<string, string> = new Map([
 
 const getVolunteerType = (volunteerType: string) => {
   switch (volunteerType) {
-    case "2022_ADMIN":
+    case "2023_ADMIN":
       return "Organizer"
-    case "2022_ALL_DAY_CHAPERONE":
+    case "2023_ALL_DAY_CHAPERONE":
       return "All Day Chaperone"
-    case "2022_EVENING_CHAPERONE":
+    case "2023_EVENING_CHAPERONE":
       return "Evening Chaperone"
-    case "2022_LEBANON_CHAPERONE":
+    case "2023_LEBANON_CHAPERONE":
       return "Lebanon Chaperone"
-    case "2022_DRIVER":
+    case "2023_SUNDAY_CHAPERONE":
+      return "Sunday Chaperone"
+    case "2023_DRIVER":
       return "Driver"
     default:
       return "Unknown"
@@ -135,9 +138,10 @@ export const ScanDriversLicense = ({ navigation }) => {
   const [volunteerMatches, setVolunteerMatches] = useState<Volunteer[]>([])
   const { styles } = useStyles()
   const { volunteers } = useVolunteers()
+  const [dlMatches, setDlMatches] = useState([])
 
   useEffect(() => {
-    ;(async () => {
+    ; (async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync()
       setHasPermission(status === "granted")
     })()
@@ -150,9 +154,13 @@ export const ScanDriversLicense = ({ navigation }) => {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true)
+    setDlMatches([])
     const driversLicenseArr: string[] = data.split(/\r?\n/)
     const volunteerProperties: Map<string, string> = new Map()
-    for (const dlItem of driversLicenseArr) {
+    for (let dlItem of driversLicenseArr) {
+      if (dlItem.includes("DLDAQ")) {
+        dlItem = dlItem.slice(dlItem.length - 12)
+      }
       if (dlItem.length < 4) continue
       const key = dlItem.slice(0, 3)
       const value = dlItem.slice(3)
@@ -162,12 +170,24 @@ export const ScanDriversLicense = ({ navigation }) => {
       volunteerProperties.set(volunteerProperty, value.toLowerCase().trim())
     }
     let matches: Volunteer[] = []
+    let driversLicenseMatches = []
     for (const volunteer of volunteers) {
-      if (volunteer.firstName.toLowerCase() === volunteerProperties.get("firstName") && volunteer.lastNameLower === volunteerProperties.get("lastName")) {
+      if ((volunteer.firstName.toLowerCase() === volunteerProperties.get("firstName") && volunteer.lastNameLower === volunteerProperties.get("lastName")) || (volunteer.driversLicense?.trim() && volunteer.driversLicense?.trim().length > 2 && volunteer.driversLicense?.trim() === volunteerProperties.get("driversLicense")?.trim())) {
         matches = [...matches, volunteer]
+        if ((volunteer.driversLicense?.trim() && volunteer.driversLicense?.trim().length > 2 && volunteer.driversLicense?.trim() === volunteerProperties.get("driversLicense")?.trim())) {
+          driversLicenseMatches = [...driversLicenseMatches, volunteerProperties.get("driversLicense")?.trim()]
+        }
       }
     }
+    setDlMatches(driversLicenseMatches)
     setVolunteerMatches(matches)
+  }
+
+  const driversLicenseMatch = (dl: string) => {
+    if (!dl || dl.length < 2) {
+      return false
+    }
+    return dlMatches.includes(dl?.trim())
   }
 
   if (hasPermission === null) {
@@ -213,6 +233,11 @@ export const ScanDriversLicense = ({ navigation }) => {
                       <C4kText
                         style={styles.chaperoneListItemVolunteerType}
                       >{`${volunteer?.address?.addr1}, ${volunteer?.address?.addr2}, ${volunteer?.address?.city}, ${volunteer?.address?.state} ${volunteer?.address?.zip}`}</C4kText>
+                      <C4kText
+                        style={styles.chaperoneListItemVolunteerType}
+                      >{`DL #: ${volunteer?.driversLicense ? volunteer?.driversLicense : "N/A"}`}&nbsp;
+                        {driversLicenseMatch(volunteer?.driversLicense) ? <AntDesign name="checksquare" size={12} color="green" /> : <AntDesign name="closesquare" size={12} color="red" />}
+                      </C4kText>
                     </View>
                     <View style={{ flexDirection: "row", alignContent: "flex-end" }}>
                       {volunteer?.spanish === "Yes" ? <C4kText style={styles.searchFilterPillTextOn}>Esp</C4kText> : null}

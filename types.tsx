@@ -9,7 +9,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack"
 
 declare global {
   namespace ReactNavigation {
-    interface RootParamList extends RootStackParamList {}
+    interface RootParamList extends RootStackParamList { }
   }
 }
 
@@ -41,6 +41,7 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> = Composit
 export type SearchFilters = {
   lebanon: boolean
   evening: boolean
+  sunday: boolean
   allDay: boolean
   admin: boolean
   driver: boolean

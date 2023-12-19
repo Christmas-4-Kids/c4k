@@ -17,6 +17,7 @@ export const ChaperoneList = ({ navigation }) => {
     lebanon: false,
     evening: false,
     allDay: false,
+    sunday: false,
     admin: false,
     driver: false,
     checkedIn: false,
@@ -31,23 +32,26 @@ export const ChaperoneList = ({ navigation }) => {
 
   const filterVolunteerType = (volunteerType: string, searchFilters: SearchFilters) => {
     const volunteerTypesToFilter = []
-    const useChaperoneFilters = searchFilters.allDay || searchFilters.evening || searchFilters.lebanon || searchFilters.admin || searchFilters.driver
+    const useChaperoneFilters = searchFilters.allDay || searchFilters.evening || searchFilters.lebanon || searchFilters.sunday || searchFilters.admin || searchFilters.driver
     if (!useChaperoneFilters) return true
 
     if (searchFilters.allDay) {
-      volunteerTypesToFilter.push("2022_ALL_DAY_CHAPERONE")
+      volunteerTypesToFilter.push("2023_ALL_DAY_CHAPERONE")
     }
     if (searchFilters.evening) {
-      volunteerTypesToFilter.push("2022_EVENING_CHAPERONE")
+      volunteerTypesToFilter.push("2023_EVENING_CHAPERONE")
     }
     if (searchFilters.lebanon) {
-      volunteerTypesToFilter.push("2022_LEBANON_CHAPERONE")
+      volunteerTypesToFilter.push("2023_LEBANON_CHAPERONE")
+    }
+    if (searchFilters.sunday) {
+      volunteerTypesToFilter.push("2023_SUNDAY_CHAPERONE")
     }
     if (searchFilters.admin) {
-      volunteerTypesToFilter.push("2022_ADMIN")
+      volunteerTypesToFilter.push("2023_ADMIN")
     }
     if (searchFilters.driver) {
-      volunteerTypesToFilter.push("2022_DRIVER")
+      volunteerTypesToFilter.push("2023_DRIVER")
     }
     return volunteerTypesToFilter.includes(volunteerType)
   }
@@ -102,6 +106,7 @@ export const ChaperoneList = ({ navigation }) => {
     searchFilters.espanol,
     searchFilters.evening,
     searchFilters.lebanon,
+    searchFilters.sunday,
     searchFilters.medical,
     searchFilters.notCheckedIn,
     volunteers,
