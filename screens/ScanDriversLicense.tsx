@@ -115,30 +115,30 @@ const pdf417Map: Map<string, string> = new Map([
 
 const getVolunteerType = (volunteerType: string) => {
   switch (volunteerType) {
-    case "2023_ADMIN":
+    case "2024_ADMIN":
       return "Organizer"
-    case "2023_ALL_DAY_CHAPERONE":
+    case "2024_ALL_DAY_CHAPERONE":
       return "All Day Chaperone"
-    case "2023_EVENING_CHAPERONE":
+    case "2024_EVENING_CHAPERONE":
       return "Evening Chaperone"
-    case "2023_LEBANON_CHAPERONE":
+    case "2024_LEBANON_CHAPERONE":
       return "Lebanon Chaperone"
-    case "2023_SUNDAY_CHAPERONE":
+    case "2024_SUNDAY_CHAPERONE":
       return "Sunday Chaperone"
-    case "2023_DRIVER":
+    case "2024_DRIVER":
       return "Driver"
     default:
       return "Unknown"
   }
 }
 
-export const ScanDriversLicense = ({ navigation }) => {
-  const [hasPermission, setHasPermission] = useState(null)
+export const ScanDriversLicense = ({ }) => {
+  const [hasPermission, setHasPermission] = useState<boolean | null>(null)
   const [scanned, setScanned] = useState(false)
   const [volunteerMatches, setVolunteerMatches] = useState<Volunteer[]>([])
   const { styles } = useStyles()
   const { volunteers } = useVolunteers()
-  const [dlMatches, setDlMatches] = useState([])
+  const [dlMatches, setDlMatches] = useState<string[]>([])
 
   useEffect(() => {
     ; (async () => {
@@ -152,10 +152,11 @@ export const ScanDriversLicense = ({ navigation }) => {
     setVolunteerMatches(volunteers.filter((v) => volunteerMatchesIds.includes(v.mailchimpMemberId)))
   }, [volunteers])
 
-  const handleBarCodeScanned = ({ type, data }) => {
+  const handleBarCodeScanned = ({ type, data }: { type: string; data: string }) => {
     setScanned(true)
     setDlMatches([])
     const driversLicenseArr: string[] = data.split(/\r?\n/)
+    console.log('driversLicenseArr', driversLicenseArr)
     const volunteerProperties: Map<string, string> = new Map()
     for (let dlItem of driversLicenseArr) {
       if (dlItem.includes("DLDAQ")) {
@@ -166,11 +167,11 @@ export const ScanDriversLicense = ({ navigation }) => {
       const value = dlItem.slice(3)
       if (value.length <= 1) continue
       const licenseProperty = pdf417Map.get(key)
-      const volunteerProperty = licenseCodeToVolunteerMap.get(licenseProperty)
-      volunteerProperties.set(volunteerProperty, value.toLowerCase().trim())
+      const volunteerProperty = licenseCodeToVolunteerMap.get(licenseProperty ?? "")
+      volunteerProperties.set(volunteerProperty ?? "", value.toLowerCase().trim())
     }
     let matches: Volunteer[] = []
-    let driversLicenseMatches = []
+    let driversLicenseMatches: any[] | ((prevState: never[]) => never[]) = []
     for (const volunteer of volunteers) {
       if ((volunteer.firstName.toLowerCase() === volunteerProperties.get("firstName") && volunteer.lastNameLower === volunteerProperties.get("lastName")) || (volunteer.driversLicense?.trim() && volunteer.driversLicense?.trim().length > 2 && volunteer.driversLicense?.trim() === volunteerProperties.get("driversLicense")?.trim())) {
         matches = [...matches, volunteer]

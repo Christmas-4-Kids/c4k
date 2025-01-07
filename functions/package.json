@@ -9,18 +9,17 @@
     "logs": "firebase functions:log"
   },
   "engines": {
-    "node": "14"
+    "node": "22"
   },
   "main": "index.js",
   "dependencies": {
     "@mailchimp/mailchimp_marketing": "^3.0.80",
-    "firebase-admin": "^11.3.0",
-    "firebase-functions": "^4.1.0",
+    "firebase-admin": "^13.0.1",
+    "firebase-functions": "^6.1.2",
     "twilio": "^3.69.0"
   },
   "devDependencies": {
-    "@types/mailchimp__mailchimp_marketing": "^3.0.6",
-    "firebase-functions-test": "^3.0.0"
+    "@types/mailchimp__mailchimp_marketing": "^3.0.20"
   },
   "private": true
 }

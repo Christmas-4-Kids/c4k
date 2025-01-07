@@ -9,17 +9,17 @@ import { C4kText } from "./C4kText"
 
 const getVolunteerType = (volunteerType: string) => {
   switch (volunteerType) {
-    case "2023_ADMIN":
+    case "2024_ADMIN":
       return "Organizer"
-    case "2023_ALL_DAY_CHAPERONE":
+    case "2024_ALL_DAY_CHAPERONE":
       return "All Day Chaperone"
-    case "2023_EVENING_CHAPERONE":
+    case "2024_EVENING_CHAPERONE":
       return "Evening Chaperone"
-    case "2023_LEBANON_CHAPERONE":
+    case "2024_LEBANON_CHAPERONE":
       return "Lebanon Chaperone"
-    case "2023_SUNDAY_CHAPERONE":
+    case "2024_SUNDAY_CHAPERONE":
       return "Sunday Chaperone"
-    case "2023_DRIVER":
+    case "2024_DRIVER":
       return "Driver"
     default:
       return "Unknown"
@@ -27,10 +27,10 @@ const getVolunteerType = (volunteerType: string) => {
 }
 
 const VolunteerItem = (props: {
-  volunteer: Volunteer
-  modalVolunteer: Volunteer
+  volunteer: Volunteer | null | undefined
+  modalVolunteer: Volunteer | null | undefined
   setModalVisible: (modalVisible: boolean) => void
-  setModalVolunteer: (volunteer: Volunteer) => void
+  setModalVolunteer: (volunteer: Volunteer | null | undefined) => void
   styles?: any
 }) => {
   const { volunteer, modalVolunteer, setModalVisible, setModalVolunteer, styles } = props
@@ -54,7 +54,7 @@ const VolunteerItem = (props: {
         </View>
         <View style={{ flexDirection: "column", alignItems: "flex-start", width: "68%" }}>
           <C4kText style={styles.chaperoneListItemName}>{`${volunteer?.firstName} ${volunteer?.lastName}`}</C4kText>
-          <C4kText style={styles.chaperoneListItemVolunteerType}>{getVolunteerType(volunteer?.volunteerType)}</C4kText>
+          <C4kText style={styles.chaperoneListItemVolunteerType}>{getVolunteerType(volunteer?.volunteerType ?? "")}</C4kText>
         </View>
         <View style={{ flexDirection: "row", alignContent: "flex-end" }}>
           {volunteer?.spanish === "Yes" ? <C4kText style={styles.searchFilterPillTextOn}>Esp</C4kText> : null}
@@ -115,7 +115,7 @@ const ChaperoneListCard = (props: ChaperoneListCardProps) => {
                 <C4kText style={[styles.userCardName]}>{modalVolunteer?.fullName}</C4kText>
               </View>
             </View>
-            <C4kText style={[styles.chaperoneListItemVolunteerType, { marginTop: -5 }]}>{getVolunteerType(modalVolunteer?.volunteerType)}</C4kText>
+            <C4kText style={[styles.chaperoneListItemVolunteerType, { marginTop: -5 }]}>{getVolunteerType(modalVolunteer?.volunteerType ?? "")}</C4kText>
             <View style={styles.userCardDivider}></View>
             <View style={styles.volunteerCardInfoRow}>
               <C4kText style={styles.volunteerCardInfoText}>
@@ -126,7 +126,7 @@ const ChaperoneListCard = (props: ChaperoneListCardProps) => {
                 <C4kText style={styles.volunteerCardInfoText}>{`${modalVolunteer?.address?.city}, ${modalVolunteer?.address?.state}`}</C4kText>
               </View>
             </View>
-            <TouchableOpacity style={styles.volunteerCardInfoRow} onPress={() => pressCall(modalVolunteer?.phoneNumber)}>
+            <TouchableOpacity style={styles.volunteerCardInfoRow} onPress={() => pressCall(modalVolunteer?.phoneNumber ?? "")}>
               <C4kText style={styles.volunteerCardInfoText}>
                 <Entypo style={{ paddingRight: 10 }} name="phone" size={24} color="#1B2C39" />
               </C4kText>
@@ -183,6 +183,8 @@ const ChaperoneListCard = (props: ChaperoneListCardProps) => {
           <VolunteerItem volunteer={item} modalVolunteer={modalVolunteer} setModalVisible={setModalVisible} setModalVolunteer={setModalVolunteer} styles={styles} />
         )}
         itemHeight={50}
+        renderFooter={() => { }}
+        renderHeader={() => { }}
       // keyExtractor={item => item?.mailchimpMemberId}
       />
     </View>

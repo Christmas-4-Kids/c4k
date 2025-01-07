@@ -75,8 +75,8 @@ export default function VolunteerProvider({ children }: { children: any }) {
   const [volunteers, setVolunteers] = useState<Volunteer[]>([])
 
   useEffect(() => {
-    const unsub = onSnapshot(query(collection(db, "volunteers"), where("volunteerYear", "==", "2023"), orderBy("lastNameLower")), (querySnapshot) => {
-      const tempVolunteers = []
+    const unsub = onSnapshot(query(collection(db, "volunteers"), where("volunteerYear", "==", "2024"), orderBy("lastNameLower")), (querySnapshot) => {
+      const tempVolunteers: Volunteer[] = []
       querySnapshot.forEach((doc) => {
         tempVolunteers.push(createVolunteer(doc.data()))
       })

@@ -5,7 +5,7 @@ import { Entypo } from "@expo/vector-icons"
 import { C4kText } from "./C4kText"
 import { textVolunteers } from "../services/firestore.service"
 
-export const ScheduleCard = event => {
+export const ScheduleCard = (event: any) => {
   const { styles } = useStyles()
 
   const onClick = () => {
@@ -36,7 +36,6 @@ export const ScheduleCard = event => {
               <Entypo name="location" size={16} color="#15232E" />
             </C4kText>
             <C4kText style={styles.scheduleTimeText}>{event.data.location}</C4kText>
-            <Pressable onPress={onClick}><Text>Text Them</Text></Pressable>
           </View>
         </View>
       </View>

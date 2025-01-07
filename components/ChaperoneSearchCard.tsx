@@ -36,7 +36,7 @@ const ChaperoneSearchCard = (props: ChaperoneSearchCardProps) => {
   )
   const onFilterPillPress = (name: string) => {
     setSearchFilters(curr => {
-      return { ...curr, [name]: !searchFilters[name] }
+      return { ...curr, [name]: !(searchFilters as any)[name] }
     })
   }
   return (
@@ -46,14 +46,14 @@ const ChaperoneSearchCard = (props: ChaperoneSearchCardProps) => {
       <View style={styles.searchFilterPills}>
         {volunteerPills.map(pill => (
           <TouchableOpacity key={pill.name} onPress={() => onFilterPillPress(pill.name)}>
-            <C4kText style={searchFilters[pill.name] ? styles.searchFilterPillTextOn : styles.searchFilterPillTextOff}>{pill.displayName}</C4kText>
+            <C4kText style={(searchFilters as any)[pill.name] ? styles.searchFilterPillTextOn : styles.searchFilterPillTextOff}>{pill.displayName}</C4kText>
           </TouchableOpacity>
         ))}
       </View>
       <View style={styles.searchFilterPills}>
         {otherPills.map(pill => (
           <TouchableOpacity key={pill.name} onPress={() => onFilterPillPress(pill.name)}>
-            <C4kText style={searchFilters[pill.name] ? styles.searchFilterPillTextOn : styles.searchFilterPillTextOff}>{pill.displayName}</C4kText>
+            <C4kText style={(searchFilters as any)[pill.name] ? styles.searchFilterPillTextOn : styles.searchFilterPillTextOff}>{pill.displayName}</C4kText>
           </TouchableOpacity>
         ))}
       </View>

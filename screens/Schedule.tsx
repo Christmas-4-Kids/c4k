@@ -9,7 +9,7 @@ import { useUser } from "../context/user.context"
 import { Loading } from "./Loading"
 import { C4kText } from "../components/C4kText"
 
-export const Schedule = props => {
+export const Schedule = () => {
   const { styles } = useStyles()
   const { user } = useUser()
   const [schedule, setSchedule] = useState([])
@@ -17,7 +17,7 @@ export const Schedule = props => {
 
   useEffect(() => {
     fetchSchedule().then(data => {
-      setSchedule(data.data[0].events)
+      setSchedule((data as any).data[0].events)
     })
   }, [])
   return (
@@ -27,7 +27,7 @@ export const Schedule = props => {
         <C4kText style={styles.rulesTabSubtext}>Everything you need to know about being a chaperone on the big shopping day.</C4kText>
       </Card>
 
-      <View>{schedule.length > 0 ? schedule.map(event => <ScheduleCard key={event.order} data={event} volunteerType={volunteerType} />) : <Loading />}</View>
+      <View>{schedule.length > 0 ? schedule.map((event: any) => <ScheduleCard key={event.order} data={event} volunteerType={volunteerType} />) : <Loading />}</View>
       {/* Added this blank View so that very last rule card displays. it wasn't scrolling down all the way for some reason */}
       <View style={{ height: 110 }}></View>
     </ScreenWrapper>
