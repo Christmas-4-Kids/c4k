@@ -1,19 +1,20 @@
-const functions = require("firebase-functions")
-const admin = require("firebase-admin")
+const { onCall } = require("firebase-functions/v2/https")
+const { onSchedule } = require("firebase-functions/v2/scheduler")
 const mailchimp = require("@mailchimp/mailchimp_marketing")
 const twilio = require("twilio")
-const Firestore = require("@google-cloud/firestore")
-const PROJECTID = "c4k-events"
+const { initializeApp, cert } = require('firebase-admin/app')
+const { getFirestore } = require('firebase-admin/firestore')
 
-const firestore = new Firestore({
-  projectId: PROJECTID,
-  timestampsInSnapshots: true,
+const serviceAccount = require('./c4k-events-04b84e537d1b.json')
+
+initializeApp({
+  credential: cert(serviceAccount)
 })
 
-admin.initializeApp()
+const db = getFirestore()
 
 // TWILIO: send user their verification code
-exports.verifyNumber = functions.https.onCall(async (phoneNumber, context) => {
+exports.verifyNumber = onCall(async ({ data: phoneNumber }, context) => {
   const twilioClient = new twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN)
   twilioClient.verify
     .services(process.env.TWILIO_SERVICESID)
@@ -28,7 +29,7 @@ exports.verifyNumber = functions.https.onCall(async (phoneNumber, context) => {
 })
 
 // TWILIO: verify user's code
-exports.verifyCode = functions.https.onCall(async (data, context) => {
+exports.verifyCode = onCall(async ({ data }, context) => {
   const twilioClient = new twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN)
   return twilioClient.verify
     .services(process.env.TWILIO_SERVICESID)
@@ -42,11 +43,14 @@ exports.verifyCode = functions.https.onCall(async (data, context) => {
     })
 })
 
-exports.checkIfRegistered = functions.https.onCall(async (email, context) => {
+exports.checkIfRegistered = onCall(async (request, context) => {
   mailchimp.setConfig({
     apiKey: process.env.MAILCHIMP_KEY,
     server: process.env.MAILCHIMP_SERVER,
   })
+  console.log('request', request)
+  const email = request.data
+  console.log('email', email)
   const allDayChaperonesListId = process.env.MAILCHIMP_ALLDAYCHAPERONESLISTID
   const driversListId = process.env.MAILCHIMP_DRIVERSLISTID
   const eveningChaperonesListId = process.env.MAILCHIMP_EVENINGCHAPERONESLISTID
@@ -55,6 +59,7 @@ exports.checkIfRegistered = functions.https.onCall(async (email, context) => {
   const memberListIds = [allDayChaperonesListId, driversListId, eveningChaperonesListId, lebanonChaperonesListId, sundayChaperonesListId]
 
   const response = await mailchimp.searchMembers.search(email)
+  console.log('response', response)
   let mailchimpMember = response?.exact_matches?.members.find((member) => memberListIds.includes(member.list_id))
   if (email.toLowerCase() === "c4kchaperones@gmail.com") {
     return response?.exact_matches?.members[0]
@@ -62,12 +67,20 @@ exports.checkIfRegistered = functions.https.onCall(async (email, context) => {
   return mailchimpMember
 })
 
-exports.createMailchimpUserInFirestore = functions.region("us-central1").https.onCall(async (mailchimpMember, context) => {
+exports.createMailchimpUserInFirestore = onCall(async ({ data: mailchimpMember }, context) => {
+  if (!mailchimpMember.email_address) {
+    return
+  }
   const volunteer = createVolunteer(mailchimpMember)
-  let documentRef = admin.firestore().doc("volunteers/" + mailchimpMember.id)
+  const firestoreVolunteer = await db.collection("volunteers").doc(mailchimpMember.id).get()
+  if (firestoreVolunteer) {
+    volunteer.checkedIn = firestoreVolunteer.data().checkedIn
+  }
+  let documentRef = db.doc("volunteers/" + mailchimpMember.id)
   return documentRef
     .set(volunteer)
     .then((res) => {
+      console.log('volunteer sign in', volunteer)
       return { user: volunteer }
     })
     .catch((err) => {
@@ -75,9 +88,9 @@ exports.createMailchimpUserInFirestore = functions.region("us-central1").https.o
     })
 })
 
-exports.fetchRules = functions.https.onCall(async () => {
+exports.fetchRules = onCall(async () => {
   let rules = []
-  await firestore
+  await db
     .collection("rules")
     .get()
     .then((querySnapshot) => {
@@ -89,8 +102,8 @@ exports.fetchRules = functions.https.onCall(async () => {
   return rules
 })
 
-exports.textVolunteers = functions.https.onCall(async ({ checkedIn, refId }) => {
-  await firestore.collection("volunteers")
+exports.textVolunteers = onCall(async ({ checkedIn, refId }) => {
+  await db.collection("volunteers")
     .get()
     .then((querySnapshot) => {
       const twilioClient = new twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN)
@@ -120,13 +133,15 @@ exports.textVolunteers = functions.https.onCall(async ({ checkedIn, refId }) => 
     })
 })
 
-exports.updateVolunteerCheckedIn = functions.https.onCall(async ({ checkedIn, refId }) => {
-  await firestore.collection("volunteers").doc(refId).update({
+exports.updateVolunteerCheckedIn = onCall(async ({ data }) => {
+  const { checkedIn, refId } = data
+  console.log('data', data)
+  await db.collection("volunteers").doc(refId).update({
     checkedIn: checkedIn,
   })
 })
 
-exports.syncMailchimpVolunteers = functions.https.onCall(async () => {
+exports.syncMailchimpVolunteers = onCall(async () => {
   try {
     await syncVolunteersFromMailchimp()
   } catch (err) {
@@ -135,9 +150,9 @@ exports.syncMailchimpVolunteers = functions.https.onCall(async () => {
 })
 
 //retrieve schedule from firestore
-exports.fetchSchedule = functions.https.onCall(async () => {
+exports.fetchSchedule = onCall(async () => {
   let events = []
-  await firestore
+  await db
     .collection("schedule")
     .get()
     .then((querySnapshot) => {
@@ -145,10 +160,13 @@ exports.fetchSchedule = functions.https.onCall(async () => {
         events.push(doc.data())
       })
     })
+  events[0].events.sort((a, b) => {
+    return a.order - b.order
+  })
   return events
 })
 
-exports.scheduledFunction = functions.pubsub.schedule("every 5 minutes").onRun(async (context) => {
+exports.scheduledFunction = onSchedule("every 5 minutes", async (context) => {
   try {
     await syncVolunteersFromMailchimp()
   } catch (err) {
@@ -192,58 +210,65 @@ const syncVolunteersFromMailchimp = async () => {
 
   // get all volunteers in firebase
   let firebaseVolunteers = new Map()
-  await firestore
+  await db
     .collection("volunteers")
     .get()
     .then((querySnapshot) => {
       console.log(`found ${querySnapshot.length} volunteers`)
-      querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        const volunteer = doc.data()
-        firebaseVolunteers.set(volunteer.id, volunteer)
-      })
+      if (querySnapshot) {
+        querySnapshot.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          const volunteer = doc.data()
+          firebaseVolunteers.set(volunteer.id, volunteer)
+        })
+      }
     })
     .catch((err) => {
       console.log(err)
     })
 
-  // if mailchimp user is not in list of volunteers then create user
-  let membersInMailchimpNotInFirebase = []
-  for (const [key, value] of mailchimpVolunteers) {
-    const firebaseVolunteer = firebaseVolunteers.get(key)
-    if (!firebaseVolunteer) {
-      membersInMailchimpNotInFirebase.push(value)
+  try {
+    // if mailchimp user is not in list of volunteers then create user
+    let membersInMailchimpNotInFirebase = []
+    for (const [key, value] of mailchimpVolunteers) {
+      const firebaseVolunteer = firebaseVolunteers.get(key)
+      if (!firebaseVolunteer) {
+        membersInMailchimpNotInFirebase.push(value)
+      }
     }
-  }
 
-  for (const member of membersInMailchimpNotInFirebase) {
-    const volunteer = createVolunteer(member)
-    let documentRef = admin.firestore().doc("volunteers/" + member.id)
-    documentRef.set(volunteer).then((res) => {
-      console.log('set volunteer', volunteer)
-    }).catch((err) => {
-      return { error: `Failed to create document: ${err}` }
-    })
+    console.log(`looping through ${membersInMailchimpNotInFirebase.length} mailchimp members to save to firebase`)
+    for (const member of membersInMailchimpNotInFirebase) {
+      const volunteer = createVolunteer(member)
+      let documentRef = db.doc("volunteers/" + member.id)
+      documentRef.set(volunteer).then((res) => {
+        console.log('set volunteer', volunteer)
+      }).catch((err) => {
+        return { error: `Failed to create document: ${err}` }
+      })
+    }
+  } catch (err) {
+    console.log("Failed to sync volunteers", err)
   }
 }
 
 const getVolunteerType = (mailchimpMember) => {
   const listId = mailchimpMember.list_id
   if (listId === process.env.MAILCHIMP_ALLDAYCHAPERONESLISTID) {
-    return "2023_ALL_DAY_CHAPERONE"
+    return "2024_ALL_DAY_CHAPERONE"
   } else if (listId === process.env.MAILCHIMP_EVENINGCHAPERONESLISTID) {
-    return "2023_EVENING_CHAPERONE"
+    return "2024_EVENING_CHAPERONE"
   } else if (listId === process.env.MAILCHIMP_LEBANONCHAPERONESLISTID) {
-    return "2023_LEBANON_CHAPERONE"
+    return "2024_LEBANON_CHAPERONE"
   } else if (listId === process.env.MAILCHIMP_SUNDAYCHAPERONESLISTID) {
-    return "2023_SUNDAY_CHAPERONE"
+    return "2024_SUNDAY_CHAPERONE"
   } else if (listId === process.env.MAILCHIMP_DRIVERSLISTID) {
-    return "2023_DRIVER"
+    return "2024_DRIVER"
   } else {
     if (mailchimpMember.email_address.toLowerCase() === "c4kchaperones@gmail.com") {
-      return "2023_ADMIN"
+      return "2024_ADMIN"
     }
-    return "2023_INVALID"
+    return "2024_INVALID"
   }
 }
 
@@ -257,7 +282,7 @@ const createVolunteer = (mailchimpMember) => {
   const volunteer = {
     checkedIn: false,
     volunteerType: getVolunteerType(mailchimpMember),
-    volunteerYear: "2023",
+    volunteerYear: "2024",
     driversLicense: mailchimpMember.merge_fields.DLNUMBER ?? "",
     email: mailchimpMember.email_address,
     emailLower: mailchimpMember.email_address.toLowerCase(),

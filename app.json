@@ -1,8 +1,23 @@
 {
   "expo": {
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 34,
+            "targetSdkVersion": 34,
+            "buildToolsVersion": "34.0.0"
+          },
+          "ios": {
+            "deploymentTarget": "13.4"
+          }
+        }
+      ]
+    ],
     "name": "c4k",
     "slug": "c4k",
-    "version": "2.6.0",
+    "version": "2.7.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -27,14 +42,15 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#112430"
       },
-      "package": "com.c4k.shoppingeventmanager",
-      "versionCode": 14,
+      "package": "com.c4k.shoppingmanager",
+      "versionCode": 19,
       "permissions": [
         "CAMERA",
         "VIBRATE",
         "READ_PHONE_STATE",
         "FOREGROUND_SERVICE",
         "WAKE_LOCK",
+        "android.permission.CAMERA",
         "com.anddoes.launcher.permission.UPDATE_COUNT",
         "com.android.launcher.permission.INSTALL_SHORTCUT",
         "com.google.android.c2dm.permission.RECEIVE",
